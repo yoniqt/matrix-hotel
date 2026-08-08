@@ -1,12 +1,13 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import Link from "next/link";
 import DatePicker from "./ui/date-picker";
 import HeroCarousel from "./ui/hero-carousel";
 import Footer from "./ui/footer";
 import SiteHeader from "./ui/site-header";
 import WelcomeOverlay from "./ui/welcome-overlay";
+import NewsEvents from "./ui/news-events";
 import { useCurrency } from "./currency-provider";
 import { useLanguage } from "./language-provider";
 import { formatPrice } from "../lib/currency";
@@ -118,56 +119,6 @@ const SERVICES = [
   },
 ];
 
-const NEWS_EVENTS = [
-  {
-    id: 1,
-    tag: "01 / NIGHTLIFE",
-    date: "OCT 16",
-    title: "Neon & Beats Rooftop Party",
-    desc: "Sariwain ang gabi kasama ang mga sikat na guest DJs, nakabibighaning neon lighting transitions, at free-flowing crafted cocktails.",
-    image: "/images/events/rooftop.jpg",
-  },
-  {
-    id: 2,
-    tag: "02 / CULINARY",
-    date: "OCT 28",
-    title: "Elegance Wine Tasting Soirée",
-    desc: "Isang intimate na gabi para sa mga wine connoisseurs. Tikman ang mga world-class vintage wines na ipinares sa mga artisan cheeses.",
-    image: "/images/events/wine.jpg",
-  },
-  {
-    id: 3,
-    tag: "03 / WELLNESS",
-    date: "NOV 05",
-    title: "Mindfulness & Spa Retreat",
-    desc: "I-reset ang iyong isip at katawan sa isang buong araw ng sound healing meditation, premium aromatherapy, at organic herbal high tea.",
-    image: "/images/events/spa-retreat.jpg",
-  },
-  {
-    id: 4,
-    tag: "04 / FAMILY",
-    date: "NOV 15",
-    title: "Family Fun Weekend Getaway",
-    desc: "Isang masayang weekend para sa buong pamilya - may mga laro, movie night, at masarap na family-style dinner na tiyak na magugustuhan ng lahat.",
-    image: "/images/rooms/family.jpg",
-  },
-  {
-    id: 5,
-    tag: "05 / FITNESS",
-    date: "NOV 22",
-    title: "Sunrise Yoga & Fitness Bootcamp",
-    desc: "Simulan ang umaga nang tama sa isang refreshing yoga session at high-energy fitness bootcamp kasama ang aming certified trainers.",
-    image: "/images/amenities/gym.jpg",
-  },
-  {
-    id: 6,
-    tag: "06 / SEASONAL",
-    date: "DEC 31",
-    title: "Countdown to New Year Gala",
-    desc: "Salubungin ang bagong taon kasama ang live band, fireworks display, at isang gala dinner na hindi malilimutan.",
-    image: "/images/hero/exterior.jpg",
-  },
-];
 
 export default function Home() {
   const { currency } = useCurrency();
@@ -186,13 +137,6 @@ export default function Home() {
     const timer = setTimeout(() => setShowWelcome(false), 2200);
     return () => clearTimeout(timer);
   }, []);
-
-  const newsScrollRef = useRef(null);
-  function scrollNews(direction) {
-    const el = newsScrollRef.current;
-    if (!el) return;
-    el.scrollBy({ left: direction * el.clientWidth * 0.9, behavior: "smooth" });
-  }
 
   async function handleSearch(e) {
     e.preventDefault();
@@ -496,76 +440,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* News & Events */}
-      <div className="mx-auto max-w-6xl px-6 pb-16">
-        <h2 className="text-center text-2xl font-semibold tracking-wide text-zinc-100 uppercase">
-          {t("newsEvents")}
-        </h2>
-
-        <div className="mt-10 flex items-start gap-4 sm:gap-6">
-          <button
-            type="button"
-            onClick={() => scrollNews(-1)}
-            aria-label="Previous"
-            className="mt-24 hidden shrink-0 rounded-full border border-white/10 bg-zinc-900/50 p-4 text-xl text-zinc-300 backdrop-blur-sm transition-all hover:bg-amber-500 hover:text-black sm:flex"
-          >
-            ‹
-          </button>
-
-          <div
-            ref={newsScrollRef}
-            className="flex flex-1 gap-8 overflow-x-auto scroll-smooth pb-2 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
-          >
-          {NEWS_EVENTS.map((item) => (
-            <div
-              key={item.id}
-              className="w-[85%] shrink-0 sm:w-[calc((100%-4rem)/3)]"
-            >
-              <div className="group relative aspect-[16/10] overflow-hidden rounded-2xl border border-white/[0.05]">
-                <img
-                  src={item.image}
-                  alt={item.title}
-                  className="absolute inset-0 h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
-                />
-                <span className="absolute top-4 left-4 rounded-full bg-black/60 px-3 py-1 text-xs font-semibold tracking-wide text-amber-400 backdrop-blur-sm">
-                  {item.date}
-                </span>
-              </div>
-
-              <div className="mt-4">
-                <p className="text-xs font-semibold tracking-[0.2em] text-amber-400 uppercase">
-                  {item.tag}
-                </p>
-                <h3 className="mt-2 text-xl font-bold tracking-wide text-zinc-100">
-                  {item.title}
-                </h3>
-                <p className="mt-2 line-clamp-2 text-sm text-zinc-400">
-                  {item.desc}
-                </p>
-                <a
-                  href="#"
-                  className="group/link mt-3 inline-flex items-center gap-1 text-sm font-semibold text-zinc-400 transition-colors hover:text-amber-400"
-                >
-                  <span>{t("viewDetails")}</span>
-                  <span className="transition-transform duration-300 group-hover/link:translate-x-1">
-                    →
-                  </span>
-                </a>
-              </div>
-            </div>
-          ))}
-          </div>
-
-          <button
-            type="button"
-            onClick={() => scrollNews(1)}
-            aria-label="Next"
-            className="mt-24 hidden shrink-0 rounded-full border border-white/10 bg-zinc-900/50 p-4 text-xl text-zinc-300 backdrop-blur-sm transition-all hover:bg-amber-500 hover:text-black sm:flex"
-          >
-            ›
-          </button>
-        </div>
-      </div>
+      <NewsEvents />
 
       {/* Location - dummy address for now, placeholder for the real hotel */}
       <div className="mx-auto max-w-5xl px-6 pb-16">
