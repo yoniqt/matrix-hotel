@@ -183,56 +183,78 @@ export default function Home() {
         </form>
       </div>
 
-      {/* Showcase - always visible, fills the page before anyone searches */}
+      {/* Showcase - always visible, fills the page before anyone searches.
+          Rooms are intentionally NOT shown here - they only appear after a
+          date search, so this section is purely about hotel amenities. */}
       {searchStatus === "idle" && (
         <div className="mx-auto max-w-5xl px-6 pt-24 pb-4">
           <div className="grid gap-8 sm:grid-cols-3">
             <div className="text-center">
-              <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-full bg-amber-100 text-2xl">
+              <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-amber-100 text-3xl">
                 🏊
               </div>
-              <h3 className="mt-3 font-semibold">Infinity Pool</h3>
-              <p className="mt-1 text-sm text-zinc-500">
+              <h3 className="mt-4 text-xl font-bold text-zinc-900">
+                Infinity Pool
+              </h3>
+              <p className="mt-1 text-sm text-zinc-600">
                 Relax by our rooftop infinity pool with a stunning city view.
               </p>
             </div>
             <div className="text-center">
-              <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-full bg-amber-100 text-2xl">
-                🛏️
+              <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-amber-100 text-3xl">
+                🏋️
               </div>
-              <h3 className="mt-3 font-semibold">Luxury Rooms</h3>
-              <p className="mt-1 text-sm text-zinc-500">
-                Standard, Deluxe, and Suite rooms designed for real comfort.
+              <h3 className="mt-4 text-xl font-bold text-zinc-900">
+                Fitness Gym
+              </h3>
+              <p className="mt-1 text-sm text-zinc-600">
+                Fully equipped 24-hour gym for guests at any time of day.
               </p>
             </div>
             <div className="text-center">
-              <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-full bg-amber-100 text-2xl">
-                🍽️
+              <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-amber-100 text-3xl">
+                🍸
               </div>
-              <h3 className="mt-3 font-semibold">Fine Dining</h3>
-              <p className="mt-1 text-sm text-zinc-500">
-                On-site restaurant serving local and international cuisine.
+              <h3 className="mt-4 text-xl font-bold text-zinc-900">
+                Rooftop Bar
+              </h3>
+              <p className="mt-1 text-sm text-zinc-600">
+                Handcrafted cocktails and city views, open every evening.
               </p>
             </div>
           </div>
 
           <div className="mt-16 grid gap-6 sm:grid-cols-3">
-            {["Standard", "Deluxe", "Suite"].map((type) => (
-              <div
-                key={type}
-                className="overflow-hidden rounded-xl border border-zinc-200 bg-white shadow-sm"
-              >
-                <img
-                  src={
-                    ROOM_TYPE_IMAGES[type] ||
-                    `https://picsum.photos/seed/room-${type}/600/400`
-                  }
-                  alt={type}
-                  className="h-40 w-full object-cover"
-                />
-                <p className="p-4 text-center font-semibold">{type} Room</p>
-              </div>
-            ))}
+            <div className="overflow-hidden rounded-xl border border-zinc-200 bg-white shadow-sm">
+              <img
+                src="https://picsum.photos/seed/hotel-gym/600/400"
+                alt="Hotel gym"
+                className="h-44 w-full object-cover"
+              />
+              <p className="p-4 text-center text-lg font-semibold text-zinc-900">
+                Gym
+              </p>
+            </div>
+            <div className="overflow-hidden rounded-xl border border-zinc-200 bg-white shadow-sm">
+              <img
+                src="https://picsum.photos/seed/hotel-pool-day/600/400"
+                alt="Hotel pool"
+                className="h-44 w-full object-cover"
+              />
+              <p className="p-4 text-center text-lg font-semibold text-zinc-900">
+                Pool
+              </p>
+            </div>
+            <div className="overflow-hidden rounded-xl border border-zinc-200 bg-white shadow-sm">
+              <img
+                src="https://picsum.photos/seed/hotel-rooftop-bar/600/400"
+                alt="Hotel bar"
+                className="h-44 w-full object-cover"
+              />
+              <p className="p-4 text-center text-lg font-semibold text-zinc-900">
+                Bar
+              </p>
+            </div>
           </div>
         </div>
       )}
