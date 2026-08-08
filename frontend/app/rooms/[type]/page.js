@@ -181,18 +181,18 @@ export default function RoomDetailPage() {
             </h1>
             <p className="mt-2 text-sm font-medium text-emerald-600">
               {room.availableCount}{" "}
-              {room.availableCount === 1 ? "room" : "rooms"} available for
-              your dates
+              {room.availableCount === 1 ? "room" : "rooms"} {t("available")}{" "}
+              for your dates
             </p>
             <p className="mt-4 leading-7 text-zinc-700">
               {ROOM_TYPE_DESCRIPTIONS[roomType]}
             </p>
             <p className="mt-2 text-zinc-600">
-              Up to {room.capacity} guests per room
+              Up to {room.capacity} guests {t("perRoom")}
             </p>
 
             <h2 className="mt-8 text-lg font-bold text-zinc-900">
-              Room Amenities
+              {t("roomAmenities")}
             </h2>
             <ul className="mt-3 grid grid-cols-2 gap-y-2 text-zinc-700">
               {ROOM_TYPE_AMENITIES[roomType].map((item) => (
@@ -204,30 +204,30 @@ export default function RoomDetailPage() {
             </ul>
 
             <h2 className="mt-8 text-lg font-bold text-zinc-900">
-              Check-In and Check-Out
+              {t("checkInOut")}
             </h2>
             <ul className="mt-3 flex flex-col gap-2 text-zinc-700">
               <li>
                 <span className="font-semibold text-zinc-900">
-                  Check-in:
+                  {t("checkIn")}
                 </span>{" "}
                 {CHECK_IN_OUT_POLICY.checkIn}
               </li>
               <li>
                 <span className="font-semibold text-zinc-900">
-                  Check-out:
+                  {t("checkOut")}
                 </span>{" "}
                 {CHECK_IN_OUT_POLICY.checkOut}
               </li>
               <li>
                 <span className="font-semibold text-zinc-900">
-                  Late Checkout Hours:
+                  {t("lateCheckoutHours")}
                 </span>{" "}
                 {CHECK_IN_OUT_POLICY.lateCheckoutHours}
               </li>
               <li>
                 <span className="font-semibold text-zinc-900">
-                  Late Checkout Fee:
+                  {t("lateCheckoutFee")}
                 </span>{" "}
                 {CHECK_IN_OUT_POLICY.lateCheckoutFee}
               </li>
@@ -248,9 +248,11 @@ export default function RoomDetailPage() {
 
             <div className="mt-6 flex items-center justify-between rounded-lg border border-zinc-200 p-3">
               <div>
-                <p className="text-sm font-medium text-zinc-900">Quantity</p>
+                <p className="text-sm font-medium text-zinc-900">
+                  {t("quantity")}
+                </p>
                 <p className="text-xs text-zinc-500">
-                  Max {room.availableCount}
+                  {t("max")} {room.availableCount}
                 </p>
               </div>
               <div className="flex items-center gap-2">
@@ -278,9 +280,11 @@ export default function RoomDetailPage() {
 
             <div className="mt-3 flex items-center justify-between rounded-lg border border-zinc-200 p-3">
               <div>
-                <p className="text-sm font-medium text-zinc-900">Adults</p>
+                <p className="text-sm font-medium text-zinc-900">
+                  {t("adults")}
+                </p>
                 <p className="text-xs text-zinc-500">
-                  Max {room.capacity} per room
+                  {t("max")} {room.capacity} {t("perRoom")}
                 </p>
               </div>
               <div className="flex items-center gap-2">
@@ -312,44 +316,40 @@ export default function RoomDetailPage() {
             >
               <input
                 required
-                placeholder="Full name"
+                placeholder={t("fullName")}
                 value={form.name}
                 onChange={(e) => setForm({ ...form, name: e.target.value })}
-                className="rounded-lg border border-zinc-300 px-3 py-2 text-sm"
+                className="rounded-lg border border-zinc-300 px-3 py-2 text-sm text-zinc-900 placeholder:text-zinc-400"
               />
               <input
                 required
                 type="email"
-                placeholder="Email"
+                placeholder={t("email")}
                 value={form.email}
                 onChange={(e) => setForm({ ...form, email: e.target.value })}
-                className="rounded-lg border border-zinc-300 px-3 py-2 text-sm"
+                className="rounded-lg border border-zinc-300 px-3 py-2 text-sm text-zinc-900 placeholder:text-zinc-400"
               />
               <input
                 required
-                placeholder="Phone number"
+                placeholder={t("phoneNumber")}
                 value={form.phone}
                 onChange={(e) => setForm({ ...form, phone: e.target.value })}
-                className="rounded-lg border border-zinc-300 px-3 py-2 text-sm"
+                className="rounded-lg border border-zinc-300 px-3 py-2 text-sm text-zinc-900 placeholder:text-zinc-400"
               />
               <textarea
-                placeholder="Special requests (optional)"
+                placeholder={t("specialRequests")}
                 value={form.special_requests}
                 onChange={(e) =>
                   setForm({ ...form, special_requests: e.target.value })
                 }
-                className="rounded-lg border border-zinc-300 px-3 py-2 text-sm"
+                className="rounded-lg border border-zinc-300 px-3 py-2 text-sm text-zinc-900 placeholder:text-zinc-400"
               />
 
               <div className="rounded-lg border border-zinc-200 bg-zinc-50 p-3 text-xs text-zinc-600">
                 <p className="font-semibold text-zinc-900">
-                  Cancellation Policy
+                  {t("cancellationPolicy")}
                 </p>
-                <p className="mt-1">
-                  Free cancellation up to 48 hours before check-in.
-                  Cancellations after that are charged for one night&apos;s
-                  stay.
-                </p>
+                <p className="mt-1">{t("cancellationPolicyText")}</p>
               </div>
 
               <label className="flex items-start gap-2 text-xs text-zinc-700">
@@ -360,8 +360,7 @@ export default function RoomDetailPage() {
                   onChange={(e) => setAgreedToPolicy(e.target.checked)}
                   className="mt-0.5"
                 />
-                I agree to the hotel&apos;s cancellation and booking
-                policies.
+                {t("agreePolicy")}
               </label>
 
               <button
@@ -369,9 +368,7 @@ export default function RoomDetailPage() {
                 disabled={bookingStatus === "sending" || !agreedToPolicy}
                 className="rounded-full bg-black px-6 py-3 font-medium text-white disabled:opacity-50"
               >
-                {bookingStatus === "sending"
-                  ? "Booking..."
-                  : "Confirm booking"}
+                {bookingStatus === "sending" ? t("booking") : t("confirmBooking")}
               </button>
 
               {bookingMessage && (
