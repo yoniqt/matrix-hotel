@@ -432,19 +432,22 @@ export default function Home() {
 
       {/* Location - dummy address for now, placeholder for the real hotel */}
       <div className="mx-auto max-w-5xl px-6 pb-16">
-        <div className="border border-zinc-200 bg-zinc-100/60">
-          <h2 className="pt-8 text-center text-2xl font-bold text-zinc-900">
-            {t("ourLocation")}
-          </h2>
-          <div className="mt-8 overflow-hidden border-t border-zinc-200">
-            <iframe
-              title="Hotel location map"
-              src="https://www.google.com/maps?q=15.0016,120.9552&z=16&output=embed"
-              className="h-[420px] w-full"
-              loading="lazy"
-              referrerPolicy="no-referrer-when-downgrade"
-            />
+        <div className="overflow-hidden rounded-2xl border border-zinc-200 bg-white shadow-sm">
+          <div className="px-6 py-8 text-center sm:px-10">
+            <h2 className="text-2xl font-bold tracking-wide text-zinc-900 uppercase">
+              {t("ourLocation")}
+            </h2>
+            <p className="mt-2 text-sm text-zinc-500">
+              📍 Pinacpinacan, San Rafael, Bulacan, Philippines
+            </p>
           </div>
+          <iframe
+            title="Hotel location map"
+            src="https://www.google.com/maps?q=15.0016,120.9552&z=16&output=embed"
+            className="h-[420px] w-full"
+            loading="lazy"
+            referrerPolicy="no-referrer-when-downgrade"
+          />
         </div>
       </div>
 
