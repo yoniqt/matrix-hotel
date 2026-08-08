@@ -5,8 +5,9 @@ import Link from "next/link";
 import DatePicker from "./ui/date-picker";
 import HeroCarousel from "./ui/hero-carousel";
 import Footer from "./ui/footer";
-import TopSelectors from "./ui/top-selectors";
+import SiteHeader from "./ui/site-header";
 import { useCurrency } from "./currency-provider";
+import { useLanguage } from "./language-provider";
 import { formatPrice } from "../lib/currency";
 import {
   roomImage,
@@ -70,6 +71,7 @@ const AMENITIES = [
 
 export default function Home() {
   const { currency } = useCurrency();
+  const { t } = useLanguage();
   const [checkIn, setCheckIn] = useState("");
   const [checkOut, setCheckOut] = useState("");
   const [openPicker, setOpenPicker] = useState(null); // "checkin" | "checkout" | null
@@ -114,39 +116,19 @@ export default function Home() {
 
   return (
     <main className="min-h-screen bg-zinc-50">
-      {/* Top contact bar */}
-      <div className="flex items-center justify-between bg-zinc-900 px-8 py-2 text-xs text-zinc-300">
-        <div className="flex items-center gap-4">
-          <span>📞 +63 900 000 0000</span>
-          <span className="hidden sm:inline">✉️ stay@thematrixhotel.com</span>
-        </div>
-        <div className="flex items-center gap-4">
-          <span>Contact Us</span>
-          <TopSelectors />
-        </div>
-      </div>
+      <SiteHeader />
 
       {/* Hero */}
-      <div className="relative flex min-h-[750px] flex-col">
+      <div className="relative flex min-h-[690px] flex-col">
         <HeroCarousel />
         <div className="absolute inset-0 bg-black/40" />
 
-        <nav className="relative z-10 flex items-center justify-between px-8 py-6 text-white">
-          <span className="text-xl font-semibold italic">The Matrix Hotel</span>
-          <div className="hidden gap-8 text-sm font-medium sm:flex">
-            <span>Home</span>
-            <span>About</span>
-            <span>Rooms</span>
-            <span>Contact</span>
-          </div>
-        </nav>
-
         <div className="relative z-10 flex flex-1 flex-col items-center justify-center px-6 text-center text-white">
           <p className="text-sm font-semibold tracking-widest uppercase text-amber-300">
-            Get luxury and comfort
+            {t("tagline")}
           </p>
           <h1 className="mt-4 max-w-2xl text-4xl font-bold sm:text-5xl">
-            Discover Your Perfect Stay at The Matrix Hotel
+            {t("headline")}
           </h1>
         </div>
 
@@ -180,7 +162,7 @@ export default function Home() {
             disabled={searchStatus === "searching"}
             className="rounded-lg bg-amber-500 px-8 py-2.5 font-semibold text-white transition-opacity hover:opacity-90 disabled:opacity-50"
           >
-            {searchStatus === "searching" ? "Searching..." : "Search"}
+            {searchStatus === "searching" ? t("searching") : t("search")}
           </button>
         </form>
       </div>
@@ -372,7 +354,7 @@ export default function Home() {
                     href={`/rooms/${roomTypeToSlug(room.room_type)}?check_in=${checkIn}&check_out=${checkOut}`}
                     className="mt-4 block w-full rounded-full bg-black px-5 py-2 text-center font-medium text-white"
                   >
-                    Book this room
+                    {t("bookThisRoom")}
                   </Link>
                 </div>
               </div>

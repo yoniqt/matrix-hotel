@@ -13,12 +13,15 @@ import {
   slugToRoomType,
 } from "../../../lib/room-data";
 import { useCurrency } from "../../currency-provider";
+import { useLanguage } from "../../language-provider";
 import { formatPrice } from "../../../lib/currency";
+import SiteHeader from "../../ui/site-header";
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL;
 
 export default function RoomDetailPage() {
   const { currency } = useCurrency();
+  const { t } = useLanguage();
   const params = useParams();
   const searchParams = useSearchParams();
   const roomType = slugToRoomType(params.type);
@@ -106,49 +109,60 @@ export default function RoomDetailPage() {
 
   if (loadStatus === "no-dates") {
     return (
-      <main className="mx-auto max-w-2xl px-6 py-24 text-center">
-        <p className="text-zinc-600">
-          Please search with your check-in and check-out dates first.
-        </p>
-        <Link
-          href="/"
-          className="mt-4 inline-block rounded-full bg-black px-6 py-3 font-medium text-white"
-        >
-          Back to search
-        </Link>
-      </main>
+      <>
+        <SiteHeader />
+        <main className="mx-auto max-w-2xl px-6 py-24 text-center">
+          <p className="text-zinc-600">
+            Please search with your check-in and check-out dates first.
+          </p>
+          <Link
+            href="/"
+            className="mt-4 inline-block rounded-full bg-black px-6 py-3 font-medium text-white"
+          >
+            Back to search
+          </Link>
+        </main>
+      </>
     );
   }
 
   if (loadStatus === "loading") {
     return (
-      <main className="mx-auto max-w-2xl px-6 py-24 text-center text-zinc-500">
-        Loading room details...
-      </main>
+      <>
+        <SiteHeader />
+        <main className="mx-auto max-w-2xl px-6 py-24 text-center text-zinc-500">
+          Loading room details...
+        </main>
+      </>
     );
   }
 
   if (loadStatus === "error" || loadStatus === "unavailable" || !room) {
     return (
-      <main className="mx-auto max-w-2xl px-6 py-24 text-center">
-        <p className="text-zinc-600">
-          This room type isn&apos;t available for those dates anymore.
-        </p>
-        <Link
-          href="/"
-          className="mt-4 inline-block rounded-full bg-black px-6 py-3 font-medium text-white"
-        >
-          Back to search
-        </Link>
-      </main>
+      <>
+        <SiteHeader />
+        <main className="mx-auto max-w-2xl px-6 py-24 text-center">
+          <p className="text-zinc-600">
+            This room type isn&apos;t available for those dates anymore.
+          </p>
+          <Link
+            href="/"
+            className="mt-4 inline-block rounded-full bg-black px-6 py-3 font-medium text-white"
+          >
+            Back to search
+          </Link>
+        </main>
+      </>
     );
   }
 
   return (
-    <main className="min-h-screen bg-zinc-50">
+    <>
+      <SiteHeader />
+      <main className="min-h-screen bg-zinc-50">
       <div className="mx-auto max-w-5xl px-6 py-10">
         <Link href="/" className="text-sm font-medium text-zinc-500 underline">
-          ← Back to search results
+          {t("backToResults")}
         </Link>
 
         {/* Gallery - currently one photo per type; more can be added later */}
@@ -375,6 +389,7 @@ export default function RoomDetailPage() {
           </div>
         </div>
       </div>
-    </main>
+      </main>
+    </>
   );
 }

@@ -1,14 +1,18 @@
 "use client";
 
 import { useState } from "react";
-import { CURRENCIES, LANGUAGES } from "../../lib/currency";
+import { CURRENCIES } from "../../lib/currency";
 import { useCurrency } from "../currency-provider";
+import { useLanguage } from "../language-provider";
+import { TRANSLATIONS } from "../../lib/translations";
+
+const LANGUAGES = Object.keys(TRANSLATIONS);
 
 export default function TopSelectors() {
   const { currency, setCurrency } = useCurrency();
+  const { language, setLanguage } = useLanguage();
   const [open, setOpen] = useState(null); // "language" | "currency" | null
   const [search, setSearch] = useState("");
-  const [language, setLanguage] = useState("English");
 
   const filteredCurrencies = CURRENCIES.filter(
     (c) =>
