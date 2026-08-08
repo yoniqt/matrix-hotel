@@ -37,19 +37,19 @@ export default function DatePicker({
 
   return (
     <div className="relative">
-      <label className="text-xs font-semibold text-zinc-500">{label}</label>
+      <label className="text-xs font-semibold text-zinc-400">{label}</label>
       <button
         type="button"
         onClick={() => onOpenChange(!open)}
-        className={`mt-1 w-full rounded-lg border border-zinc-300 px-3 py-2 text-left font-medium ${
-          value ? "text-zinc-900" : "text-zinc-400"
+        className={`mt-1 w-full rounded-lg border border-zinc-700 bg-zinc-950/60 px-3 py-2 text-left font-medium ${
+          value ? "text-zinc-100" : "text-zinc-500"
         }`}
       >
         {value || "Select date"}
       </button>
 
       {open && (
-        <div className="ph-calendar absolute z-30 mt-2 rounded-xl border border-zinc-200 bg-white p-3 shadow-2xl">
+        <div className="ph-calendar absolute z-30 mt-2 rounded-xl border border-zinc-800 bg-zinc-900 p-3 shadow-2xl">
           <DayPicker
             mode="single"
             selected={selectedDate}
@@ -73,7 +73,7 @@ export default function DatePicker({
               },
             }}
           />
-          <p className="mt-2 flex items-center gap-2 text-xs text-zinc-500">
+          <p className="mt-2 flex items-center gap-2 text-xs text-zinc-400">
             <span className="h-2 w-2 rounded-full bg-red-500" />
             PH holiday (hover a red date for its name)
           </p>

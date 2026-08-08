@@ -179,7 +179,7 @@ export default function Home() {
   }
 
   return (
-    <main className="min-h-screen bg-zinc-50">
+    <main className="min-h-screen bg-zinc-950">
       <WelcomeOverlay show={showWelcome} />
 
       <SiteHeader />
@@ -201,7 +201,7 @@ export default function Home() {
         {/* Search widget, overlapping the bottom of the hero */}
         <form
           onSubmit={handleSearch}
-          className="relative z-10 mx-auto -mb-10 flex w-full max-w-3xl flex-col gap-4 rounded-2xl bg-white p-6 shadow-xl sm:flex-row sm:items-end"
+          className="relative z-10 mx-auto -mb-10 flex w-full max-w-3xl flex-col gap-4 rounded-2xl border border-zinc-800 bg-zinc-900 p-6 shadow-xl sm:flex-row sm:items-end"
         >
           <div className="flex-1">
             <DatePicker
@@ -240,35 +240,35 @@ export default function Home() {
         <div className="mx-auto max-w-[1680px] px-10 pt-24 pb-4">
           <div className="grid gap-8 sm:grid-cols-3">
             <div className="text-center">
-              <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-amber-100 text-3xl">
+              <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-amber-500/10 text-3xl">
                 🏋️
               </div>
-              <h3 className="mt-4 text-xl font-bold text-zinc-900">
+              <h3 className="mt-4 text-xl font-bold text-zinc-100">
                 Fitness Gym
               </h3>
-              <p className="mt-1 text-sm text-zinc-600">
+              <p className="mt-1 text-sm text-zinc-400">
                 Fully equipped 24-hour gym for guests at any time of day.
               </p>
             </div>
             <div className="text-center">
-              <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-amber-100 text-3xl">
+              <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-amber-500/10 text-3xl">
                 🏊
               </div>
-              <h3 className="mt-4 text-xl font-bold text-zinc-900">
+              <h3 className="mt-4 text-xl font-bold text-zinc-100">
                 Infinity Pool
               </h3>
-              <p className="mt-1 text-sm text-zinc-600">
+              <p className="mt-1 text-sm text-zinc-400">
                 Relax by our rooftop infinity pool with a stunning city view.
               </p>
             </div>
             <div className="text-center">
-              <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-amber-100 text-3xl">
+              <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-amber-500/10 text-3xl">
                 🍸
               </div>
-              <h3 className="mt-4 text-xl font-bold text-zinc-900">
+              <h3 className="mt-4 text-xl font-bold text-zinc-100">
                 Rooftop Bar
               </h3>
-              <p className="mt-1 text-sm text-zinc-600">
+              <p className="mt-1 text-sm text-zinc-400">
                 Handcrafted cocktails and city views, open every evening.
               </p>
             </div>
@@ -278,7 +278,7 @@ export default function Home() {
             {AMENITIES.map((amenity) => (
               <div
                 key={amenity.key}
-                className="overflow-hidden rounded-xl border border-zinc-200 bg-white shadow-sm"
+                className="overflow-hidden rounded-xl border border-zinc-800 bg-zinc-900 shadow-sm"
               >
                 <img
                   src={amenity.image}
@@ -286,12 +286,12 @@ export default function Home() {
                   className="h-72 w-full object-cover"
                 />
                 <div className="p-5 text-center">
-                  <p className="text-xl font-semibold text-zinc-900">
+                  <p className="text-xl font-semibold text-zinc-100">
                     {amenity.name}
                   </p>
                   <button
                     onClick={() => setSelectedAmenity(amenity)}
-                    className="mt-3 text-sm font-semibold text-amber-600 underline underline-offset-2"
+                    className="mt-3 text-sm font-semibold text-amber-400 underline underline-offset-2"
                   >
                     View Details
                   </button>
@@ -305,7 +305,7 @@ export default function Home() {
       {/* Amenity details modal */}
       {selectedAmenity && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 px-4">
-          <div className="relative max-h-[85vh] w-full max-w-lg overflow-y-auto rounded-2xl bg-white">
+          <div className="relative max-h-[85vh] w-full max-w-lg overflow-y-auto rounded-2xl border border-zinc-800 bg-zinc-900">
             <button
               onClick={() => setSelectedAmenity(null)}
               aria-label="Close"
@@ -319,21 +319,21 @@ export default function Home() {
               className="h-72 w-full object-cover"
             />
             <div className="p-8">
-              <h2 className="text-2xl font-bold text-zinc-900">
+              <h2 className="text-2xl font-bold text-zinc-100">
                 {selectedAmenity.name}
               </h2>
-              <p className="mt-1 text-sm text-zinc-500">
+              <p className="mt-1 text-sm text-zinc-400">
                 📍 {selectedAmenity.location}
               </p>
 
-              <p className="mt-4 text-zinc-700">{selectedAmenity.description}</p>
+              <p className="mt-4 text-zinc-300">{selectedAmenity.description}</p>
 
               <div className="mt-6 grid grid-cols-2 gap-4">
                 <div>
                   <p className="text-xs font-semibold uppercase tracking-wide text-zinc-500">
                     Open Hours
                   </p>
-                  <p className="text-lg font-semibold text-zinc-900">
+                  <p className="text-lg font-semibold text-zinc-100">
                     {selectedAmenity.hours}
                   </p>
                 </div>
@@ -342,7 +342,7 @@ export default function Home() {
                     <p className="text-xs font-semibold uppercase tracking-wide text-zinc-500">
                       Note
                     </p>
-                    <p className="text-lg font-semibold text-amber-600">
+                    <p className="text-lg font-semibold text-amber-400">
                       {selectedAmenity.note}
                     </p>
                   </div>
@@ -356,7 +356,7 @@ export default function Home() {
                 {selectedAmenity.features.map((feature) => (
                   <li
                     key={feature}
-                    className="flex items-center gap-3 text-zinc-700"
+                    className="flex items-center gap-3 text-zinc-300"
                   >
                     <span className="h-1.5 w-1.5 shrink-0 rounded-full bg-amber-500" />
                     {feature}
@@ -371,15 +371,15 @@ export default function Home() {
       {/* Results */}
       <div className="mx-auto max-w-5xl px-6 pt-16 pb-16">
         {searchStatus === "idle" && (
-          <p className="text-center text-zinc-500">
+          <p className="text-center text-zinc-400">
             Pick your check-in and check-out dates above to see available rooms.
           </p>
         )}
         {searchStatus === "error" && (
-          <p className="text-center text-red-600">{searchMessage}</p>
+          <p className="text-center text-red-400">{searchMessage}</p>
         )}
         {rooms && rooms.length === 0 && (
-          <p className="text-center text-zinc-500">
+          <p className="text-center text-zinc-400">
             No rooms available for those dates. Try different dates.
           </p>
         )}
@@ -389,7 +389,7 @@ export default function Home() {
             {groupRoomsByType(rooms).map((room) => (
               <div
                 key={room.room_type}
-                className="overflow-hidden rounded-xl border border-zinc-200 bg-white shadow-sm"
+                className="overflow-hidden rounded-xl border border-zinc-800 bg-zinc-900 shadow-sm"
               >
                 <img
                   src={roomImage(room)}
@@ -397,20 +397,20 @@ export default function Home() {
                   className="h-44 w-full object-cover"
                 />
                 <div className="p-5">
-                  <h2 className="text-lg font-semibold text-zinc-900">
+                  <h2 className="text-lg font-semibold text-zinc-100">
                     {room.room_type} Room
                   </h2>
-                  <p className="mt-1 text-sm text-zinc-500">
+                  <p className="mt-1 text-sm text-zinc-400">
                     Up to {room.capacity} guests
                   </p>
-                  <p className="text-sm font-medium text-emerald-600">
+                  <p className="text-sm font-medium text-emerald-400">
                     {room.availableCount}{" "}
                     {room.availableCount === 1 ? "room" : "rooms"} available
                   </p>
-                  <p className="mt-2 text-sm text-zinc-600">
+                  <p className="mt-2 text-sm text-zinc-400">
                     {ROOM_TYPE_DESCRIPTIONS[room.room_type]}
                   </p>
-                  <p className="mt-2 text-lg font-bold text-zinc-900">
+                  <p className="mt-2 text-lg font-bold text-zinc-100">
                     {formatPrice(room.price_per_night, currency)}{" "}
                     <span className="text-sm font-normal text-zinc-500">
                       / night
@@ -418,7 +418,7 @@ export default function Home() {
                   </p>
                   <Link
                     href={`/rooms/${roomTypeToSlug(room.room_type)}?check_in=${checkIn}&check_out=${checkOut}`}
-                    className="mt-4 block w-full rounded-full bg-black px-5 py-2 text-center font-medium text-white"
+                    className="mt-4 block w-full rounded-full bg-amber-500 px-5 py-2 text-center font-medium text-black transition-opacity hover:opacity-90"
                   >
                     {t("bookThisRoom")}
                   </Link>
@@ -431,25 +431,25 @@ export default function Home() {
 
       {/* Services & Utilities */}
       <div className="mx-auto max-w-6xl px-6 pb-16">
-        <div className="rounded-2xl border border-zinc-200 bg-zinc-100/60 p-6 sm:p-10">
-          <p className="text-center text-xs font-semibold tracking-widest text-amber-600 uppercase">
+        <div className="rounded-2xl border border-zinc-800 bg-zinc-900/60 p-6 sm:p-10">
+          <p className="text-center text-xs font-semibold tracking-widest text-amber-400 uppercase">
             {t("featuredLabel")}
           </p>
-          <h2 className="mt-1 text-center text-2xl font-bold tracking-wide text-zinc-900 uppercase">
+          <h2 className="mt-1 text-center text-2xl font-bold tracking-wide text-zinc-100 uppercase">
             {t("servicesUtilities")}
           </h2>
           <div className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
             {SERVICES.map((service) => (
               <div
                 key={service.key}
-                className="flex items-center gap-4 rounded-xl border border-zinc-200 bg-white p-5 shadow-sm"
+                className="flex items-center gap-4 rounded-xl border border-zinc-800 bg-zinc-950/60 p-5 shadow-sm"
               >
-                <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-amber-100 text-2xl">
+                <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-amber-500/10 text-2xl">
                   {service.icon}
                 </div>
                 <div>
-                  <p className="font-semibold text-zinc-900">{service.name}</p>
-                  <p className="text-sm text-zinc-500">{service.description}</p>
+                  <p className="font-semibold text-zinc-100">{service.name}</p>
+                  <p className="text-sm text-zinc-400">{service.description}</p>
                 </div>
               </div>
             ))}
@@ -461,13 +461,13 @@ export default function Home() {
       <div className="mx-auto max-w-6xl px-6 pb-16">
         <div className="flex items-center justify-between gap-4">
           <div className="flex-1" />
-          <h2 className="flex-[2] text-center text-2xl font-semibold tracking-wide text-zinc-900 uppercase">
+          <h2 className="flex-[2] text-center text-2xl font-semibold tracking-wide text-zinc-100 uppercase">
             {t("newsEvents")}
           </h2>
           <div className="flex flex-1 justify-end">
             <a
               href="#"
-              className="rounded-full bg-amber-600 px-5 py-2 text-sm font-semibold text-white transition-opacity hover:opacity-90"
+              className="rounded-full bg-amber-500 px-5 py-2 text-sm font-semibold text-black transition-opacity hover:opacity-90"
             >
               {t("viewAll")} +
             </a>
@@ -477,7 +477,7 @@ export default function Home() {
           {NEWS_EVENTS.map((item) => (
             <div
               key={item.key}
-              className="overflow-hidden rounded-xl border border-zinc-200 bg-white shadow-sm"
+              className="overflow-hidden rounded-xl border border-zinc-800 bg-zinc-900 shadow-sm"
             >
               <img
                 src={item.image}
@@ -485,11 +485,11 @@ export default function Home() {
                 className="h-56 w-full object-cover"
               />
               <div className="p-5 text-center">
-                <p className="font-semibold text-zinc-900">{item.title}</p>
-                <hr className="my-3 border-zinc-200" />
+                <p className="font-semibold text-zinc-100">{item.title}</p>
+                <hr className="my-3 border-zinc-800" />
                 <a
                   href="#"
-                  className="text-sm font-semibold text-amber-600 underline underline-offset-2"
+                  className="text-sm font-semibold text-amber-400 underline underline-offset-2"
                 >
                   {t("viewDetails")} →
                 </a>
@@ -501,12 +501,12 @@ export default function Home() {
 
       {/* Location - dummy address for now, placeholder for the real hotel */}
       <div className="mx-auto max-w-5xl px-6 pb-16">
-        <div className="overflow-hidden rounded-2xl border border-zinc-200 bg-white shadow-sm">
+        <div className="overflow-hidden rounded-2xl border border-zinc-800 bg-zinc-900 shadow-sm">
           <div className="px-6 py-8 text-center sm:px-10">
-            <h2 className="text-2xl font-bold tracking-wide text-zinc-900 uppercase">
+            <h2 className="text-2xl font-bold tracking-wide text-zinc-100 uppercase">
               {t("ourLocation")}
             </h2>
-            <p className="mt-2 text-sm text-zinc-500">
+            <p className="mt-2 text-sm text-zinc-400">
               📍 Pinacpinacan, San Rafael, Bulacan, Philippines
             </p>
           </div>

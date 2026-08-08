@@ -27,14 +27,14 @@ body {
 
 .ph-calendar,
 .ph-calendar * {
-  color: #18181b !important;
+  color: #f4f4f5 !important;
 }
 .ph-calendar {
-  --rdp-accent-color: #4f46e5;
-  --rdp-today-color: #4f46e5;
+  --rdp-accent-color: #f59e0b;
+  --rdp-today-color: #f59e0b;
 }
 .ph-calendar button:disabled {
-  color: #d4d4d8 !important;
+  color: #52525b !important;
 }
 .ph-calendar caption_label,
 .ph-calendar .rdp-caption_label {

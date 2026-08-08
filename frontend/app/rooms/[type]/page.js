@@ -111,16 +111,18 @@ export default function RoomDetailPage() {
     return (
       <>
         <SiteHeader />
-        <main className="mx-auto max-w-2xl px-6 py-24 text-center">
-          <p className="text-zinc-600">
-            Please search with your check-in and check-out dates first.
-          </p>
-          <Link
-            href="/"
-            className="mt-4 inline-block rounded-full bg-black px-6 py-3 font-medium text-white"
-          >
-            Back to search
-          </Link>
+        <main className="min-h-screen bg-zinc-950 px-6 py-24 text-center">
+          <div className="mx-auto max-w-2xl">
+            <p className="text-zinc-400">
+              Please search with your check-in and check-out dates first.
+            </p>
+            <Link
+              href="/"
+              className="mt-4 inline-block rounded-full bg-amber-500 px-6 py-3 font-medium text-black"
+            >
+              Back to search
+            </Link>
+          </div>
         </main>
       </>
     );
@@ -130,7 +132,7 @@ export default function RoomDetailPage() {
     return (
       <>
         <SiteHeader />
-        <main className="mx-auto max-w-2xl px-6 py-24 text-center text-zinc-500">
+        <main className="min-h-screen bg-zinc-950 px-6 py-24 text-center text-zinc-400">
           Loading room details...
         </main>
       </>
@@ -141,16 +143,18 @@ export default function RoomDetailPage() {
     return (
       <>
         <SiteHeader />
-        <main className="mx-auto max-w-2xl px-6 py-24 text-center">
-          <p className="text-zinc-600">
-            This room type isn&apos;t available for those dates anymore.
-          </p>
-          <Link
-            href="/"
-            className="mt-4 inline-block rounded-full bg-black px-6 py-3 font-medium text-white"
-          >
-            Back to search
-          </Link>
+        <main className="min-h-screen bg-zinc-950 px-6 py-24 text-center">
+          <div className="mx-auto max-w-2xl">
+            <p className="text-zinc-400">
+              This room type isn&apos;t available for those dates anymore.
+            </p>
+            <Link
+              href="/"
+              className="mt-4 inline-block rounded-full bg-amber-500 px-6 py-3 font-medium text-black"
+            >
+              Back to search
+            </Link>
+          </div>
         </main>
       </>
     );
@@ -159,9 +163,9 @@ export default function RoomDetailPage() {
   return (
     <>
       <SiteHeader />
-      <main className="min-h-screen bg-zinc-50">
+      <main className="min-h-screen bg-zinc-950">
       <div className="mx-auto max-w-5xl px-6 py-10">
-        <Link href="/" className="text-sm font-medium text-zinc-500 underline">
+        <Link href="/" className="text-sm font-medium text-zinc-400 underline">
           {t("backToResults")}
         </Link>
 
@@ -176,25 +180,25 @@ export default function RoomDetailPage() {
 
         <div className="mt-8 grid gap-10 lg:grid-cols-3">
           <div className="lg:col-span-2">
-            <h1 className="text-3xl font-bold text-zinc-900">
+            <h1 className="text-3xl font-bold text-zinc-100">
               {roomType} Room
             </h1>
-            <p className="mt-2 text-sm font-medium text-emerald-600">
+            <p className="mt-2 text-sm font-medium text-emerald-400">
               {room.availableCount}{" "}
               {room.availableCount === 1 ? "room" : "rooms"} {t("available")}{" "}
               for your dates
             </p>
-            <p className="mt-4 leading-7 text-zinc-700">
+            <p className="mt-4 leading-7 text-zinc-300">
               {ROOM_TYPE_DESCRIPTIONS[roomType]}
             </p>
-            <p className="mt-2 text-zinc-600">
+            <p className="mt-2 text-zinc-400">
               Up to {room.capacity} guests {t("perRoom")}
             </p>
 
-            <h2 className="mt-8 text-lg font-bold text-zinc-900">
+            <h2 className="mt-8 text-lg font-bold text-zinc-100">
               {t("roomAmenities")}
             </h2>
-            <ul className="mt-3 grid grid-cols-2 gap-y-2 text-zinc-700">
+            <ul className="mt-3 grid grid-cols-2 gap-y-2 text-zinc-300">
               {ROOM_TYPE_AMENITIES[roomType].map((item) => (
                 <li key={item} className="flex items-center gap-2">
                   <span className="text-lg">{AMENITY_ICONS[item] || "•"}</span>
@@ -203,30 +207,30 @@ export default function RoomDetailPage() {
               ))}
             </ul>
 
-            <h2 className="mt-8 text-lg font-bold text-zinc-900">
+            <h2 className="mt-8 text-lg font-bold text-zinc-100">
               {t("checkInOut")}
             </h2>
-            <ul className="mt-3 flex flex-col gap-2 text-zinc-700">
+            <ul className="mt-3 flex flex-col gap-2 text-zinc-300">
               <li>
-                <span className="font-semibold text-zinc-900">
+                <span className="font-semibold text-zinc-100">
                   {t("checkIn")}
                 </span>{" "}
                 {CHECK_IN_OUT_POLICY.checkIn}
               </li>
               <li>
-                <span className="font-semibold text-zinc-900">
+                <span className="font-semibold text-zinc-100">
                   {t("checkOut")}
                 </span>{" "}
                 {CHECK_IN_OUT_POLICY.checkOut}
               </li>
               <li>
-                <span className="font-semibold text-zinc-900">
+                <span className="font-semibold text-zinc-100">
                   {t("lateCheckoutHours")}
                 </span>{" "}
                 {CHECK_IN_OUT_POLICY.lateCheckoutHours}
               </li>
               <li>
-                <span className="font-semibold text-zinc-900">
+                <span className="font-semibold text-zinc-100">
                   {t("lateCheckoutFee")}
                 </span>{" "}
                 {CHECK_IN_OUT_POLICY.lateCheckoutFee}
@@ -235,20 +239,20 @@ export default function RoomDetailPage() {
           </div>
 
           {/* Booking panel */}
-          <div className="h-fit rounded-2xl border border-zinc-200 bg-white p-6 shadow-sm">
-            <p className="text-2xl font-bold text-zinc-900">
+          <div className="h-fit rounded-2xl border border-zinc-800 bg-zinc-900 p-6 shadow-sm">
+            <p className="text-2xl font-bold text-zinc-100">
               {formatPrice(room.price_per_night, currency)}{" "}
               <span className="text-sm font-normal text-zinc-500">
                 / night
               </span>
             </p>
-            <p className="mt-1 text-sm text-zinc-500">
+            <p className="mt-1 text-sm text-zinc-400">
               {checkIn} to {checkOut}
             </p>
 
-            <div className="mt-6 flex items-center justify-between rounded-lg border border-zinc-200 p-3">
+            <div className="mt-6 flex items-center justify-between rounded-lg border border-zinc-800 p-3">
               <div>
-                <p className="text-sm font-medium text-zinc-900">
+                <p className="text-sm font-medium text-zinc-100">
                   {t("quantity")}
                 </p>
                 <p className="text-xs text-zinc-500">
@@ -259,11 +263,11 @@ export default function RoomDetailPage() {
                 <button
                   type="button"
                   onClick={() => setQuantity((q) => Math.max(1, q - 1))}
-                  className="flex h-7 w-7 items-center justify-center rounded-full border border-zinc-300"
+                  className="flex h-7 w-7 items-center justify-center rounded-full border border-zinc-700 text-zinc-100"
                 >
                   −
                 </button>
-                <span className="w-5 text-center font-semibold text-zinc-900">
+                <span className="w-5 text-center font-semibold text-zinc-100">
                   {quantity}
                 </span>
                 <button
@@ -271,16 +275,16 @@ export default function RoomDetailPage() {
                   onClick={() =>
                     setQuantity((q) => Math.min(room.availableCount, q + 1))
                   }
-                  className="flex h-7 w-7 items-center justify-center rounded-full border border-zinc-300"
+                  className="flex h-7 w-7 items-center justify-center rounded-full border border-zinc-700 text-zinc-100"
                 >
                   +
                 </button>
               </div>
             </div>
 
-            <div className="mt-3 flex items-center justify-between rounded-lg border border-zinc-200 p-3">
+            <div className="mt-3 flex items-center justify-between rounded-lg border border-zinc-800 p-3">
               <div>
-                <p className="text-sm font-medium text-zinc-900">
+                <p className="text-sm font-medium text-zinc-100">
                   {t("adults")}
                 </p>
                 <p className="text-xs text-zinc-500">
@@ -291,11 +295,11 @@ export default function RoomDetailPage() {
                 <button
                   type="button"
                   onClick={() => setAdults((a) => Math.max(1, a - 1))}
-                  className="flex h-7 w-7 items-center justify-center rounded-full border border-zinc-300"
+                  className="flex h-7 w-7 items-center justify-center rounded-full border border-zinc-700 text-zinc-100"
                 >
                   −
                 </button>
-                <span className="w-5 text-center font-semibold text-zinc-900">
+                <span className="w-5 text-center font-semibold text-zinc-100">
                   {adults}
                 </span>
                 <button
@@ -303,7 +307,7 @@ export default function RoomDetailPage() {
                   onClick={() =>
                     setAdults((a) => Math.min(room.capacity, a + 1))
                   }
-                  className="flex h-7 w-7 items-center justify-center rounded-full border border-zinc-300"
+                  className="flex h-7 w-7 items-center justify-center rounded-full border border-zinc-700 text-zinc-100"
                 >
                   +
                 </button>
@@ -319,7 +323,7 @@ export default function RoomDetailPage() {
                 placeholder={t("fullName")}
                 value={form.name}
                 onChange={(e) => setForm({ ...form, name: e.target.value })}
-                className="rounded-lg border border-zinc-300 px-3 py-2 text-sm text-zinc-900 placeholder:text-zinc-400"
+                className="rounded-lg border border-zinc-700 bg-zinc-950/60 px-3 py-2 text-sm text-zinc-100 placeholder:text-zinc-500"
               />
               <input
                 required
@@ -327,14 +331,14 @@ export default function RoomDetailPage() {
                 placeholder={t("email")}
                 value={form.email}
                 onChange={(e) => setForm({ ...form, email: e.target.value })}
-                className="rounded-lg border border-zinc-300 px-3 py-2 text-sm text-zinc-900 placeholder:text-zinc-400"
+                className="rounded-lg border border-zinc-700 bg-zinc-950/60 px-3 py-2 text-sm text-zinc-100 placeholder:text-zinc-500"
               />
               <input
                 required
                 placeholder={t("phoneNumber")}
                 value={form.phone}
                 onChange={(e) => setForm({ ...form, phone: e.target.value })}
-                className="rounded-lg border border-zinc-300 px-3 py-2 text-sm text-zinc-900 placeholder:text-zinc-400"
+                className="rounded-lg border border-zinc-700 bg-zinc-950/60 px-3 py-2 text-sm text-zinc-100 placeholder:text-zinc-500"
               />
               <textarea
                 placeholder={t("specialRequests")}
@@ -342,17 +346,17 @@ export default function RoomDetailPage() {
                 onChange={(e) =>
                   setForm({ ...form, special_requests: e.target.value })
                 }
-                className="rounded-lg border border-zinc-300 px-3 py-2 text-sm text-zinc-900 placeholder:text-zinc-400"
+                className="rounded-lg border border-zinc-700 bg-zinc-950/60 px-3 py-2 text-sm text-zinc-100 placeholder:text-zinc-500"
               />
 
-              <div className="rounded-lg border border-zinc-200 bg-zinc-50 p-3 text-xs text-zinc-600">
-                <p className="font-semibold text-zinc-900">
+              <div className="rounded-lg border border-zinc-800 bg-zinc-950/60 p-3 text-xs text-zinc-400">
+                <p className="font-semibold text-zinc-100">
                   {t("cancellationPolicy")}
                 </p>
                 <p className="mt-1">{t("cancellationPolicyText")}</p>
               </div>
 
-              <label className="flex items-start gap-2 text-xs text-zinc-700">
+              <label className="flex items-start gap-2 text-xs text-zinc-300">
                 <input
                   type="checkbox"
                   required
@@ -366,7 +370,7 @@ export default function RoomDetailPage() {
               <button
                 type="submit"
                 disabled={bookingStatus === "sending" || !agreedToPolicy}
-                className="rounded-full bg-black px-6 py-3 font-medium text-white disabled:opacity-50"
+                className="rounded-full bg-amber-500 px-6 py-3 font-medium text-black disabled:opacity-50"
               >
                 {bookingStatus === "sending" ? t("booking") : t("confirmBooking")}
               </button>
@@ -375,8 +379,8 @@ export default function RoomDetailPage() {
                 <p
                   className={
                     bookingStatus === "success"
-                      ? "text-green-600"
-                      : "text-red-600"
+                      ? "text-green-400"
+                      : "text-red-400"
                   }
                 >
                   {bookingMessage}
