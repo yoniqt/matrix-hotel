@@ -210,7 +210,7 @@ export default function Home() {
           Rooms are intentionally NOT shown here - they only appear after a
           date search, so this section is purely about hotel amenities. */}
       {searchStatus === "idle" && (
-        <div className="mx-auto max-w-5xl px-6 pt-24 pb-4">
+        <div className="mx-auto max-w-6xl px-6 pt-24 pb-4">
           <div className="grid gap-8 sm:grid-cols-3">
             <div className="text-center">
               <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-amber-100 text-3xl">
