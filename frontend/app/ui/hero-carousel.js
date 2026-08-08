@@ -3,10 +3,9 @@
 import { useEffect, useState } from "react";
 
 const SLIDES = [
-  "https://picsum.photos/seed/hotel-exterior-night/1600/900",
-  "https://picsum.photos/seed/hotel-luxury-room/1600/900",
-  "https://picsum.photos/seed/hotel-infinity-pool/1600/900",
-  "https://picsum.photos/seed/hotel-lobby-lounge/1600/900",
+  "/images/hero/exterior.jpg",
+  "/images/hero/room.jpg",
+  "/images/hero/lobby.webp",
 ];
 
 export default function HeroCarousel() {

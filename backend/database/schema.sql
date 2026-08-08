@@ -33,5 +33,6 @@ CREATE TABLE bookings (
 INSERT INTO rooms (room_number, room_type, price_per_night, capacity) VALUES
   ('101', 'Standard', 1500.00, 2),
   ('102', 'Standard', 1500.00, 2),
-  ('201', 'Deluxe', 2500.00, 3),
-  ('301', 'Suite', 4000.00, 4);
+  ('201', 'Deluxe', 2500.00, 2),
+  ('301', 'Suite', 4000.00, 4),
+  ('401', 'Family', 6000.00, 10);

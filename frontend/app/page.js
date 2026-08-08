@@ -12,16 +12,14 @@ function todayString() {
 }
 
 const ROOM_TYPE_IMAGES = {
-  Standard: "https://picsum.photos/seed/room-standard/600/400",
-  Deluxe: "https://picsum.photos/seed/room-deluxe/600/400",
-  Suite: "https://picsum.photos/seed/room-suite/600/400",
+  Standard: "/images/rooms/standard.webp",
+  Deluxe: "/images/rooms/deluxe.webp",
+  Suite: "/images/rooms/suite.jpg",
+  Family: "/images/rooms/family.jpg",
 };
 
 function roomImage(room) {
-  return (
-    ROOM_TYPE_IMAGES[room.room_type] ||
-    `https://picsum.photos/seed/room-${room.id}/600/400`
-  );
+  return ROOM_TYPE_IMAGES[room.room_type] || "/images/rooms/standard.webp";
 }
 
 export default function Home() {
@@ -225,17 +223,35 @@ export default function Home() {
           </div>
 
           <div className="mt-16 grid gap-6 sm:grid-cols-3">
-            <div className="flex h-44 flex-col items-center justify-center gap-2 rounded-xl border border-zinc-200 bg-gradient-to-br from-amber-50 to-amber-100 shadow-sm">
-              <span className="text-5xl">🏋️</span>
-              <p className="text-lg font-semibold text-zinc-900">Gym</p>
+            <div className="overflow-hidden rounded-xl border border-zinc-200 bg-white shadow-sm">
+              <img
+                src="/images/amenities/gym.jpg"
+                alt="Hotel gym"
+                className="h-44 w-full object-cover"
+              />
+              <p className="p-4 text-center text-lg font-semibold text-zinc-900">
+                Gym
+              </p>
             </div>
-            <div className="flex h-44 flex-col items-center justify-center gap-2 rounded-xl border border-zinc-200 bg-gradient-to-br from-sky-50 to-sky-100 shadow-sm">
-              <span className="text-5xl">🏊</span>
-              <p className="text-lg font-semibold text-zinc-900">Pool</p>
+            <div className="overflow-hidden rounded-xl border border-zinc-200 bg-white shadow-sm">
+              <img
+                src="/images/amenities/pool.jpg"
+                alt="Hotel pool"
+                className="h-44 w-full object-cover"
+              />
+              <p className="p-4 text-center text-lg font-semibold text-zinc-900">
+                Pool
+              </p>
             </div>
-            <div className="flex h-44 flex-col items-center justify-center gap-2 rounded-xl border border-zinc-200 bg-gradient-to-br from-rose-50 to-rose-100 shadow-sm">
-              <span className="text-5xl">🍸</span>
-              <p className="text-lg font-semibold text-zinc-900">Bar</p>
+            <div className="overflow-hidden rounded-xl border border-zinc-200 bg-white shadow-sm">
+              <img
+                src="/images/amenities/bar.jpg"
+                alt="Hotel bar"
+                className="h-44 w-full object-cover"
+              />
+              <p className="p-4 text-center text-lg font-semibold text-zinc-900">
+                Bar
+              </p>
             </div>
           </div>
         </div>
