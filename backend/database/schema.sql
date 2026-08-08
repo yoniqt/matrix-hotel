@@ -25,6 +25,7 @@ CREATE TABLE bookings (
   check_out_date DATE NOT NULL,
   special_requests TEXT,
   status VARCHAR(20) NOT NULL DEFAULT 'confirmed',
+  guests_count INT NOT NULL DEFAULT 1,
   created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
   FOREIGN KEY (guest_id) REFERENCES guests(id) ON DELETE CASCADE,
   FOREIGN KEY (room_id) REFERENCES rooms(id) ON DELETE CASCADE

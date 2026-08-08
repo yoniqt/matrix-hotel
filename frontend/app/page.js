@@ -23,6 +23,13 @@ function roomImage(room) {
   return ROOM_TYPE_IMAGES[room.room_type] || "/images/rooms/standard.webp";
 }
 
+const ROOM_TYPE_DESCRIPTIONS = {
+  Standard: "A cozy, comfortable room with everything you need for a relaxing stay - perfect for solo travelers or couples.",
+  Deluxe: "A more spacious room with upgraded furnishings and a better view, ideal for guests wanting extra comfort.",
+  Suite: "A generous suite with a separate living area, perfect for longer stays or small families who want more room to unwind.",
+  Family: "Our largest room, built for bigger groups and families - plenty of space and beds for everyone to stay together.",
+};
+
 // Groups individual physical rooms (Room 101, Room 102, ...) into one card
 // per room TYPE, since guests book a type of room, not a specific numbered
 // room - two identical Standard rooms don't need two separate listings.
@@ -94,6 +101,9 @@ export default function Home() {
   const [searchMessage, setSearchMessage] = useState("");
 
   const [selectedRoom, setSelectedRoom] = useState(null);
+  const [bookingStep, setBookingStep] = useState("quantity"); // "quantity" | "details"
+  const [quantity, setQuantity] = useState(1);
+  const [adults, setAdults] = useState(1);
   const [form, setForm] = useState({
     name: "",
     email: "",
@@ -142,30 +152,45 @@ export default function Home() {
     setBookingStatus("sending");
     setBookingMessage("");
 
-    try {
-      const res = await fetch(`${API_URL}/api/bookings`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          ...form,
-          room_id: selectedRoom.id,
-          check_in_date: checkIn,
-          check_out_date: checkOut,
-        }),
-      });
-      const data = await res.json();
+    // Book one room at a time from this room-type's available room IDs,
+    // since each physical room needs its own booking record. If any single
+    // one fails (e.g. someone else just took it), stop and report it.
+    const roomIdsToBook = selectedRoom.roomIds.slice(0, quantity);
 
-      if (!data.success) {
-        setBookingStatus("error");
-        setBookingMessage(data.message);
-        return;
+    try {
+      for (const roomId of roomIdsToBook) {
+        const res = await fetch(`${API_URL}/api/bookings`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            ...form,
+            room_id: roomId,
+            check_in_date: checkIn,
+            check_out_date: checkOut,
+            guests_count: adults,
+          }),
+        });
+        const data = await res.json();
+
+        if (!data.success) {
+          setBookingStatus("error");
+          setBookingMessage(data.message);
+          return;
+        }
       }
 
       setBookingStatus("success");
-      setBookingMessage("Booking confirmed!");
+      setBookingMessage(
+        `${roomIdsToBook.length} room${roomIdsToBook.length > 1 ? "s" : ""} booked successfully!`
+      );
       setForm({ name: "", email: "", phone: "", special_requests: "" });
-      setRooms((prev) => prev.filter((r) => r.id !== selectedRoom.id));
+      setRooms((prev) =>
+        prev.filter((r) => !roomIdsToBook.includes(r.id))
+      );
       setSelectedRoom(null);
+      setBookingStep("quantity");
+      setQuantity(1);
+      setAdults(1);
     } catch {
       setBookingStatus("error");
       setBookingMessage("Something went wrong. Please try again.");
@@ -419,6 +444,9 @@ export default function Home() {
                     {room.availableCount}{" "}
                     {room.availableCount === 1 ? "room" : "rooms"} available
                   </p>
+                  <p className="mt-2 text-sm text-zinc-600">
+                    {ROOM_TYPE_DESCRIPTIONS[room.room_type]}
+                  </p>
                   <p className="mt-2 text-lg font-bold text-zinc-900">
                     ₱{Number(room.price_per_night).toLocaleString()}{" "}
                     <span className="text-sm font-normal text-zinc-500">
@@ -427,7 +455,10 @@ export default function Home() {
                   </p>
                   <button
                     onClick={() => {
-                      setSelectedRoom({ ...room, id: room.roomIds[0] });
+                      setSelectedRoom(room);
+                      setBookingStep("quantity");
+                      setQuantity(1);
+                      setAdults(1);
                       setBookingStatus("idle");
                       setBookingMessage("");
                     }}
@@ -442,8 +473,107 @@ export default function Home() {
         )}
       </div>
 
-      {/* Booking form modal-ish section */}
-      {selectedRoom && (
+      {/* Step 1: Quantity + Adults selection */}
+      {selectedRoom && bookingStep === "quantity" && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 px-4">
+          <div className="w-full max-w-sm rounded-2xl bg-white p-6">
+            <div className="flex items-center justify-between">
+              <h2 className="text-xl font-semibold text-zinc-900">
+                {selectedRoom.room_type} Room
+              </h2>
+              <button
+                onClick={() => setSelectedRoom(null)}
+                className="text-2xl leading-none text-zinc-400"
+              >
+                ×
+              </button>
+            </div>
+            <p className="mt-1 text-sm text-zinc-500">
+              {checkIn} to {checkOut}
+            </p>
+
+            <div className="mt-6 flex items-center justify-between rounded-lg border border-zinc-200 p-4">
+              <div>
+                <p className="font-medium text-zinc-900">Quantity</p>
+                <p className="text-xs text-zinc-500">
+                  Max {selectedRoom.availableCount} available
+                </p>
+              </div>
+              <div className="flex items-center gap-3">
+                <button
+                  type="button"
+                  onClick={() => setQuantity((q) => Math.max(1, q - 1))}
+                  className="flex h-8 w-8 items-center justify-center rounded-full border border-zinc-300 text-lg"
+                >
+                  −
+                </button>
+                <span className="w-6 text-center font-semibold text-zinc-900">
+                  {quantity}
+                </span>
+                <button
+                  type="button"
+                  onClick={() =>
+                    setQuantity((q) =>
+                      Math.min(selectedRoom.availableCount, q + 1)
+                    )
+                  }
+                  className="flex h-8 w-8 items-center justify-center rounded-full border border-zinc-300 text-lg"
+                >
+                  +
+                </button>
+              </div>
+            </div>
+
+            <div className="mt-3 flex items-center justify-between rounded-lg border border-zinc-200 p-4">
+              <div>
+                <p className="font-medium text-zinc-900">Adults</p>
+                <p className="text-xs text-zinc-500">
+                  Max {selectedRoom.capacity} per room
+                </p>
+              </div>
+              <div className="flex items-center gap-3">
+                <button
+                  type="button"
+                  onClick={() => setAdults((a) => Math.max(1, a - 1))}
+                  className="flex h-8 w-8 items-center justify-center rounded-full border border-zinc-300 text-lg"
+                >
+                  −
+                </button>
+                <span className="w-6 text-center font-semibold text-zinc-900">
+                  {adults}
+                </span>
+                <button
+                  type="button"
+                  onClick={() =>
+                    setAdults((a) => Math.min(selectedRoom.capacity, a + 1))
+                  }
+                  className="flex h-8 w-8 items-center justify-center rounded-full border border-zinc-300 text-lg"
+                >
+                  +
+                </button>
+              </div>
+            </div>
+
+            <div className="mt-6 flex gap-3">
+              <button
+                onClick={() => setSelectedRoom(null)}
+                className="flex-1 rounded-full border border-zinc-300 px-6 py-3 font-medium text-zinc-700"
+              >
+                Cancel
+              </button>
+              <button
+                onClick={() => setBookingStep("details")}
+                className="flex-1 rounded-full bg-black px-6 py-3 font-medium text-white"
+              >
+                Confirm
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Step 2: Guest details form */}
+      {selectedRoom && bookingStep === "details" && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 px-4">
           <div className="max-h-[90vh] w-full max-w-md overflow-y-auto rounded-2xl bg-white p-6">
             <div className="flex items-center justify-between">
@@ -458,7 +588,9 @@ export default function Home() {
               </button>
             </div>
             <p className="mt-1 text-sm text-zinc-500">
-              {checkIn} to {checkOut}
+              {checkIn} to {checkOut} &nbsp;|&nbsp; {quantity}{" "}
+              {quantity > 1 ? "rooms" : "room"} &nbsp;|&nbsp; {adults} adult
+              {adults > 1 ? "s" : ""} per room
             </p>
 
             <form

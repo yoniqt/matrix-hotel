@@ -30,6 +30,7 @@ router.post("/", async (req, res) => {
     check_in_date,
     check_out_date,
     special_requests,
+    guests_count,
   } = req.body;
 
   if (!name || !email || !phone || !room_id || !check_in_date || !check_out_date) {
@@ -87,9 +88,16 @@ router.post("/", async (req, res) => {
     // Step 3: create the booking
     const [result] = await db.query(
       `INSERT INTO bookings
-        (guest_id, room_id, check_in_date, check_out_date, special_requests, status)
-       VALUES (?, ?, ?, ?, ?, 'confirmed')`,
-      [guestId, room_id, check_in_date, check_out_date, special_requests || null]
+        (guest_id, room_id, check_in_date, check_out_date, special_requests, status, guests_count)
+       VALUES (?, ?, ?, ?, ?, 'confirmed', ?)`,
+      [
+        guestId,
+        room_id,
+        check_in_date,
+        check_out_date,
+        special_requests || null,
+        guests_count || 1,
+      ]
     );
 
     res.status(201).json({
