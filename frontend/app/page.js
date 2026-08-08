@@ -3,6 +3,7 @@
 import { useState } from "react";
 import DatePicker from "./ui/date-picker";
 import HeroCarousel from "./ui/hero-carousel";
+import Footer from "./ui/footer";
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL;
 
@@ -232,7 +233,7 @@ export default function Home() {
           Rooms are intentionally NOT shown here - they only appear after a
           date search, so this section is purely about hotel amenities. */}
       {searchStatus === "idle" && (
-        <div className="mx-auto max-w-6xl px-6 pt-24 pb-4">
+        <div className="mx-auto max-w-7xl px-6 pt-24 pb-4">
           <div className="grid gap-8 sm:grid-cols-3">
             <div className="text-center">
               <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-amber-100 text-3xl">
@@ -351,9 +352,9 @@ export default function Home() {
                 {selectedAmenity.features.map((feature) => (
                   <li
                     key={feature}
-                    className="flex items-start gap-2 text-zinc-700"
+                    className="flex items-center gap-3 text-zinc-700"
                   >
-                    <span className="mt-1 text-amber-500">●</span>
+                    <span className="h-1.5 w-1.5 shrink-0 rounded-full bg-amber-500" />
                     {feature}
                   </li>
                 ))}
@@ -498,6 +499,8 @@ export default function Home() {
           </div>
         </div>
       )}
+
+      <Footer />
     </main>
   );
 }
