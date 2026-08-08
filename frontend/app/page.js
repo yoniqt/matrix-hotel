@@ -471,27 +471,19 @@ export default function Home() {
           {t("newsEvents")}
         </h2>
 
-        <div className="relative mt-10">
+        <div className="mt-10 flex items-center gap-4 sm:gap-6">
           <button
             type="button"
             onClick={() => scrollNews(-1)}
             aria-label="Previous"
-            className="absolute top-1/2 left-2 z-10 -translate-y-1/2 rounded-full border border-white/10 bg-zinc-900/50 p-3 text-zinc-300 backdrop-blur-sm transition-all hover:bg-amber-500 hover:text-black sm:left-4"
+            className="hidden shrink-0 rounded-full border border-white/10 bg-zinc-900/50 p-3 text-zinc-300 backdrop-blur-sm transition-all hover:bg-amber-500 hover:text-black sm:flex"
           >
             ‹
-          </button>
-          <button
-            type="button"
-            onClick={() => scrollNews(1)}
-            aria-label="Next"
-            className="absolute top-1/2 right-2 z-10 -translate-y-1/2 rounded-full border border-white/10 bg-zinc-900/50 p-3 text-zinc-300 backdrop-blur-sm transition-all hover:bg-amber-500 hover:text-black sm:right-4"
-          >
-            ›
           </button>
 
           <div
             ref={newsScrollRef}
-            className="flex gap-8 overflow-x-auto scroll-smooth pb-2 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+            className="flex flex-1 gap-8 overflow-x-auto scroll-smooth pb-2 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
           >
           {NEWS_EVENTS.map((item) => (
             <div
@@ -532,6 +524,15 @@ export default function Home() {
             </div>
           ))}
           </div>
+
+          <button
+            type="button"
+            onClick={() => scrollNews(1)}
+            aria-label="Next"
+            className="hidden shrink-0 rounded-full border border-white/10 bg-zinc-900/50 p-3 text-zinc-300 backdrop-blur-sm transition-all hover:bg-amber-500 hover:text-black sm:flex"
+          >
+            ›
+          </button>
         </div>
       </div>
 
