@@ -258,6 +258,12 @@ export default function Home() {
         </form>
       </div>
 
+      {searchStatus === "idle" && (
+        <p className="mt-16 px-6 text-center text-sm text-zinc-400">
+          {t("pickDatesHint")}
+        </p>
+      )}
+
       {/* Showcase - always visible, fills the page before anyone searches.
           Rooms are intentionally NOT shown here - they only appear after a
           date search, so this section is purely about hotel amenities. */}
@@ -372,11 +378,6 @@ export default function Home() {
 
       {/* Results */}
       <div className="mx-auto max-w-5xl px-6 pt-16 pb-16">
-        {searchStatus === "idle" && (
-          <p className="text-center text-zinc-400">
-            Pick your check-in and check-out dates above to see available rooms.
-          </p>
-        )}
         {searchStatus === "error" && (
           <p className="text-center text-red-400">{searchMessage}</p>
         )}
@@ -475,7 +476,7 @@ export default function Home() {
             type="button"
             onClick={() => scrollNews(-1)}
             aria-label="Previous"
-            className="absolute top-1/2 left-0 z-10 -translate-x-1/2 -translate-y-1/2 rounded-full border border-white/10 bg-zinc-900/50 p-3 text-zinc-300 backdrop-blur-sm transition-all hover:bg-amber-500 hover:text-black"
+            className="absolute top-1/2 left-2 z-10 -translate-y-1/2 rounded-full border border-white/10 bg-zinc-900/50 p-3 text-zinc-300 backdrop-blur-sm transition-all hover:bg-amber-500 hover:text-black sm:left-4"
           >
             ‹
           </button>
@@ -483,7 +484,7 @@ export default function Home() {
             type="button"
             onClick={() => scrollNews(1)}
             aria-label="Next"
-            className="absolute top-1/2 right-0 z-10 -translate-y-1/2 translate-x-1/2 rounded-full border border-white/10 bg-zinc-900/50 p-3 text-zinc-300 backdrop-blur-sm transition-all hover:bg-amber-500 hover:text-black"
+            className="absolute top-1/2 right-2 z-10 -translate-y-1/2 rounded-full border border-white/10 bg-zinc-900/50 p-3 text-zinc-300 backdrop-blur-sm transition-all hover:bg-amber-500 hover:text-black sm:right-4"
           >
             ›
           </button>

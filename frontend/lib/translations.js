@@ -44,6 +44,8 @@ export const TRANSLATIONS = {
     newsEvents: "News & Events",
     viewAll: "View All",
     viewDetails: "View Details",
+    pickDatesHint:
+      "Pick your check-in and check-out dates above to see available rooms.",
   },
   Filipino: {
     tagline: "Karanasang Maluho at Komportable",
@@ -85,6 +87,8 @@ export const TRANSLATIONS = {
     newsEvents: "Balita at Mga Kaganapan",
     viewAll: "Tingnan Lahat",
     viewDetails: "Tingnan ang Detalye",
+    pickDatesHint:
+      "Piliin ang check-in at check-out dates sa itaas para makita ang mga magagamit na kwarto.",
   },
   "中文 (Chinese)": {
     tagline: "尽享奢华与舒适",
@@ -125,6 +129,7 @@ export const TRANSLATIONS = {
     newsEvents: "新闻与活动",
     viewAll: "查看全部",
     viewDetails: "查看详情",
+    pickDatesHint: "请在上方选择入住和退房日期以查看可预订房间。",
   },
   "日本語 (Japanese)": {
     tagline: "ラグジュアリーと快適さを",
@@ -165,6 +170,8 @@ export const TRANSLATIONS = {
     newsEvents: "ニュース＆イベント",
     viewAll: "すべて見る",
     viewDetails: "詳細を見る",
+    pickDatesHint:
+      "上記でチェックイン・チェックアウト日を選択すると、空室状況が表示されます。",
   },
   "한국어 (Korean)": {
     tagline: "럭셔리와 편안함을 만나보세요",
@@ -205,6 +212,8 @@ export const TRANSLATIONS = {
     newsEvents: "뉴스 및 이벤트",
     viewAll: "전체 보기",
     viewDetails: "자세히 보기",
+    pickDatesHint:
+      "위에서 체크인 및 체크아웃 날짜를 선택하면 예약 가능한 객실을 확인할 수 있습니다.",
   },
 };
 
