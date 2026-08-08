@@ -466,34 +466,32 @@ export default function Home() {
 
       {/* News & Events */}
       <div className="mx-auto max-w-6xl px-6 pb-16">
-        <div className="flex items-center justify-between gap-4">
-          <h2 className="text-2xl font-semibold tracking-wide text-zinc-100 uppercase">
-            {t("newsEvents")}
-          </h2>
-          <div className="flex items-center gap-3">
-            <button
-              type="button"
-              onClick={() => scrollNews(-1)}
-              aria-label="Previous"
-              className="rounded-full border border-white/10 bg-zinc-900/50 p-3 text-zinc-300 transition-all hover:bg-amber-500 hover:text-black"
-            >
-              ‹
-            </button>
-            <button
-              type="button"
-              onClick={() => scrollNews(1)}
-              aria-label="Next"
-              className="rounded-full border border-white/10 bg-zinc-900/50 p-3 text-zinc-300 transition-all hover:bg-amber-500 hover:text-black"
-            >
-              ›
-            </button>
-          </div>
-        </div>
+        <h2 className="text-center text-2xl font-semibold tracking-wide text-zinc-100 uppercase">
+          {t("newsEvents")}
+        </h2>
 
-        <div
-          ref={newsScrollRef}
-          className="mt-10 flex gap-8 overflow-x-auto scroll-smooth pb-2 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
-        >
+        <div className="relative mt-10">
+          <button
+            type="button"
+            onClick={() => scrollNews(-1)}
+            aria-label="Previous"
+            className="absolute top-1/2 left-0 z-10 -translate-x-1/2 -translate-y-1/2 rounded-full border border-white/10 bg-zinc-900/50 p-3 text-zinc-300 backdrop-blur-sm transition-all hover:bg-amber-500 hover:text-black"
+          >
+            ‹
+          </button>
+          <button
+            type="button"
+            onClick={() => scrollNews(1)}
+            aria-label="Next"
+            className="absolute top-1/2 right-0 z-10 -translate-y-1/2 translate-x-1/2 rounded-full border border-white/10 bg-zinc-900/50 p-3 text-zinc-300 backdrop-blur-sm transition-all hover:bg-amber-500 hover:text-black"
+          >
+            ›
+          </button>
+
+          <div
+            ref={newsScrollRef}
+            className="flex gap-8 overflow-x-auto scroll-smooth pb-2 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+          >
           {NEWS_EVENTS.map((item) => (
             <div
               key={item.id}
@@ -532,6 +530,7 @@ export default function Home() {
               </div>
             </div>
           ))}
+          </div>
         </div>
       </div>
 
