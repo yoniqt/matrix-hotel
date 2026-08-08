@@ -41,6 +41,9 @@ export const TRANSLATIONS = {
     ourLocation: "Our Location",
     featuredLabel: "Featured",
     servicesUtilities: "Services & Utilities",
+    servicesHeadline: "Everything You Need for a Seamless Stay.",
+    servicesDescription:
+      "From the moment you arrive to the moment you check out, every service is designed around your comfort - so all you have to do is relax.",
     newsEvents: "News & Events",
     viewAll: "View All",
     viewDetails: "View Details",
@@ -84,6 +87,9 @@ export const TRANSLATIONS = {
     ourLocation: "Ang Aming Lokasyon",
     featuredLabel: "Featured",
     servicesUtilities: "Mga Serbisyo at Utilities",
+    servicesHeadline: "Lahat ng Kailangan Mo Para sa Walang-Abalang Pananatili.",
+    servicesDescription:
+      "Mula sa iyong pagdating hanggang sa pag-alis, dinisenyo ang bawat serbisyo para sa iyong kaginhawaan - tanging pahinga na lang ang kailangan mong gawin.",
     newsEvents: "Balita at Mga Kaganapan",
     viewAll: "Tingnan Lahat",
     viewDetails: "Tingnan ang Detalye",
@@ -126,6 +132,9 @@ export const TRANSLATIONS = {
     ourLocation: "我们的位置",
     featuredLabel: "精选",
     servicesUtilities: "服务与设施",
+    servicesHeadline: "尽享无忧入住的一切所需。",
+    servicesDescription:
+      "从抵达的那一刻到退房，每一项服务都以您的舒适为核心设计——您只需尽情放松。",
     newsEvents: "新闻与活动",
     viewAll: "查看全部",
     viewDetails: "查看详情",
@@ -167,6 +176,9 @@ export const TRANSLATIONS = {
     ourLocation: "アクセス",
     featuredLabel: "おすすめ",
     servicesUtilities: "サービス・設備",
+    servicesHeadline: "快適なご滞在に必要なすべてを。",
+    servicesDescription:
+      "ご到着からご出発まで、すべてのサービスはお客様の快適さのために設計されています。あとはくつろぐだけです。",
     newsEvents: "ニュース＆イベント",
     viewAll: "すべて見る",
     viewDetails: "詳細を見る",
@@ -209,6 +221,9 @@ export const TRANSLATIONS = {
     ourLocation: "오시는 길",
     featuredLabel: "추천",
     servicesUtilities: "서비스 및 편의시설",
+    servicesHeadline: "완벽한 숙박을 위한 모든 것.",
+    servicesDescription:
+      "도착하시는 순간부터 체크아웃까지, 모든 서비스는 고객님의 편안함을 위해 설계되었습니다 - 그저 편히 쉬시기만 하면 됩니다.",
     newsEvents: "뉴스 및 이벤트",
     viewAll: "전체 보기",
     viewDetails: "자세히 보기",
