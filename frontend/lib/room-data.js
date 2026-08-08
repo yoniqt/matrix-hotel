@@ -28,6 +28,8 @@ export const ROOM_TYPE_AMENITIES = {
     "Flat-screen TV",
     "Private bathroom",
     "Daily housekeeping",
+    "Hair dryer",
+    "Free bath towels",
   ],
   Deluxe: [
     "Free Wi-Fi",
@@ -35,6 +37,8 @@ export const ROOM_TYPE_AMENITIES = {
     "Flat-screen TV",
     "Private bathroom",
     "Daily housekeeping",
+    "Hair dryer",
+    "Free bath towels",
     "Mini bar",
     "Work desk",
     "City view",
@@ -45,6 +49,8 @@ export const ROOM_TYPE_AMENITIES = {
     "Flat-screen TV",
     "Private bathroom",
     "Daily housekeeping",
+    "Hair dryer",
+    "Free bath towels",
     "Mini bar",
     "Separate living area",
     "Bathtub",
@@ -56,11 +62,41 @@ export const ROOM_TYPE_AMENITIES = {
     "Flat-screen TV",
     "Private bathroom",
     "Daily housekeeping",
+    "Hair dryer",
+    "Free bath towels",
     "Mini bar",
     "Separate living area",
     "Extra beds available",
     "Kid-friendly amenities",
   ],
+};
+
+// Simple emoji icons per amenity - keeps this reliable (no external icon
+// files that could fail to load) while still being visually distinct from
+// plain bullet dots.
+export const AMENITY_ICONS = {
+  "Free Wi-Fi": "📶",
+  "Air conditioning": "❄️",
+  "Flat-screen TV": "📺",
+  "Private bathroom": "🚿",
+  "Daily housekeeping": "🧹",
+  "Hair dryer": "💨",
+  "Free bath towels": "🧺",
+  "Mini bar": "🍾",
+  "Work desk": "🖥️",
+  "City view": "🏙️",
+  "Separate living area": "🛋️",
+  Bathtub: "🛁",
+  "Premium toiletries": "🧴",
+  "Extra beds available": "🛏️",
+  "Kid-friendly amenities": "🧸",
+};
+
+export const CHECK_IN_OUT_POLICY = {
+  checkIn: "2:00 PM",
+  checkOut: "12:00 PM",
+  lateCheckoutHours: "Until 3:00 PM (on request, subject to availability)",
+  lateCheckoutFee: "50% of nightly rate",
 };
 
 // Groups individual physical rooms (Room 101, Room 102, ...) into one card

@@ -7,13 +7,18 @@ import {
   roomImage,
   ROOM_TYPE_DESCRIPTIONS,
   ROOM_TYPE_AMENITIES,
+  AMENITY_ICONS,
+  CHECK_IN_OUT_POLICY,
   groupRoomsByType,
   slugToRoomType,
 } from "../../../lib/room-data";
+import { useCurrency } from "../../currency-provider";
+import { formatPrice } from "../../../lib/currency";
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL;
 
 export default function RoomDetailPage() {
+  const { currency } = useCurrency();
   const params = useParams();
   const searchParams = useSearchParams();
   const roomType = slugToRoomType(params.type);
@@ -178,17 +183,47 @@ export default function RoomDetailPage() {
             <ul className="mt-3 grid grid-cols-2 gap-y-2 text-zinc-700">
               {ROOM_TYPE_AMENITIES[roomType].map((item) => (
                 <li key={item} className="flex items-center gap-2">
-                  <span className="h-1.5 w-1.5 shrink-0 rounded-full bg-amber-500" />
+                  <span className="text-lg">{AMENITY_ICONS[item] || "•"}</span>
                   {item}
                 </li>
               ))}
+            </ul>
+
+            <h2 className="mt-8 text-lg font-bold text-zinc-900">
+              Check-In and Check-Out
+            </h2>
+            <ul className="mt-3 flex flex-col gap-2 text-zinc-700">
+              <li>
+                <span className="font-semibold text-zinc-900">
+                  Check-in:
+                </span>{" "}
+                {CHECK_IN_OUT_POLICY.checkIn}
+              </li>
+              <li>
+                <span className="font-semibold text-zinc-900">
+                  Check-out:
+                </span>{" "}
+                {CHECK_IN_OUT_POLICY.checkOut}
+              </li>
+              <li>
+                <span className="font-semibold text-zinc-900">
+                  Late Checkout Hours:
+                </span>{" "}
+                {CHECK_IN_OUT_POLICY.lateCheckoutHours}
+              </li>
+              <li>
+                <span className="font-semibold text-zinc-900">
+                  Late Checkout Fee:
+                </span>{" "}
+                {CHECK_IN_OUT_POLICY.lateCheckoutFee}
+              </li>
             </ul>
           </div>
 
           {/* Booking panel */}
           <div className="h-fit rounded-2xl border border-zinc-200 bg-white p-6 shadow-sm">
             <p className="text-2xl font-bold text-zinc-900">
-              ₱{Number(room.price_per_night).toLocaleString()}{" "}
+              {formatPrice(room.price_per_night, currency)}{" "}
               <span className="text-sm font-normal text-zinc-500">
                 / night
               </span>

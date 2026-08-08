@@ -5,6 +5,9 @@ import Link from "next/link";
 import DatePicker from "./ui/date-picker";
 import HeroCarousel from "./ui/hero-carousel";
 import Footer from "./ui/footer";
+import TopSelectors from "./ui/top-selectors";
+import { useCurrency } from "./currency-provider";
+import { formatPrice } from "../lib/currency";
 import {
   roomImage,
   ROOM_TYPE_DESCRIPTIONS,
@@ -66,6 +69,7 @@ const AMENITIES = [
 ];
 
 export default function Home() {
+  const { currency } = useCurrency();
   const [checkIn, setCheckIn] = useState("");
   const [checkOut, setCheckOut] = useState("");
   const [openPicker, setOpenPicker] = useState(null); // "checkin" | "checkout" | null
@@ -118,7 +122,7 @@ export default function Home() {
         </div>
         <div className="flex items-center gap-4">
           <span>Contact Us</span>
-          <span>🇬🇧 English</span>
+          <TopSelectors />
         </div>
       </div>
 
@@ -359,7 +363,7 @@ export default function Home() {
                     {ROOM_TYPE_DESCRIPTIONS[room.room_type]}
                   </p>
                   <p className="mt-2 text-lg font-bold text-zinc-900">
-                    ₱{Number(room.price_per_night).toLocaleString()}{" "}
+                    {formatPrice(room.price_per_night, currency)}{" "}
                     <span className="text-sm font-normal text-zinc-500">
                       / night
                     </span>
