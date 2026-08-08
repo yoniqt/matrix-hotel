@@ -41,6 +41,9 @@ export const TRANSLATIONS = {
     ourLocation: "Our Location",
     featuredLabel: "Featured",
     servicesUtilities: "Services & Utilities",
+    newsEvents: "News & Events",
+    viewAll: "View All",
+    viewDetails: "View Details",
   },
   Filipino: {
     tagline: "Karanasang Maluho at Komportable",
@@ -79,6 +82,9 @@ export const TRANSLATIONS = {
     ourLocation: "Ang Aming Lokasyon",
     featuredLabel: "Featured",
     servicesUtilities: "Mga Serbisyo at Utilities",
+    newsEvents: "Balita at Mga Kaganapan",
+    viewAll: "Tingnan Lahat",
+    viewDetails: "Tingnan ang Detalye",
   },
   "中文 (Chinese)": {
     tagline: "尽享奢华与舒适",
@@ -116,6 +122,9 @@ export const TRANSLATIONS = {
     ourLocation: "我们的位置",
     featuredLabel: "精选",
     servicesUtilities: "服务与设施",
+    newsEvents: "新闻与活动",
+    viewAll: "查看全部",
+    viewDetails: "查看详情",
   },
   "日本語 (Japanese)": {
     tagline: "ラグジュアリーと快適さを",
@@ -153,6 +162,9 @@ export const TRANSLATIONS = {
     ourLocation: "アクセス",
     featuredLabel: "おすすめ",
     servicesUtilities: "サービス・設備",
+    newsEvents: "ニュース＆イベント",
+    viewAll: "すべて見る",
+    viewDetails: "詳細を見る",
   },
   "한국어 (Korean)": {
     tagline: "럭셔리와 편안함을 만나보세요",
@@ -190,6 +202,9 @@ export const TRANSLATIONS = {
     ourLocation: "오시는 길",
     featuredLabel: "추천",
     servicesUtilities: "서비스 및 편의시설",
+    newsEvents: "뉴스 및 이벤트",
+    viewAll: "전체 보기",
+    viewDetails: "자세히 보기",
   },
 };
 

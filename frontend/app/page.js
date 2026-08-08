@@ -108,6 +108,24 @@ const SERVICES = [
   },
 ];
 
+const NEWS_EVENTS = [
+  {
+    key: "bar",
+    image: "/images/amenities/bar.jpg",
+    title: "Unwind at Our Rooftop Bar",
+  },
+  {
+    key: "pool",
+    image: "/images/amenities/pool.jpg",
+    title: "Dive Into Our Pool Season",
+  },
+  {
+    key: "lobby",
+    image: "/images/hero/lobby.webp",
+    title: "A Look Inside Our Lobby",
+  },
+];
+
 export default function Home() {
   const { currency } = useCurrency();
   const { t } = useLanguage();
@@ -403,7 +421,7 @@ export default function Home() {
       </div>
 
       {/* Services & Utilities */}
-      <div className="mx-auto max-w-5xl px-6 pb-16">
+      <div className="mx-auto max-w-6xl px-6 pb-16">
         <div className="rounded-2xl border border-zinc-200 bg-zinc-100/60 p-6 sm:p-10">
           <p className="text-center text-xs font-semibold tracking-widest text-amber-600 uppercase">
             {t("featuredLabel")}
@@ -427,6 +445,48 @@ export default function Home() {
               </div>
             ))}
           </div>
+        </div>
+      </div>
+
+      {/* News & Events */}
+      <div className="mx-auto max-w-6xl px-6 pb-16">
+        <div className="flex items-center justify-between gap-4">
+          <div className="flex-1" />
+          <h2 className="flex-[2] text-center text-2xl font-semibold tracking-wide text-zinc-900 uppercase">
+            {t("newsEvents")}
+          </h2>
+          <div className="flex flex-1 justify-end">
+            <a
+              href="#"
+              className="rounded-full bg-amber-600 px-5 py-2 text-sm font-semibold text-white transition-opacity hover:opacity-90"
+            >
+              {t("viewAll")} +
+            </a>
+          </div>
+        </div>
+        <div className="mt-10 grid gap-6 sm:grid-cols-3">
+          {NEWS_EVENTS.map((item) => (
+            <div
+              key={item.key}
+              className="overflow-hidden rounded-xl border border-zinc-200 bg-white shadow-sm"
+            >
+              <img
+                src={item.image}
+                alt={item.title}
+                className="h-56 w-full object-cover"
+              />
+              <div className="p-5 text-center">
+                <p className="font-semibold text-zinc-900">{item.title}</p>
+                <hr className="my-3 border-zinc-200" />
+                <a
+                  href="#"
+                  className="text-sm font-semibold text-amber-600 underline underline-offset-2"
+                >
+                  {t("viewDetails")} →
+                </a>
+              </div>
+            </div>
+          ))}
         </div>
       </div>
 
