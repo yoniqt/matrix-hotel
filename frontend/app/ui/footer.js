@@ -21,12 +21,12 @@ export default function Footer() {
 
       <div className="mt-8 text-center text-sm">
         <p>
-          <span className="font-semibold text-zinc-200">Address:</span> 123
-          Bonifacio Global City, Taguig, Metro Manila, Philippines
+          <span className="font-semibold text-zinc-200">Address:</span>{" "}
+          123 Bonifacio Global City, Taguig, Metro Manila, Philippines
         </p>
         <p className="mt-3">
-          <span className="font-semibold text-zinc-200">Phone:</span> +63 900
-          000 0000 &nbsp;|&nbsp;{" "}
+          <span className="font-semibold text-zinc-200">Phone:</span>{" "}
+          +63 900 000 0000 &nbsp;|&nbsp;{" "}
           <span className="font-semibold text-zinc-200">Email:</span>{" "}
           stay@thematrixhotel.com
         </p>
@@ -39,12 +39,27 @@ export default function Footer() {
               Find us on
             </p>
             <div className="mt-3 flex justify-center gap-3 sm:justify-start">
-              <span className="flex h-9 w-9 items-center justify-center rounded-full bg-zinc-800 text-sm">
+              <a
+                href="#"
+                aria-label="Facebook"
+                className="flex h-9 w-9 items-center justify-center rounded-full bg-zinc-800 text-sm transition-colors hover:bg-zinc-700"
+              >
                 📘
-              </span>
-              <span className="flex h-9 w-9 items-center justify-center rounded-full bg-zinc-800 text-sm">
+              </a>
+              <a
+                href="#"
+                aria-label="Instagram"
+                className="flex h-9 w-9 items-center justify-center rounded-full bg-zinc-800 text-sm transition-colors hover:bg-zinc-700"
+              >
                 📸
-              </span>
+              </a>
+              <a
+                href="mailto:stay@thematrixhotel.com"
+                aria-label="Email"
+                className="flex h-9 w-9 items-center justify-center rounded-full bg-zinc-800 text-sm transition-colors hover:bg-zinc-700"
+              >
+                ✉️
+              </a>
             </div>
           </div>
 
