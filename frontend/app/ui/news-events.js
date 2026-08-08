@@ -63,7 +63,11 @@ export default function NewsEvents() {
   function scroll(direction) {
     const el = scrollRef.current;
     if (!el) return;
-    el.scrollBy({ left: direction * el.clientWidth * 0.9, behavior: "smooth" });
+    // Cards are sized so 3 cards + 2 gaps exactly fill the container's
+    // width (see the sm:w-[calc((100%-4rem)/3)] card width below), so one
+    // full clientWidth is exactly one page of 3 cards - not a fraction of
+    // it, which was cutting cards off mid-card.
+    el.scrollBy({ left: direction * el.clientWidth, behavior: "smooth" });
   }
 
   return (
@@ -99,15 +103,16 @@ export default function NewsEvents() {
             ‹
           </button>
 
-          <div
-            ref={scrollRef}
-            className="flex flex-1 gap-8 overflow-x-auto scroll-smooth pb-2 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
-          >
-            {NEWS_EVENTS.map((item) => (
-              <div
-                key={item.id}
-                className={`${styles.card} w-[85%] shrink-0 overflow-hidden rounded-2xl sm:w-[calc((100%-4rem)/3)]`}
-              >
+          <div className="flex-1 overflow-hidden">
+            <div
+              ref={scrollRef}
+              className="flex snap-x snap-mandatory gap-8 overflow-x-auto scroll-smooth pb-2 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+            >
+              {NEWS_EVENTS.map((item) => (
+                <div
+                  key={item.id}
+                  className={`${styles.card} w-[85%] shrink-0 snap-start overflow-hidden rounded-2xl sm:w-[calc((100%-4rem)/3)]`}
+                >
                 <div className="group relative aspect-[16/10] overflow-hidden">
                   <img
                     src={item.image}
@@ -147,6 +152,7 @@ export default function NewsEvents() {
                 </div>
               </div>
             ))}
+            </div>
           </div>
 
           <button
