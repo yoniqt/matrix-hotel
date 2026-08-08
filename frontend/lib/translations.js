@@ -38,6 +38,7 @@ export const TRANSLATIONS = {
     checkOut: "Check-out:",
     lateCheckoutHours: "Late Checkout Hours:",
     lateCheckoutFee: "Late Checkout Fee:",
+    ourLocation: "Our Location",
   },
   Filipino: {
     tagline: "Karanasang Maluho at Komportable",
@@ -73,6 +74,7 @@ export const TRANSLATIONS = {
     checkOut: "Check-out:",
     lateCheckoutHours: "Oras ng Late Checkout:",
     lateCheckoutFee: "Bayad sa Late Checkout:",
+    ourLocation: "Ang Aming Lokasyon",
   },
   "中文 (Chinese)": {
     tagline: "尽享奢华与舒适",
@@ -107,6 +109,7 @@ export const TRANSLATIONS = {
     checkOut: "退房：",
     lateCheckoutHours: "延迟退房时间：",
     lateCheckoutFee: "延迟退房费用：",
+    ourLocation: "我们的位置",
   },
   "日本語 (Japanese)": {
     tagline: "ラグジュアリーと快適さを",
@@ -141,6 +144,7 @@ export const TRANSLATIONS = {
     checkOut: "チェックアウト：",
     lateCheckoutHours: "レイトチェックアウト可能時間：",
     lateCheckoutFee: "レイトチェックアウト料金：",
+    ourLocation: "アクセス",
   },
   "한국어 (Korean)": {
     tagline: "럭셔리와 편안함을 만나보세요",
@@ -175,6 +179,7 @@ export const TRANSLATIONS = {
     checkOut: "체크아웃:",
     lateCheckoutHours: "레이트 체크아웃 가능 시간:",
     lateCheckoutFee: "레이트 체크아웃 요금:",
+    ourLocation: "오시는 길",
   },
 };
 

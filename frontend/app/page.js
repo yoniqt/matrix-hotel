@@ -363,6 +363,22 @@ export default function Home() {
         )}
       </div>
 
+      {/* Location - dummy address for now, placeholder for the real hotel */}
+      <div className="mx-auto max-w-5xl px-6 pb-16">
+        <h2 className="text-center text-2xl font-bold text-zinc-900">
+          {t("ourLocation")}
+        </h2>
+        <div className="mt-8 overflow-hidden rounded-2xl border border-zinc-200 shadow-sm">
+          <iframe
+            title="Hotel location map"
+            src="https://www.google.com/maps?q=Pinacpinacan,+San+Rafael,+Bulacan,+Philippines&output=embed"
+            className="h-[420px] w-full"
+            loading="lazy"
+            referrerPolicy="no-referrer-when-downgrade"
+          />
+        </div>
+      </div>
+
       <Footer />
     </main>
   );
