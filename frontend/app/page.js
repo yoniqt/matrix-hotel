@@ -404,43 +404,47 @@ export default function Home() {
 
       {/* Services & Utilities */}
       <div className="mx-auto max-w-5xl px-6 pb-16">
-        <p className="text-center text-xs font-semibold tracking-widest text-amber-600 uppercase">
-          {t("featuredLabel")}
-        </p>
-        <h2 className="mt-1 text-center text-2xl font-bold tracking-wide text-zinc-900 uppercase">
-          {t("servicesUtilities")}
-        </h2>
-        <div className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-          {SERVICES.map((service) => (
-            <div
-              key={service.key}
-              className="flex items-center gap-4 rounded-xl border border-zinc-200 bg-white p-5 shadow-sm"
-            >
-              <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-amber-100 text-2xl">
-                {service.icon}
+        <div className="rounded-2xl border border-zinc-200 bg-zinc-100/60 p-6 sm:p-10">
+          <p className="text-center text-xs font-semibold tracking-widest text-amber-600 uppercase">
+            {t("featuredLabel")}
+          </p>
+          <h2 className="mt-1 text-center text-2xl font-bold tracking-wide text-zinc-900 uppercase">
+            {t("servicesUtilities")}
+          </h2>
+          <div className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+            {SERVICES.map((service) => (
+              <div
+                key={service.key}
+                className="flex items-center gap-4 rounded-xl border border-zinc-200 bg-white p-5 shadow-sm"
+              >
+                <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-amber-100 text-2xl">
+                  {service.icon}
+                </div>
+                <div>
+                  <p className="font-semibold text-zinc-900">{service.name}</p>
+                  <p className="text-sm text-zinc-500">{service.description}</p>
+                </div>
               </div>
-              <div>
-                <p className="font-semibold text-zinc-900">{service.name}</p>
-                <p className="text-sm text-zinc-500">{service.description}</p>
-              </div>
-            </div>
-          ))}
+            ))}
+          </div>
         </div>
       </div>
 
       {/* Location - dummy address for now, placeholder for the real hotel */}
       <div className="mx-auto max-w-5xl px-6 pb-16">
-        <h2 className="text-center text-2xl font-bold text-zinc-900">
-          {t("ourLocation")}
-        </h2>
-        <div className="mt-8 overflow-hidden rounded-2xl border border-zinc-200 shadow-sm">
-          <iframe
-            title="Hotel location map"
-            src="https://www.google.com/maps?q=15.0016,120.9552&z=16&output=embed"
-            className="h-[420px] w-full"
-            loading="lazy"
-            referrerPolicy="no-referrer-when-downgrade"
-          />
+        <div className="rounded-2xl border border-zinc-200 bg-zinc-100/60 p-6 sm:p-10">
+          <h2 className="text-center text-2xl font-bold text-zinc-900">
+            {t("ourLocation")}
+          </h2>
+          <div className="mt-8 overflow-hidden rounded-2xl border border-zinc-200 shadow-sm">
+            <iframe
+              title="Hotel location map"
+              src="https://www.google.com/maps?q=15.0016,120.9552&z=16&output=embed"
+              className="h-[420px] w-full"
+              loading="lazy"
+              referrerPolicy="no-referrer-when-downgrade"
+            />
+          </div>
         </div>
       </div>
 
