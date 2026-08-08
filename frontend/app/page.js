@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import DatePicker from "./ui/date-picker";
+import HeroCarousel from "./ui/hero-carousel";
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL;
 
@@ -111,15 +112,21 @@ export default function Home() {
 
   return (
     <main className="min-h-screen bg-zinc-50">
+      {/* Top contact bar */}
+      <div className="flex items-center justify-between bg-zinc-900 px-8 py-2 text-xs text-zinc-300">
+        <div className="flex items-center gap-4">
+          <span>📞 +63 900 000 0000</span>
+          <span className="hidden sm:inline">✉️ stay@thematrixhotel.com</span>
+        </div>
+        <div className="flex items-center gap-4">
+          <span>Contact Us</span>
+          <span>🇬🇧 English</span>
+        </div>
+      </div>
+
       {/* Hero */}
       <div className="relative flex min-h-[520px] flex-col">
-        <div
-          className="absolute inset-0 bg-cover bg-center"
-          style={{
-            backgroundImage:
-              "url('https://picsum.photos/seed/tropical-resort-pool/1600/900')",
-          }}
-        />
+        <HeroCarousel />
         <div className="absolute inset-0 bg-black/40" />
 
         <nav className="relative z-10 flex items-center justify-between px-8 py-6 text-white">
@@ -176,8 +183,62 @@ export default function Home() {
         </form>
       </div>
 
+      {/* Showcase - always visible, fills the page before anyone searches */}
+      {searchStatus === "idle" && (
+        <div className="mx-auto max-w-5xl px-6 pt-24 pb-4">
+          <div className="grid gap-8 sm:grid-cols-3">
+            <div className="text-center">
+              <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-full bg-amber-100 text-2xl">
+                🏊
+              </div>
+              <h3 className="mt-3 font-semibold">Infinity Pool</h3>
+              <p className="mt-1 text-sm text-zinc-500">
+                Relax by our rooftop infinity pool with a stunning city view.
+              </p>
+            </div>
+            <div className="text-center">
+              <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-full bg-amber-100 text-2xl">
+                🛏️
+              </div>
+              <h3 className="mt-3 font-semibold">Luxury Rooms</h3>
+              <p className="mt-1 text-sm text-zinc-500">
+                Standard, Deluxe, and Suite rooms designed for real comfort.
+              </p>
+            </div>
+            <div className="text-center">
+              <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-full bg-amber-100 text-2xl">
+                🍽️
+              </div>
+              <h3 className="mt-3 font-semibold">Fine Dining</h3>
+              <p className="mt-1 text-sm text-zinc-500">
+                On-site restaurant serving local and international cuisine.
+              </p>
+            </div>
+          </div>
+
+          <div className="mt-16 grid gap-6 sm:grid-cols-3">
+            {["Standard", "Deluxe", "Suite"].map((type) => (
+              <div
+                key={type}
+                className="overflow-hidden rounded-xl border border-zinc-200 bg-white shadow-sm"
+              >
+                <img
+                  src={
+                    ROOM_TYPE_IMAGES[type] ||
+                    `https://picsum.photos/seed/room-${type}/600/400`
+                  }
+                  alt={type}
+                  className="h-40 w-full object-cover"
+                />
+                <p className="p-4 text-center font-semibold">{type} Room</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
+
       {/* Results */}
-      <div className="mx-auto max-w-5xl px-6 pt-20 pb-16">
+      <div className="mx-auto max-w-5xl px-6 pt-16 pb-16">
         {searchStatus === "idle" && (
           <p className="text-center text-zinc-500">
             Pick your check-in and check-out dates above to see available rooms.
