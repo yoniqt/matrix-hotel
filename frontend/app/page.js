@@ -69,6 +69,45 @@ const AMENITIES = [
   },
 ];
 
+const SERVICES = [
+  {
+    key: "wifi",
+    icon: "📶",
+    name: "Free WiFi",
+    description: "High-speed internet throughout the hotel",
+  },
+  {
+    key: "parking",
+    icon: "🅿️",
+    name: "Free Parking",
+    description: "Secure on-site parking for all guests",
+  },
+  {
+    key: "frontdesk",
+    icon: "🛎️",
+    name: "24/7 Front Desk",
+    description: "Round-the-clock assistance whenever you need it",
+  },
+  {
+    key: "laundry",
+    icon: "🧺",
+    name: "Laundry Service",
+    description: "Same-day laundry and dry cleaning",
+  },
+  {
+    key: "transfer",
+    icon: "🚐",
+    name: "Airport Transfer",
+    description: "Convenient pick-up and drop-off service",
+  },
+  {
+    key: "roomservice",
+    icon: "🍽️",
+    name: "Room Service",
+    description: "In-room dining available around the clock",
+  },
+];
+
 export default function Home() {
   const { currency } = useCurrency();
   const { t } = useLanguage();
@@ -171,7 +210,7 @@ export default function Home() {
           Rooms are intentionally NOT shown here - they only appear after a
           date search, so this section is purely about hotel amenities. */}
       {searchStatus === "idle" && (
-        <div className="px-10 pt-24 pb-4">
+        <div className="mx-auto max-w-5xl px-10 pt-24 pb-4">
           <div className="grid gap-8 sm:grid-cols-3">
             <div className="text-center">
               <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-amber-100 text-3xl">
@@ -361,6 +400,32 @@ export default function Home() {
             ))}
           </div>
         )}
+      </div>
+
+      {/* Services & Utilities */}
+      <div className="mx-auto max-w-5xl px-6 pb-16">
+        <p className="text-center text-xs font-semibold tracking-widest text-amber-600 uppercase">
+          {t("featuredLabel")}
+        </p>
+        <h2 className="mt-1 text-center text-2xl font-bold tracking-wide text-zinc-900 uppercase">
+          {t("servicesUtilities")}
+        </h2>
+        <div className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+          {SERVICES.map((service) => (
+            <div
+              key={service.key}
+              className="flex items-center gap-4 rounded-xl border border-zinc-200 bg-white p-5 shadow-sm"
+            >
+              <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-amber-100 text-2xl">
+                {service.icon}
+              </div>
+              <div>
+                <p className="font-semibold text-zinc-900">{service.name}</p>
+                <p className="text-sm text-zinc-500">{service.description}</p>
+              </div>
+            </div>
+          ))}
+        </div>
       </div>
 
       {/* Location - dummy address for now, placeholder for the real hotel */}
