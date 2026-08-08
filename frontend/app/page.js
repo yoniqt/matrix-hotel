@@ -430,30 +430,35 @@ export default function Home() {
       </div>
 
       {/* Services & Utilities */}
-      <div className="mx-auto max-w-6xl px-6 pb-16">
-        <div className="rounded-2xl border border-zinc-800 bg-zinc-900/60 p-6 sm:p-10">
-          <p className="text-center text-xs font-semibold tracking-widest text-amber-400 uppercase">
-            {t("featuredLabel")}
-          </p>
-          <h2 className="mt-1 text-center text-2xl font-bold tracking-wide text-zinc-100 uppercase">
-            {t("servicesUtilities")}
-          </h2>
-          <div className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-            {SERVICES.map((service) => (
-              <div
-                key={service.key}
-                className="flex items-center gap-4 rounded-xl border border-zinc-800 bg-zinc-950/60 p-5 shadow-sm"
-              >
-                <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-amber-500/10 text-2xl">
-                  {service.icon}
-                </div>
-                <div>
-                  <p className="font-semibold text-zinc-100">{service.name}</p>
-                  <p className="text-sm text-zinc-400">{service.description}</p>
-                </div>
+      <div className="mx-auto max-w-6xl px-6 py-16 sm:py-24">
+        <p className="text-center text-xs font-semibold tracking-[0.3em] text-amber-400 uppercase">
+          {t("featuredLabel")}
+        </p>
+        <h2 className="mt-2 text-center text-2xl font-bold tracking-wide text-zinc-100 uppercase sm:text-3xl">
+          {t("servicesUtilities")}
+        </h2>
+
+        <div className="mt-12 grid gap-6 sm:grid-cols-2 sm:gap-8 lg:grid-cols-3">
+          {SERVICES.map((service) => (
+            <div
+              key={service.key}
+              className="group relative flex items-center gap-4 rounded-2xl border border-white/[0.05] bg-white/[0.02] p-6 backdrop-blur-md transition-all duration-300 hover:-translate-y-1 hover:border-amber-400/30 hover:shadow-[0_0_30px_-5px_rgba(245,158,11,0.25)] sm:p-8"
+            >
+              <div className="pointer-events-none absolute inset-0 rounded-2xl bg-gradient-to-br from-amber-400/[0.06] to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
+
+              <div className="relative flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl bg-gradient-to-br from-amber-400/20 to-amber-600/5 text-2xl ring-1 ring-amber-400/10">
+                {service.icon}
               </div>
-            ))}
-          </div>
+              <div className="relative">
+                <p className="text-base font-semibold text-zinc-100">
+                  {service.name}
+                </p>
+                <p className="mt-1 text-sm text-zinc-400">
+                  {service.description}
+                </p>
+              </div>
+            </div>
+          ))}
         </div>
       </div>
 
