@@ -42,23 +42,38 @@ export default function Footer() {
               <a
                 href="#"
                 aria-label="Facebook"
-                className="flex h-9 w-9 items-center justify-center rounded-full bg-zinc-800 text-sm transition-colors hover:bg-zinc-700"
+                className="flex h-10 w-10 items-center justify-center rounded-full bg-blue-600 text-lg font-bold text-white transition-transform hover:scale-105"
               >
-                📘
+                f
               </a>
               <a
                 href="#"
                 aria-label="Instagram"
-                className="flex h-9 w-9 items-center justify-center rounded-full bg-zinc-800 text-sm transition-colors hover:bg-zinc-700"
+                className="flex h-10 w-10 items-center justify-center rounded-full bg-gradient-to-br from-purple-600 via-pink-500 to-orange-400 text-white transition-transform hover:scale-105"
               >
-                📸
+                <svg
+                  viewBox="0 0 24 24"
+                  fill="currentColor"
+                  className="h-5 w-5"
+                >
+                  <path d="M12 2c2.7 0 3.05.01 4.12.06 1.06.05 1.79.22 2.43.47.66.26 1.21.6 1.76 1.15.55.55.9 1.1 1.15 1.76.25.64.42 1.37.47 2.43C21.99 8.95 22 9.3 22 12s-.01 3.05-.06 4.12c-.05 1.06-.22 1.79-.47 2.43-.26.66-.6 1.21-1.15 1.76-.55.55-1.1.9-1.76 1.15-.64.25-1.37.42-2.43.47C15.05 21.99 14.7 22 12 22s-3.05-.01-4.12-.06c-1.06-.05-1.79-.22-2.43-.47-.66-.26-1.21-.6-1.76-1.15-.55-.55-.9-1.1-1.15-1.76-.25-.64-.42-1.37-.47-2.43C2.01 15.05 2 14.7 2 12s.01-3.05.06-4.12c.05-1.06.22-1.79.47-2.43.26-.66.6-1.21 1.15-1.76.55-.55 1.1-.9 1.76-1.15.64-.25 1.37-.42 2.43-.47C8.95 2.01 9.3 2 12 2zm0 5a5 5 0 1 0 0 10 5 5 0 0 0 0-10zm0 8.2a3.2 3.2 0 1 1 0-6.4 3.2 3.2 0 0 1 0 6.4zm5.2-8.4a1.2 1.2 0 1 1 0-2.4 1.2 1.2 0 0 1 0 2.4z" />
+                </svg>
               </a>
               <a
                 href="mailto:stay@thematrixhotel.com"
                 aria-label="Email"
-                className="flex h-9 w-9 items-center justify-center rounded-full bg-zinc-800 text-sm transition-colors hover:bg-zinc-700"
+                className="flex h-10 w-10 items-center justify-center rounded-full bg-amber-500 text-white transition-transform hover:scale-105"
               >
-                ✉️
+                <svg
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  className="h-5 w-5"
+                >
+                  <rect x="3" y="5" width="18" height="14" rx="2" />
+                  <path d="m3 7 9 6 9-6" />
+                </svg>
               </a>
             </div>
           </div>
@@ -68,14 +83,17 @@ export default function Footer() {
               Accepted Cards
             </p>
             <div className="mt-3 flex justify-center gap-2">
-              <span className="rounded bg-zinc-800 px-2 py-1 text-xs font-semibold">
+              <span className="flex h-8 items-center rounded bg-white px-3 text-sm font-black tracking-tight text-blue-700 italic">
                 VISA
               </span>
-              <span className="rounded bg-zinc-800 px-2 py-1 text-xs font-semibold">
-                Mastercard
+              <span className="flex h-8 w-12 items-center justify-center rounded bg-white">
+                <span className="flex items-center">
+                  <span className="h-5 w-5 rounded-full bg-red-500" />
+                  <span className="-ml-2 h-5 w-5 rounded-full bg-amber-400 opacity-90" />
+                </span>
               </span>
-              <span className="rounded bg-zinc-800 px-2 py-1 text-xs font-semibold">
-                Amex
+              <span className="flex h-8 items-center rounded bg-blue-800 px-3 text-xs font-bold text-white">
+                AMEX
               </span>
             </div>
           </div>
