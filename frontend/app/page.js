@@ -471,12 +471,12 @@ export default function Home() {
           {t("newsEvents")}
         </h2>
 
-        <div className="mt-10 flex items-center gap-4 sm:gap-6">
+        <div className="mt-10 flex items-start gap-4 sm:gap-6">
           <button
             type="button"
             onClick={() => scrollNews(-1)}
             aria-label="Previous"
-            className="hidden shrink-0 rounded-full border border-white/10 bg-zinc-900/50 p-3 text-zinc-300 backdrop-blur-sm transition-all hover:bg-amber-500 hover:text-black sm:flex"
+            className="mt-24 hidden shrink-0 rounded-full border border-white/10 bg-zinc-900/50 p-4 text-xl text-zinc-300 backdrop-blur-sm transition-all hover:bg-amber-500 hover:text-black sm:flex"
           >
             ‹
           </button>
@@ -529,7 +529,7 @@ export default function Home() {
             type="button"
             onClick={() => scrollNews(1)}
             aria-label="Next"
-            className="hidden shrink-0 rounded-full border border-white/10 bg-zinc-900/50 p-3 text-zinc-300 backdrop-blur-sm transition-all hover:bg-amber-500 hover:text-black sm:flex"
+            className="mt-24 hidden shrink-0 rounded-full border border-white/10 bg-zinc-900/50 p-4 text-xl text-zinc-300 backdrop-blur-sm transition-all hover:bg-amber-500 hover:text-black sm:flex"
           >
             ›
           </button>
