@@ -225,35 +225,17 @@ export default function Home() {
           </div>
 
           <div className="mt-16 grid gap-6 sm:grid-cols-3">
-            <div className="overflow-hidden rounded-xl border border-zinc-200 bg-white shadow-sm">
-              <img
-                src="https://picsum.photos/seed/hotel-gym/600/400"
-                alt="Hotel gym"
-                className="h-44 w-full object-cover"
-              />
-              <p className="p-4 text-center text-lg font-semibold text-zinc-900">
-                Gym
-              </p>
+            <div className="flex h-44 flex-col items-center justify-center gap-2 rounded-xl border border-zinc-200 bg-gradient-to-br from-amber-50 to-amber-100 shadow-sm">
+              <span className="text-5xl">🏋️</span>
+              <p className="text-lg font-semibold text-zinc-900">Gym</p>
             </div>
-            <div className="overflow-hidden rounded-xl border border-zinc-200 bg-white shadow-sm">
-              <img
-                src="https://picsum.photos/seed/hotel-pool-day/600/400"
-                alt="Hotel pool"
-                className="h-44 w-full object-cover"
-              />
-              <p className="p-4 text-center text-lg font-semibold text-zinc-900">
-                Pool
-              </p>
+            <div className="flex h-44 flex-col items-center justify-center gap-2 rounded-xl border border-zinc-200 bg-gradient-to-br from-sky-50 to-sky-100 shadow-sm">
+              <span className="text-5xl">🏊</span>
+              <p className="text-lg font-semibold text-zinc-900">Pool</p>
             </div>
-            <div className="overflow-hidden rounded-xl border border-zinc-200 bg-white shadow-sm">
-              <img
-                src="https://picsum.photos/seed/hotel-rooftop-bar/600/400"
-                alt="Hotel bar"
-                className="h-44 w-full object-cover"
-              />
-              <p className="p-4 text-center text-lg font-semibold text-zinc-900">
-                Bar
-              </p>
+            <div className="flex h-44 flex-col items-center justify-center gap-2 rounded-xl border border-zinc-200 bg-gradient-to-br from-rose-50 to-rose-100 shadow-sm">
+              <span className="text-5xl">🍸</span>
+              <p className="text-lg font-semibold text-zinc-900">Bar</p>
             </div>
           </div>
         </div>
