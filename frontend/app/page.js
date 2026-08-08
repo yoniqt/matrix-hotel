@@ -29,6 +29,14 @@ const AMENITIES = [
     image: "/images/amenities/gym.jpg",
     hours: "8:00 AM – 5:00 PM",
     note: null,
+    location: "2nd Floor",
+    description:
+      "State-of-the-art fitness equipment with floor-to-ceiling views.",
+    features: [
+      "Free weights & cardio machines",
+      "Personal trainers available on request",
+      "Fresh towels provided",
+    ],
   },
   {
     key: "pool",
@@ -36,6 +44,13 @@ const AMENITIES = [
     image: "/images/amenities/pool.jpg",
     hours: "8:00 AM – 11:00 PM",
     note: null,
+    location: "Rooftop, 15th Floor",
+    description: "Unwind at our rooftop infinity pool overlooking the city.",
+    features: [
+      "Heated year-round",
+      "Poolside food & drink service",
+      "Kids' hours: 8:00 AM – 6:00 PM",
+    ],
   },
   {
     key: "bar",
@@ -43,6 +58,13 @@ const AMENITIES = [
     image: "/images/amenities/bar.jpg",
     hours: "6:00 PM – 12:00 AM",
     note: "Happy Hour: 8:00 PM – 10:00 PM",
+    location: "Rooftop, 16th Floor",
+    description: "Handcrafted cocktails and skyline views after dark.",
+    features: [
+      "Live music on weekends",
+      "Smart casual dress code",
+      "Reservations recommended",
+    ],
   },
 ];
 
@@ -278,17 +300,22 @@ export default function Home() {
       {/* Amenity details modal */}
       {selectedAmenity && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 px-4">
-          <div className="w-full max-w-sm overflow-hidden rounded-2xl bg-white">
+          <div className="max-h-[85vh] w-full max-w-lg overflow-y-auto rounded-2xl bg-white">
             <img
               src={selectedAmenity.image}
               alt={selectedAmenity.name}
-              className="h-48 w-full object-cover"
+              className="h-72 w-full object-cover"
             />
-            <div className="p-6">
-              <div className="flex items-center justify-between">
-                <h2 className="text-xl font-bold text-zinc-900">
-                  {selectedAmenity.name}
-                </h2>
+            <div className="p-8">
+              <div className="flex items-start justify-between">
+                <div>
+                  <h2 className="text-2xl font-bold text-zinc-900">
+                    {selectedAmenity.name}
+                  </h2>
+                  <p className="mt-1 text-sm text-zinc-500">
+                    📍 {selectedAmenity.location}
+                  </p>
+                </div>
                 <button
                   onClick={() => setSelectedAmenity(null)}
                   className="text-2xl leading-none text-zinc-400"
@@ -296,17 +323,44 @@ export default function Home() {
                   ×
                 </button>
               </div>
-              <p className="mt-4 text-sm font-semibold text-zinc-500">
-                Open Hours
+
+              <p className="mt-4 text-zinc-700">{selectedAmenity.description}</p>
+
+              <div className="mt-6 grid grid-cols-2 gap-4">
+                <div>
+                  <p className="text-xs font-semibold uppercase tracking-wide text-zinc-500">
+                    Open Hours
+                  </p>
+                  <p className="text-lg font-semibold text-zinc-900">
+                    {selectedAmenity.hours}
+                  </p>
+                </div>
+                {selectedAmenity.note && (
+                  <div>
+                    <p className="text-xs font-semibold uppercase tracking-wide text-zinc-500">
+                      Note
+                    </p>
+                    <p className="text-lg font-semibold text-amber-600">
+                      {selectedAmenity.note}
+                    </p>
+                  </div>
+                )}
+              </div>
+
+              <p className="mt-6 text-xs font-semibold uppercase tracking-wide text-zinc-500">
+                Highlights
               </p>
-              <p className="text-lg font-medium text-zinc-900">
-                {selectedAmenity.hours}
-              </p>
-              {selectedAmenity.note && (
-                <p className="mt-2 text-sm font-medium text-amber-600">
-                  {selectedAmenity.note}
-                </p>
-              )}
+              <ul className="mt-2 flex flex-col gap-2">
+                {selectedAmenity.features.map((feature) => (
+                  <li
+                    key={feature}
+                    className="flex items-start gap-2 text-zinc-700"
+                  >
+                    <span className="mt-1 text-amber-500">●</span>
+                    {feature}
+                  </li>
+                ))}
+              </ul>
             </div>
           </div>
         </div>
