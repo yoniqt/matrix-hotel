@@ -210,7 +210,7 @@ export default function Home() {
           Rooms are intentionally NOT shown here - they only appear after a
           date search, so this section is purely about hotel amenities. */}
       {searchStatus === "idle" && (
-        <div className="mx-auto max-w-5xl px-10 pt-24 pb-4">
+        <div className="mx-auto max-w-6xl px-10 pt-24 pb-4">
           <div className="grid gap-8 sm:grid-cols-3">
             <div className="text-center">
               <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-amber-100 text-3xl">
@@ -432,11 +432,11 @@ export default function Home() {
 
       {/* Location - dummy address for now, placeholder for the real hotel */}
       <div className="mx-auto max-w-5xl px-6 pb-16">
-        <div className="rounded-2xl border border-zinc-200 bg-zinc-100/60 p-6 sm:p-10">
-          <h2 className="text-center text-2xl font-bold text-zinc-900">
+        <div className="border border-zinc-200 bg-zinc-100/60">
+          <h2 className="pt-8 text-center text-2xl font-bold text-zinc-900">
             {t("ourLocation")}
           </h2>
-          <div className="mt-8 overflow-hidden rounded-2xl border border-zinc-200 shadow-sm">
+          <div className="mt-8 overflow-hidden border-t border-zinc-200">
             <iframe
               title="Hotel location map"
               src="https://www.google.com/maps?q=15.0016,120.9552&z=16&output=embed"
