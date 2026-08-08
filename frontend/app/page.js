@@ -233,19 +233,8 @@ export default function Home() {
           Rooms are intentionally NOT shown here - they only appear after a
           date search, so this section is purely about hotel amenities. */}
       {searchStatus === "idle" && (
-        <div className="mx-auto max-w-7xl px-6 pt-24 pb-4">
+        <div className="px-10 pt-24 pb-4">
           <div className="grid gap-8 sm:grid-cols-3">
-            <div className="text-center">
-              <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-amber-100 text-3xl">
-                🏊
-              </div>
-              <h3 className="mt-4 text-xl font-bold text-zinc-900">
-                Infinity Pool
-              </h3>
-              <p className="mt-1 text-sm text-zinc-600">
-                Relax by our rooftop infinity pool with a stunning city view.
-              </p>
-            </div>
             <div className="text-center">
               <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-amber-100 text-3xl">
                 🏋️
@@ -255,6 +244,17 @@ export default function Home() {
               </h3>
               <p className="mt-1 text-sm text-zinc-600">
                 Fully equipped 24-hour gym for guests at any time of day.
+              </p>
+            </div>
+            <div className="text-center">
+              <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-amber-100 text-3xl">
+                🏊
+              </div>
+              <h3 className="mt-4 text-xl font-bold text-zinc-900">
+                Infinity Pool
+              </h3>
+              <p className="mt-1 text-sm text-zinc-600">
+                Relax by our rooftop infinity pool with a stunning city view.
               </p>
             </div>
             <div className="text-center">
@@ -279,7 +279,7 @@ export default function Home() {
                 <img
                   src={amenity.image}
                   alt={`Hotel ${amenity.name.toLowerCase()}`}
-                  className="h-64 w-full object-cover"
+                  className="h-80 w-full object-cover"
                 />
                 <div className="p-5 text-center">
                   <p className="text-xl font-semibold text-zinc-900">
@@ -393,13 +393,13 @@ export default function Home() {
                   className="h-44 w-full object-cover"
                 />
                 <div className="p-5">
-                  <h2 className="text-lg font-semibold">
+                  <h2 className="text-lg font-semibold text-zinc-900">
                     Room {room.room_number} — {room.room_type}
                   </h2>
                   <p className="mt-1 text-sm text-zinc-500">
                     Up to {room.capacity} guests
                   </p>
-                  <p className="mt-2 text-lg font-bold">
+                  <p className="mt-2 text-lg font-bold text-zinc-900">
                     ₱{Number(room.price_per_night).toLocaleString()}{" "}
                     <span className="text-sm font-normal text-zinc-500">
                       / night
@@ -427,7 +427,7 @@ export default function Home() {
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 px-4">
           <div className="max-h-[90vh] w-full max-w-md overflow-y-auto rounded-2xl bg-white p-6">
             <div className="flex items-center justify-between">
-              <h2 className="text-xl font-semibold">
+              <h2 className="text-xl font-semibold text-zinc-900">
                 Book Room {selectedRoom.room_number}
               </h2>
               <button

@@ -41,7 +41,9 @@ export default function DatePicker({
       <button
         type="button"
         onClick={() => onOpenChange(!open)}
-        className="mt-1 w-full rounded-lg border border-zinc-300 px-3 py-2 text-left"
+        className={`mt-1 w-full rounded-lg border border-zinc-300 px-3 py-2 text-left font-medium ${
+          value ? "text-zinc-900" : "text-zinc-400"
+        }`}
       >
         {value || "Select date"}
       </button>
