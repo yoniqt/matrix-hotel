@@ -1,11 +1,12 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Link from "next/link";
 import DatePicker from "./ui/date-picker";
 import HeroCarousel from "./ui/hero-carousel";
 import Footer from "./ui/footer";
 import SiteHeader from "./ui/site-header";
+import WelcomeOverlay from "./ui/welcome-overlay";
 import { useCurrency } from "./currency-provider";
 import { useLanguage } from "./language-provider";
 import { formatPrice } from "../lib/currency";
@@ -138,6 +139,12 @@ export default function Home() {
 
   const [selectedAmenity, setSelectedAmenity] = useState(null);
 
+  const [showWelcome, setShowWelcome] = useState(true);
+  useEffect(() => {
+    const timer = setTimeout(() => setShowWelcome(false), 2200);
+    return () => clearTimeout(timer);
+  }, []);
+
   async function handleSearch(e) {
     e.preventDefault();
 
@@ -173,6 +180,8 @@ export default function Home() {
 
   return (
     <main className="min-h-screen bg-zinc-50">
+      <WelcomeOverlay show={showWelcome} />
+
       <SiteHeader />
 
       {/* Hero */}
