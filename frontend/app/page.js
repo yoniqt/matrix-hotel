@@ -28,6 +28,9 @@ const AMENITIES = [
   {
     key: "gym",
     name: "Gym",
+    title: "Fitness Gym",
+    tag: "01 / WELLNESS",
+    blurb: "Fully equipped 24-hour gym for guests at any time of day.",
     image: "/images/amenities/gym.jpg",
     hours: "8:00 AM – 5:00 PM",
     note: null,
@@ -43,6 +46,9 @@ const AMENITIES = [
   {
     key: "pool",
     name: "Pool",
+    title: "Infinity Pool",
+    tag: "02 / RELAXATION",
+    blurb: "Relax by our rooftop infinity pool with a stunning city view.",
     image: "/images/amenities/pool.jpg",
     hours: "8:00 AM – 11:00 PM",
     note: null,
@@ -57,6 +63,9 @@ const AMENITIES = [
   {
     key: "bar",
     name: "Bar",
+    title: "Rooftop Bar",
+    tag: "03 / NIGHTLIFE",
+    blurb: "Handcrafted cocktails and city views, open every evening.",
     image: "/images/amenities/bar.jpg",
     hours: "6:00 PM – 12:00 AM",
     note: "Happy Hour: 8:00 PM – 10:00 PM",
@@ -239,61 +248,38 @@ export default function Home() {
       {searchStatus === "idle" && (
         <div className="mx-auto max-w-[1680px] px-10 pt-24 pb-4">
           <div className="grid gap-8 sm:grid-cols-3">
-            <div className="text-center">
-              <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-amber-500/10 text-3xl">
-                🏋️
-              </div>
-              <h3 className="mt-4 text-xl font-bold text-zinc-100">
-                Fitness Gym
-              </h3>
-              <p className="mt-1 text-sm text-zinc-400">
-                Fully equipped 24-hour gym for guests at any time of day.
-              </p>
-            </div>
-            <div className="text-center">
-              <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-amber-500/10 text-3xl">
-                🏊
-              </div>
-              <h3 className="mt-4 text-xl font-bold text-zinc-100">
-                Infinity Pool
-              </h3>
-              <p className="mt-1 text-sm text-zinc-400">
-                Relax by our rooftop infinity pool with a stunning city view.
-              </p>
-            </div>
-            <div className="text-center">
-              <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-amber-500/10 text-3xl">
-                🍸
-              </div>
-              <h3 className="mt-4 text-xl font-bold text-zinc-100">
-                Rooftop Bar
-              </h3>
-              <p className="mt-1 text-sm text-zinc-400">
-                Handcrafted cocktails and city views, open every evening.
-              </p>
-            </div>
-          </div>
-
-          <div className="mt-16 grid gap-8 sm:grid-cols-3">
             {AMENITIES.map((amenity) => (
               <div
                 key={amenity.key}
-                className="overflow-hidden rounded-xl border border-zinc-800 bg-zinc-900 shadow-sm"
+                className="group relative aspect-[3/4] overflow-hidden rounded-2xl border border-white/[0.05]"
               >
                 <img
                   src={amenity.image}
                   alt={`Hotel ${amenity.name.toLowerCase()}`}
-                  className="h-72 w-full object-cover"
+                  className="absolute inset-0 h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
                 />
-                <div className="p-5 text-center">
-                  <p className="text-xl font-semibold text-zinc-100">
-                    {amenity.name}
+                <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent" />
+
+                <div className="absolute inset-x-0 bottom-0 p-6">
+                  <p className="text-xs font-semibold tracking-[0.2em] text-amber-400 uppercase">
+                    {amenity.tag}
+                  </p>
+                  <h3 className="mt-2 text-2xl font-bold tracking-wide text-white">
+                    {amenity.title}
+                  </h3>
+                  <p className="mt-2 text-sm text-zinc-300/90">
+                    {amenity.blurb}
                   </p>
                   <button
                     onClick={() => setSelectedAmenity(amenity)}
-                    className="mt-3 text-sm font-semibold text-amber-400 underline underline-offset-2"
+                    className="group/link mt-4 inline-flex items-center gap-1 text-sm font-semibold text-amber-400"
                   >
-                    View Details
+                    <span className="border-b border-transparent pb-0.5 group-hover/link:border-amber-400">
+                      View Details
+                    </span>
+                    <span className="transition-transform duration-300 group-hover/link:translate-x-1">
+                      →
+                    </span>
                   </button>
                 </div>
               </div>
