@@ -23,6 +23,22 @@ function roomImage(room) {
   return ROOM_TYPE_IMAGES[room.room_type] || "/images/rooms/standard.webp";
 }
 
+// Groups individual physical rooms (Room 101, Room 102, ...) into one card
+// per room TYPE, since guests book a type of room, not a specific numbered
+// room - two identical Standard rooms don't need two separate listings.
+function groupRoomsByType(rooms) {
+  const groups = new Map();
+  for (const room of rooms) {
+    if (!groups.has(room.room_type)) {
+      groups.set(room.room_type, { ...room, availableCount: 0, roomIds: [] });
+    }
+    const group = groups.get(room.room_type);
+    group.availableCount += 1;
+    group.roomIds.push(room.id);
+  }
+  return Array.from(groups.values());
+}
+
 const AMENITIES = [
   {
     key: "gym",
@@ -382,22 +398,26 @@ export default function Home() {
 
         {rooms && rooms.length > 0 && (
           <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-            {rooms.map((room) => (
+            {groupRoomsByType(rooms).map((room) => (
               <div
-                key={room.id}
+                key={room.room_type}
                 className="overflow-hidden rounded-xl border border-zinc-200 bg-white shadow-sm"
               >
                 <img
                   src={roomImage(room)}
-                  alt={`Room ${room.room_number}`}
+                  alt={room.room_type}
                   className="h-44 w-full object-cover"
                 />
                 <div className="p-5">
                   <h2 className="text-lg font-semibold text-zinc-900">
-                    Room {room.room_number} — {room.room_type}
+                    {room.room_type} Room
                   </h2>
                   <p className="mt-1 text-sm text-zinc-500">
                     Up to {room.capacity} guests
+                  </p>
+                  <p className="text-sm font-medium text-emerald-600">
+                    {room.availableCount}{" "}
+                    {room.availableCount === 1 ? "room" : "rooms"} available
                   </p>
                   <p className="mt-2 text-lg font-bold text-zinc-900">
                     ₱{Number(room.price_per_night).toLocaleString()}{" "}
@@ -407,7 +427,7 @@ export default function Home() {
                   </p>
                   <button
                     onClick={() => {
-                      setSelectedRoom(room);
+                      setSelectedRoom({ ...room, id: room.roomIds[0] });
                       setBookingStatus("idle");
                       setBookingMessage("");
                     }}
@@ -428,7 +448,7 @@ export default function Home() {
           <div className="max-h-[90vh] w-full max-w-md overflow-y-auto rounded-2xl bg-white p-6">
             <div className="flex items-center justify-between">
               <h2 className="text-xl font-semibold text-zinc-900">
-                Book Room {selectedRoom.room_number}
+                Book {selectedRoom.room_type} Room
               </h2>
               <button
                 onClick={() => setSelectedRoom(null)}
