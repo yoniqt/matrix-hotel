@@ -125,7 +125,7 @@ const NEWS_EVENTS = [
     date: "OCT 16",
     title: "Neon & Beats Rooftop Party",
     desc: "Sariwain ang gabi kasama ang mga sikat na guest DJs, nakabibighaning neon lighting transitions, at free-flowing crafted cocktails.",
-    image: "/images/amenities/bar.jpg",
+    image: "/images/events/rooftop.jpg",
   },
   {
     id: 2,
@@ -133,7 +133,7 @@ const NEWS_EVENTS = [
     date: "OCT 28",
     title: "Elegance Wine Tasting Soirée",
     desc: "Isang intimate na gabi para sa mga wine connoisseurs. Tikman ang mga world-class vintage wines na ipinares sa mga artisan cheeses.",
-    image: "/images/hero/lobby.webp",
+    image: "/images/events/wine.jpg",
   },
   {
     id: 3,
@@ -141,7 +141,31 @@ const NEWS_EVENTS = [
     date: "NOV 05",
     title: "Mindfulness & Spa Retreat",
     desc: "I-reset ang iyong isip at katawan sa isang buong araw ng sound healing meditation, premium aromatherapy, at organic herbal high tea.",
-    image: "/images/amenities/pool.jpg",
+    image: "/images/events/spa-retreat.jpg",
+  },
+  {
+    id: 4,
+    tag: "04 / FAMILY",
+    date: "NOV 15",
+    title: "Family Fun Weekend Getaway",
+    desc: "Isang masayang weekend para sa buong pamilya - may mga laro, movie night, at masarap na family-style dinner na tiyak na magugustuhan ng lahat.",
+    image: "/images/rooms/family.jpg",
+  },
+  {
+    id: 5,
+    tag: "05 / FITNESS",
+    date: "NOV 22",
+    title: "Sunrise Yoga & Fitness Bootcamp",
+    desc: "Simulan ang umaga nang tama sa isang refreshing yoga session at high-energy fitness bootcamp kasama ang aming certified trainers.",
+    image: "/images/amenities/gym.jpg",
+  },
+  {
+    id: 6,
+    tag: "06 / SEASONAL",
+    date: "DEC 31",
+    title: "Countdown to New Year Gala",
+    desc: "Salubungin ang bagong taon kasama ang live band, fireworks display, at isang gala dinner na hindi malilimutan.",
+    image: "/images/hero/exterior.jpg",
   },
 ];
 
