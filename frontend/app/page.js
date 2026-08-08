@@ -22,6 +22,30 @@ function roomImage(room) {
   return ROOM_TYPE_IMAGES[room.room_type] || "/images/rooms/standard.webp";
 }
 
+const AMENITIES = [
+  {
+    key: "gym",
+    name: "Gym",
+    image: "/images/amenities/gym.jpg",
+    hours: "8:00 AM – 5:00 PM",
+    note: null,
+  },
+  {
+    key: "pool",
+    name: "Pool",
+    image: "/images/amenities/pool.jpg",
+    hours: "8:00 AM – 11:00 PM",
+    note: null,
+  },
+  {
+    key: "bar",
+    name: "Bar",
+    image: "/images/amenities/bar.jpg",
+    hours: "6:00 PM – 12:00 AM",
+    note: "Happy Hour: 8:00 PM – 10:00 PM",
+  },
+];
+
 export default function Home() {
   const [checkIn, setCheckIn] = useState("");
   const [checkOut, setCheckOut] = useState("");
@@ -39,6 +63,7 @@ export default function Home() {
   });
   const [bookingStatus, setBookingStatus] = useState("idle");
   const [bookingMessage, setBookingMessage] = useState("");
+  const [selectedAmenity, setSelectedAmenity] = useState(null);
 
   async function handleSearch(e) {
     e.preventDefault();
@@ -222,36 +247,66 @@ export default function Home() {
             </div>
           </div>
 
-          <div className="mt-16 grid gap-6 sm:grid-cols-3">
-            <div className="overflow-hidden rounded-xl border border-zinc-200 bg-white shadow-sm">
-              <img
-                src="/images/amenities/gym.jpg"
-                alt="Hotel gym"
-                className="h-44 w-full object-cover"
-              />
-              <p className="p-4 text-center text-lg font-semibold text-zinc-900">
-                Gym
+          <div className="mt-16 grid gap-8 sm:grid-cols-3">
+            {AMENITIES.map((amenity) => (
+              <div
+                key={amenity.key}
+                className="overflow-hidden rounded-xl border border-zinc-200 bg-white shadow-sm"
+              >
+                <img
+                  src={amenity.image}
+                  alt={`Hotel ${amenity.name.toLowerCase()}`}
+                  className="h-64 w-full object-cover"
+                />
+                <div className="p-5 text-center">
+                  <p className="text-xl font-semibold text-zinc-900">
+                    {amenity.name}
+                  </p>
+                  <button
+                    onClick={() => setSelectedAmenity(amenity)}
+                    className="mt-3 text-sm font-semibold text-amber-600 underline underline-offset-2"
+                  >
+                    View Details
+                  </button>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
+
+      {/* Amenity details modal */}
+      {selectedAmenity && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 px-4">
+          <div className="w-full max-w-sm overflow-hidden rounded-2xl bg-white">
+            <img
+              src={selectedAmenity.image}
+              alt={selectedAmenity.name}
+              className="h-48 w-full object-cover"
+            />
+            <div className="p-6">
+              <div className="flex items-center justify-between">
+                <h2 className="text-xl font-bold text-zinc-900">
+                  {selectedAmenity.name}
+                </h2>
+                <button
+                  onClick={() => setSelectedAmenity(null)}
+                  className="text-2xl leading-none text-zinc-400"
+                >
+                  ×
+                </button>
+              </div>
+              <p className="mt-4 text-sm font-semibold text-zinc-500">
+                Open Hours
               </p>
-            </div>
-            <div className="overflow-hidden rounded-xl border border-zinc-200 bg-white shadow-sm">
-              <img
-                src="/images/amenities/pool.jpg"
-                alt="Hotel pool"
-                className="h-44 w-full object-cover"
-              />
-              <p className="p-4 text-center text-lg font-semibold text-zinc-900">
-                Pool
+              <p className="text-lg font-medium text-zinc-900">
+                {selectedAmenity.hours}
               </p>
-            </div>
-            <div className="overflow-hidden rounded-xl border border-zinc-200 bg-white shadow-sm">
-              <img
-                src="/images/amenities/bar.jpg"
-                alt="Hotel bar"
-                className="h-44 w-full object-cover"
-              />
-              <p className="p-4 text-center text-lg font-semibold text-zinc-900">
-                Bar
-              </p>
+              {selectedAmenity.note && (
+                <p className="mt-2 text-sm font-medium text-amber-600">
+                  {selectedAmenity.note}
+                </p>
+              )}
             </div>
           </div>
         </div>
