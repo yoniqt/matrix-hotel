@@ -120,19 +120,28 @@ const SERVICES = [
 
 const NEWS_EVENTS = [
   {
-    key: "bar",
+    id: 1,
+    tag: "01 / NIGHTLIFE",
+    date: "OCT 16",
+    title: "Neon & Beats Rooftop Party",
+    desc: "Sariwain ang gabi kasama ang mga sikat na guest DJs, nakabibighaning neon lighting transitions, at free-flowing crafted cocktails.",
     image: "/images/amenities/bar.jpg",
-    title: "Unwind at Our Rooftop Bar",
   },
   {
-    key: "pool",
-    image: "/images/amenities/pool.jpg",
-    title: "Dive Into Our Pool Season",
-  },
-  {
-    key: "lobby",
+    id: 2,
+    tag: "02 / CULINARY",
+    date: "OCT 28",
+    title: "Elegance Wine Tasting Soirée",
+    desc: "Isang intimate na gabi para sa mga wine connoisseurs. Tikman ang mga world-class vintage wines na ipinares sa mga artisan cheeses.",
     image: "/images/hero/lobby.webp",
-    title: "A Look Inside Our Lobby",
+  },
+  {
+    id: 3,
+    tag: "03 / WELLNESS",
+    date: "NOV 05",
+    title: "Mindfulness & Spa Retreat",
+    desc: "I-reset ang iyong isip at katawan sa isang buong araw ng sound healing meditation, premium aromatherapy, at organic herbal high tea.",
+    image: "/images/amenities/pool.jpg",
   },
 ];
 
@@ -464,25 +473,41 @@ export default function Home() {
             </a>
           </div>
         </div>
-        <div className="mt-10 grid gap-6 sm:grid-cols-3">
+        <div className="mt-10 grid gap-8 sm:grid-cols-3">
           {NEWS_EVENTS.map((item) => (
             <div
-              key={item.key}
-              className="overflow-hidden rounded-xl border border-zinc-800 bg-zinc-900 shadow-sm"
+              key={item.id}
+              className="group relative aspect-[3/4] overflow-hidden rounded-2xl border border-white/[0.05]"
             >
               <img
                 src={item.image}
                 alt={item.title}
-                className="h-56 w-full object-cover"
+                className="absolute inset-0 h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
               />
-              <div className="p-5 text-center">
-                <p className="font-semibold text-zinc-100">{item.title}</p>
-                <hr className="my-3 border-zinc-800" />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent" />
+
+              <span className="absolute top-4 left-4 rounded-full bg-black/60 px-3 py-1 text-xs font-semibold tracking-wide text-amber-400 backdrop-blur-sm">
+                {item.date}
+              </span>
+
+              <div className="absolute inset-x-0 bottom-0 p-6">
+                <p className="text-xs font-semibold tracking-[0.2em] text-amber-400 uppercase">
+                  {item.tag}
+                </p>
+                <h3 className="mt-2 text-xl font-bold tracking-wide text-white">
+                  {item.title}
+                </h3>
+                <p className="mt-2 text-sm text-zinc-300/90">{item.desc}</p>
                 <a
                   href="#"
-                  className="text-sm font-semibold text-amber-400 underline underline-offset-2"
+                  className="group/link mt-4 inline-flex items-center gap-1 text-sm font-semibold text-amber-400"
                 >
-                  {t("viewDetails")} →
+                  <span className="border-b border-transparent pb-0.5 group-hover/link:border-amber-400">
+                    {t("viewDetails")}
+                  </span>
+                  <span className="transition-transform duration-300 group-hover/link:translate-x-1">
+                    →
+                  </span>
                 </a>
               </div>
             </div>
