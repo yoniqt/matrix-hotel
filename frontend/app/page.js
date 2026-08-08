@@ -217,7 +217,7 @@ export default function Home() {
                 <img
                   src={amenity.image}
                   alt={`Hotel ${amenity.name.toLowerCase()}`}
-                  className="h-80 w-full object-cover"
+                  className="h-56 w-full object-cover"
                 />
                 <div className="p-5 text-center">
                   <p className="text-xl font-semibold text-zinc-900">
@@ -371,7 +371,7 @@ export default function Home() {
         <div className="mt-8 overflow-hidden rounded-2xl border border-zinc-200 shadow-sm">
           <iframe
             title="Hotel location map"
-            src="https://www.google.com/maps?q=Pinacpinacan,+San+Rafael,+Bulacan,+Philippines&output=embed"
+            src="https://www.google.com/maps?q=15.0016,120.9552&z=16&output=embed"
             className="h-[420px] w-full"
             loading="lazy"
             referrerPolicy="no-referrer-when-downgrade"
