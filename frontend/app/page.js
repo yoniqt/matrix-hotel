@@ -148,7 +148,7 @@ export default function Home() {
       </div>
 
       {/* Hero */}
-      <div className="relative flex min-h-[520px] flex-col">
+      <div className="relative flex min-h-[750px] flex-col">
         <HeroCarousel />
         <div className="absolute inset-0 bg-black/40" />
 
