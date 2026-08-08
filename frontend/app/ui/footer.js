@@ -1,7 +1,7 @@
 export default function Footer() {
   return (
-    <footer className="bg-zinc-900 px-6 py-12 text-zinc-300">
-      <nav className="flex flex-wrap items-center justify-center gap-x-8 gap-y-2 text-sm font-medium tracking-wide text-zinc-400 uppercase">
+    <footer className="bg-[var(--bg-secondary)] px-6 py-12 text-[var(--text-secondary)]">
+      <nav className="flex flex-wrap items-center justify-center gap-x-8 gap-y-2 text-sm font-medium tracking-wide text-[var(--text-secondary)] uppercase">
         <span>About Us</span>
         <span>Amenities</span>
         <span>Hotel Policy</span>
@@ -11,31 +11,37 @@ export default function Footer() {
       </nav>
 
       <div className="mt-10 text-center">
-        <p className="text-2xl font-bold text-amber-400 italic">
+        <p className="text-2xl font-bold text-[var(--accent-strong)] italic">
           The Matrix Hotel
         </p>
-        <p className="mt-1 text-xs tracking-widest text-zinc-500 uppercase">
+        <p className="mt-1 text-xs tracking-widest text-[var(--text-secondary)] uppercase">
           ★★★★★ Luxury &amp; Comfort
         </p>
       </div>
 
       <div className="mt-8 text-center text-sm">
         <p>
-          <span className="font-semibold text-zinc-200">Address:</span>{" "}
+          <span className="font-semibold text-[var(--text-primary)]">
+            Address:
+          </span>{" "}
           123 Bonifacio Global City, Taguig, Metro Manila, Philippines
         </p>
         <p className="mt-3">
-          <span className="font-semibold text-zinc-200">Phone:</span>{" "}
+          <span className="font-semibold text-[var(--text-primary)]">
+            Phone:
+          </span>{" "}
           +63 900 000 0000 &nbsp;|&nbsp;{" "}
-          <span className="font-semibold text-zinc-200">Email:</span>{" "}
+          <span className="font-semibold text-[var(--text-primary)]">
+            Email:
+          </span>{" "}
           stay@thematrixhotel.com
         </p>
       </div>
 
-      <div className="mx-auto mt-10 max-w-4xl border-t border-zinc-800 pt-8">
+      <div className="mx-auto mt-10 max-w-4xl border-t border-[var(--border-color)] pt-8">
         <div className="flex flex-col items-center justify-between gap-8 sm:flex-row">
           <div className="text-center sm:text-left">
-            <p className="text-xs font-semibold tracking-widest text-zinc-500 uppercase">
+            <p className="text-xs font-semibold tracking-widest text-[var(--text-secondary)] uppercase">
               Find us on
             </p>
             <div className="mt-3 flex justify-center gap-3 sm:justify-start">
@@ -79,7 +85,7 @@ export default function Footer() {
           </div>
 
           <div className="text-center">
-            <p className="text-xs font-semibold tracking-widest text-zinc-500 uppercase">
+            <p className="text-xs font-semibold tracking-widest text-[var(--text-secondary)] uppercase">
               Accepted Cards
             </p>
             <div className="mt-3 flex justify-center gap-2">
@@ -100,7 +106,7 @@ export default function Footer() {
         </div>
       </div>
 
-      <p className="mt-10 text-center text-xs text-zinc-600">
+      <p className="mt-10 text-center text-xs text-[var(--text-secondary)]">
         Copyright © 2026 The Matrix Hotel. All rights reserved.
       </p>
     </footer>

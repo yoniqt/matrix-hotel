@@ -172,7 +172,7 @@ export default function Home() {
   }
 
   return (
-    <main className="min-h-screen bg-zinc-950">
+    <main className="min-h-screen bg-[var(--bg-primary)]">
       <WelcomeOverlay show={showWelcome} />
 
       <SiteHeader />
@@ -194,7 +194,7 @@ export default function Home() {
         {/* Search widget, overlapping the bottom of the hero */}
         <form
           onSubmit={handleSearch}
-          className="relative z-10 mx-auto -mb-10 flex w-full max-w-3xl flex-col gap-4 rounded-2xl border border-zinc-800 bg-zinc-900 p-6 shadow-xl sm:flex-row sm:items-end"
+          className="relative z-10 mx-auto -mb-10 flex w-full max-w-3xl flex-col gap-4 rounded-2xl border border-[var(--border-color)] bg-[var(--bg-secondary)] p-6 shadow-xl sm:flex-row sm:items-end"
         >
           <div className="flex-1">
             <DatePicker
@@ -227,7 +227,7 @@ export default function Home() {
       </div>
 
       {searchStatus === "idle" && (
-        <p className="mt-16 px-6 text-center text-sm text-zinc-400">
+        <p className="mt-16 px-6 text-center text-sm text-[var(--text-secondary)]">
           {t("pickDatesHint")}
         </p>
       )}
@@ -281,7 +281,7 @@ export default function Home() {
       {/* Amenity details modal */}
       {selectedAmenity && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 px-4">
-          <div className="relative max-h-[85vh] w-full max-w-lg overflow-y-auto rounded-2xl border border-zinc-800 bg-zinc-900">
+          <div className="relative max-h-[85vh] w-full max-w-lg overflow-y-auto rounded-2xl border border-[var(--border-color)] bg-[var(--bg-secondary)]">
             <button
               onClick={() => setSelectedAmenity(null)}
               aria-label="Close"
@@ -295,46 +295,48 @@ export default function Home() {
               className="h-72 w-full object-cover"
             />
             <div className="p-8">
-              <h2 className="text-2xl font-bold text-zinc-100">
+              <h2 className="text-2xl font-bold text-[var(--text-primary)]">
                 {selectedAmenity.name}
               </h2>
-              <p className="mt-1 text-sm text-zinc-400">
+              <p className="mt-1 text-sm text-[var(--text-secondary)]">
                 📍 {selectedAmenity.location}
               </p>
 
-              <p className="mt-4 text-zinc-300">{selectedAmenity.description}</p>
+              <p className="mt-4 text-[var(--text-secondary)]">
+                {selectedAmenity.description}
+              </p>
 
               <div className="mt-6 grid grid-cols-2 gap-4">
                 <div>
-                  <p className="text-xs font-semibold uppercase tracking-wide text-zinc-500">
+                  <p className="text-xs font-semibold uppercase tracking-wide text-[var(--text-secondary)]">
                     Open Hours
                   </p>
-                  <p className="text-lg font-semibold text-zinc-100">
+                  <p className="text-lg font-semibold text-[var(--text-primary)]">
                     {selectedAmenity.hours}
                   </p>
                 </div>
                 {selectedAmenity.note && (
                   <div>
-                    <p className="text-xs font-semibold uppercase tracking-wide text-zinc-500">
+                    <p className="text-xs font-semibold uppercase tracking-wide text-[var(--text-secondary)]">
                       Note
                     </p>
-                    <p className="text-lg font-semibold text-amber-400">
+                    <p className="text-lg font-semibold text-[var(--accent-strong)]">
                       {selectedAmenity.note}
                     </p>
                   </div>
                 )}
               </div>
 
-              <p className="mt-6 text-xs font-semibold uppercase tracking-wide text-zinc-500">
+              <p className="mt-6 text-xs font-semibold uppercase tracking-wide text-[var(--text-secondary)]">
                 Highlights
               </p>
               <ul className="mt-2 flex flex-col gap-2">
                 {selectedAmenity.features.map((feature) => (
                   <li
                     key={feature}
-                    className="flex items-center gap-3 text-zinc-300"
+                    className="flex items-center gap-3 text-[var(--text-secondary)]"
                   >
-                    <span className="h-1.5 w-1.5 shrink-0 rounded-full bg-amber-500" />
+                    <span className="h-1.5 w-1.5 shrink-0 rounded-full bg-[var(--accent-color)]" />
                     {feature}
                   </li>
                 ))}
@@ -350,7 +352,7 @@ export default function Home() {
           <p className="text-center text-red-400">{searchMessage}</p>
         )}
         {rooms && rooms.length === 0 && (
-          <p className="text-center text-zinc-400">
+          <p className="text-center text-[var(--text-secondary)]">
             No rooms available for those dates. Try different dates.
           </p>
         )}
@@ -360,7 +362,7 @@ export default function Home() {
             {groupRoomsByType(rooms).map((room) => (
               <div
                 key={room.room_type}
-                className="overflow-hidden rounded-xl border border-zinc-800 bg-zinc-900 shadow-sm"
+                className="overflow-hidden rounded-xl border border-[var(--border-color)] bg-[var(--bg-secondary)] shadow-sm"
               >
                 <img
                   src={roomImage(room)}
@@ -368,28 +370,28 @@ export default function Home() {
                   className="h-44 w-full object-cover"
                 />
                 <div className="p-5">
-                  <h2 className="text-lg font-semibold text-zinc-100">
+                  <h2 className="text-lg font-semibold text-[var(--text-primary)]">
                     {room.room_type} Room
                   </h2>
-                  <p className="mt-1 text-sm text-zinc-400">
+                  <p className="mt-1 text-sm text-[var(--text-secondary)]">
                     Up to {room.capacity} guests
                   </p>
                   <p className="text-sm font-medium text-emerald-400">
                     {room.availableCount}{" "}
                     {room.availableCount === 1 ? "room" : "rooms"} available
                   </p>
-                  <p className="mt-2 text-sm text-zinc-400">
+                  <p className="mt-2 text-sm text-[var(--text-secondary)]">
                     {ROOM_TYPE_DESCRIPTIONS[room.room_type]}
                   </p>
-                  <p className="mt-2 text-lg font-bold text-zinc-100">
+                  <p className="mt-2 text-lg font-bold text-[var(--text-primary)]">
                     {formatPrice(room.price_per_night, currency)}{" "}
-                    <span className="text-sm font-normal text-zinc-500">
+                    <span className="text-sm font-normal text-[var(--text-secondary)]">
                       / night
                     </span>
                   </p>
                   <Link
                     href={`/rooms/${roomTypeToSlug(room.room_type)}?check_in=${checkIn}&check_out=${checkOut}`}
-                    className="mt-4 block w-full rounded-full bg-amber-500 px-5 py-2 text-center font-medium text-black transition-opacity hover:opacity-90"
+                    className="mt-4 block w-full rounded-full bg-[var(--accent-color)] px-5 py-2 text-center font-medium text-black transition-opacity hover:opacity-90"
                   >
                     {t("bookThisRoom")}
                   </Link>
@@ -401,17 +403,17 @@ export default function Home() {
       </div>
 
       {/* Services & Utilities */}
-      <section className="border-t border-b border-white/[0.04] bg-[#0d0d0d] py-24 sm:py-28">
+      <section className="border-t border-b border-[var(--border-color)] bg-[var(--bg-tertiary)] py-24 sm:py-28">
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
           <div className="lg:flex lg:items-start lg:gap-16">
             <div className="lg:sticky lg:top-24 lg:w-1/3">
-              <p className="text-xs font-semibold tracking-[0.3em] text-amber-400 uppercase">
+              <p className="text-xs font-semibold tracking-[0.3em] text-[var(--accent-strong)] uppercase">
                 {t("featuredLabel")}
               </p>
-              <h2 className="mt-4 text-4xl font-bold tracking-tight text-zinc-100 sm:text-5xl">
+              <h2 className="mt-4 text-4xl font-bold tracking-tight text-[var(--text-primary)] sm:text-5xl">
                 {t("servicesHeadline")}
               </h2>
-              <p className="mt-6 leading-relaxed text-zinc-400">
+              <p className="mt-6 leading-relaxed text-[var(--text-secondary)]">
                 {t("servicesDescription")}
               </p>
             </div>
@@ -420,16 +422,16 @@ export default function Home() {
               {SERVICES.map((service) => (
                 <div
                   key={service.key}
-                  className="group relative flex items-start gap-4 rounded-2xl border border-white/[0.04] bg-zinc-900/40 p-6 backdrop-blur-sm transition-all duration-300 hover:-translate-y-1 hover:border-amber-400/30 hover:shadow-[0_0_20px_rgba(245,158,11,0.1)] sm:p-8"
+                  className="group relative flex items-start gap-4 rounded-2xl border border-[var(--border-color)] bg-[var(--card-bg-glass)] p-6 backdrop-blur-sm transition-all duration-300 hover:-translate-y-1 hover:border-[var(--accent-color)] hover:shadow-[0_0_20px_rgba(245,158,11,0.1)] sm:p-8"
                 >
-                  <div className="flex h-16 w-16 shrink-0 items-center justify-center rounded-2xl bg-amber-500/10 text-3xl text-amber-500">
+                  <div className="flex h-16 w-16 shrink-0 items-center justify-center rounded-2xl bg-[var(--accent-color)]/10 text-3xl text-[var(--accent-color)]">
                     {service.icon}
                   </div>
                   <div>
-                    <p className="text-base font-bold text-white">
+                    <p className="text-base font-bold text-[var(--text-primary)]">
                       {service.name}
                     </p>
-                    <p className="mt-1 text-sm text-zinc-400">
+                    <p className="mt-1 text-sm text-[var(--text-secondary)]">
                       {service.description}
                     </p>
                   </div>
@@ -444,12 +446,12 @@ export default function Home() {
 
       {/* Location - dummy address for now, placeholder for the real hotel */}
       <div className="mx-auto max-w-5xl px-6 pb-16">
-        <div className="overflow-hidden rounded-2xl border border-zinc-800 bg-zinc-900 shadow-sm">
+        <div className="overflow-hidden rounded-2xl border border-[var(--border-color)] bg-[var(--bg-secondary)] shadow-sm">
           <div className="px-6 py-8 text-center sm:px-10">
-            <h2 className="text-2xl font-bold tracking-wide text-zinc-100 uppercase">
+            <h2 className="text-2xl font-bold tracking-wide text-[var(--text-primary)] uppercase">
               {t("ourLocation")}
             </h2>
-            <p className="mt-2 text-sm text-zinc-400">
+            <p className="mt-2 text-sm text-[var(--text-secondary)]">
               📍 Pinacpinacan, San Rafael, Bulacan, Philippines
             </p>
           </div>

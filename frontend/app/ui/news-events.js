@@ -1,8 +1,7 @@
 "use client";
 
-import { useRef, useState } from "react";
+import { useRef } from "react";
 import { useLanguage } from "../language-provider";
-import styles from "./news-events.module.css";
 
 const NEWS_EVENTS = [
   {
@@ -57,7 +56,6 @@ const NEWS_EVENTS = [
 
 export default function NewsEvents() {
   const { t } = useLanguage();
-  const [theme, setTheme] = useState("dark");
   const scrollRef = useRef(null);
 
   function scroll(direction) {
@@ -72,33 +70,17 @@ export default function NewsEvents() {
 
   return (
     <div className="mx-auto max-w-6xl px-6 py-16 sm:py-20">
-      <div
-        data-theme={theme}
-        className={`${styles.section} rounded-2xl p-6 sm:p-10`}
-      >
-        <div className="flex items-center justify-between gap-4">
-          <h2
-            className={`${styles.heading} text-2xl font-semibold tracking-wide uppercase`}
-          >
-            {t("newsEvents")}
-          </h2>
-          <button
-            type="button"
-            onClick={() =>
-              setTheme((prev) => (prev === "dark" ? "light" : "dark"))
-            }
-            className={`${styles.themeToggle} rounded-full px-4 py-2 text-xs font-semibold tracking-wide uppercase transition-colors`}
-          >
-            {theme === "dark" ? "☀ Light" : "🌙 Dark"}
-          </button>
-        </div>
+      <div className="rounded-2xl border border-[var(--border-color)] bg-[var(--bg-tertiary)] p-6 shadow-sm sm:p-10">
+        <h2 className="text-center text-2xl font-semibold tracking-wide text-[var(--text-primary)] uppercase">
+          {t("newsEvents")}
+        </h2>
 
         <div className="mt-10 flex items-start gap-4 sm:gap-6">
           <button
             type="button"
             onClick={() => scroll(-1)}
             aria-label="Previous"
-            className={`${styles.arrow} mt-24 hidden shrink-0 rounded-full p-4 text-xl backdrop-blur-sm transition-all sm:flex`}
+            className="mt-24 hidden shrink-0 rounded-full border border-[var(--border-color)] bg-[var(--bg-secondary)] p-4 text-xl text-[var(--text-secondary)] backdrop-blur-sm transition-all hover:bg-[var(--accent-color)] hover:text-black sm:flex"
           >
             ‹
           </button>
@@ -111,47 +93,41 @@ export default function NewsEvents() {
               {NEWS_EVENTS.map((item) => (
                 <div
                   key={item.id}
-                  className={`${styles.card} w-[85%] shrink-0 snap-start overflow-hidden rounded-2xl sm:w-[calc((100%-4rem)/3)]`}
+                  className="w-[85%] shrink-0 snap-start overflow-hidden rounded-2xl border border-[var(--border-color)] bg-[var(--bg-secondary)] sm:w-[calc((100%-4rem)/3)]"
                 >
-                <div className="group relative aspect-[16/10] overflow-hidden">
-                  <img
-                    src={item.image}
-                    alt={item.title}
-                    className="absolute inset-0 h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
-                  />
-                  <span
-                    className={`${styles.dateBadge} absolute top-4 left-4 rounded-full px-3 py-1 text-xs font-semibold tracking-wide backdrop-blur-sm`}
-                  >
-                    {item.date}
-                  </span>
-                </div>
-
-                <div className="p-4">
-                  <p
-                    className={`${styles.tag} text-xs font-semibold tracking-[0.2em] uppercase`}
-                  >
-                    {item.tag}
-                  </p>
-                  <h3
-                    className={`${styles.title} mt-2 text-xl font-bold tracking-wide`}
-                  >
-                    {item.title}
-                  </h3>
-                  <p className={`${styles.desc} mt-2 line-clamp-2 text-sm`}>
-                    {item.desc}
-                  </p>
-                  <a
-                    href="#"
-                    className={`${styles.link} group/link mt-3 inline-flex items-center gap-1 text-sm font-semibold transition-colors`}
-                  >
-                    <span>{t("viewDetails")}</span>
-                    <span className="transition-transform duration-300 group-hover/link:translate-x-1">
-                      →
+                  <div className="group relative aspect-[16/10] overflow-hidden">
+                    <img
+                      src={item.image}
+                      alt={item.title}
+                      className="absolute inset-0 h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+                    />
+                    <span className="absolute top-4 left-4 rounded-full bg-black/60 px-3 py-1 text-xs font-semibold tracking-wide text-amber-300 backdrop-blur-sm">
+                      {item.date}
                     </span>
-                  </a>
+                  </div>
+
+                  <div className="p-4">
+                    <p className="text-xs font-semibold tracking-[0.2em] text-[var(--accent-strong)] uppercase">
+                      {item.tag}
+                    </p>
+                    <h3 className="mt-2 text-xl font-bold tracking-wide text-[var(--text-primary)]">
+                      {item.title}
+                    </h3>
+                    <p className="mt-2 line-clamp-2 text-sm text-[var(--text-secondary)]">
+                      {item.desc}
+                    </p>
+                    <a
+                      href="#"
+                      className="group/link mt-3 inline-flex items-center gap-1 text-sm font-semibold text-[var(--text-secondary)] transition-colors hover:text-[var(--accent-color)]"
+                    >
+                      <span>{t("viewDetails")}</span>
+                      <span className="transition-transform duration-300 group-hover/link:translate-x-1">
+                        →
+                      </span>
+                    </a>
+                  </div>
                 </div>
-              </div>
-            ))}
+              ))}
             </div>
           </div>
 
@@ -159,7 +135,7 @@ export default function NewsEvents() {
             type="button"
             onClick={() => scroll(1)}
             aria-label="Next"
-            className={`${styles.arrow} mt-24 hidden shrink-0 rounded-full p-4 text-xl backdrop-blur-sm transition-all sm:flex`}
+            className="mt-24 hidden shrink-0 rounded-full border border-[var(--border-color)] bg-[var(--bg-secondary)] p-4 text-xl text-[var(--text-secondary)] backdrop-blur-sm transition-all hover:bg-[var(--accent-color)] hover:text-black sm:flex"
           >
             ›
           </button>

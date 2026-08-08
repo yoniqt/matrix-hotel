@@ -3,6 +3,52 @@
 :root {
   --background: #ffffff;
   --foreground: #171717;
+
+  /* Global theme tokens - dark is the site's default look */
+  --bg-primary: #09090b;
+  --bg-secondary: #18181b;
+  --bg-tertiary: #0d0d0d;
+  --card-bg-glass: rgba(24, 24, 27, 0.4);
+  --input-bg: rgba(9, 9, 11, 0.6);
+  --text-primary: #f4f4f5;
+  --text-secondary: #a1a1aa;
+  --border-color: rgba(255, 255, 255, 0.08);
+  --accent-color: #f59e0b;
+  --accent-strong: #fbbf24;
+}
+
+[data-theme="light"] {
+  --bg-primary: #f8f9fa;
+  --bg-secondary: #ffffff;
+  --bg-tertiary: #f0f2f5;
+  --card-bg-glass: rgba(255, 255, 255, 0.7);
+  --input-bg: #f4f4f5;
+  --text-primary: #1a1a1a;
+  --text-secondary: #4b5563;
+  --border-color: rgba(0, 0, 0, 0.1);
+  --accent-color: #d97706;
+  --accent-strong: #b45309;
+}
+
+body,
+header,
+footer,
+section,
+main,
+div,
+a,
+button,
+input,
+textarea,
+h1,
+h2,
+h3,
+p,
+span {
+  transition:
+    background-color 0.3s ease,
+    color 0.3s ease,
+    border-color 0.3s ease;
 }
 
 @theme inline {
@@ -27,14 +73,15 @@ body {
 
 .ph-calendar,
 .ph-calendar * {
-  color: #f4f4f5 !important;
+  color: var(--text-primary) !important;
 }
 .ph-calendar {
-  --rdp-accent-color: #f59e0b;
-  --rdp-today-color: #f59e0b;
+  --rdp-accent-color: var(--accent-color);
+  --rdp-today-color: var(--accent-color);
 }
 .ph-calendar button:disabled {
-  color: #52525b !important;
+  color: var(--text-secondary) !important;
+  opacity: 0.5;
 }
 .ph-calendar caption_label,
 .ph-calendar .rdp-caption_label {
