@@ -1,6 +1,5 @@
 "use client";
 
-import { useState } from "react";
 import { DayPicker } from "react-day-picker";
 import "react-day-picker/style.css";
 import { getPhHolidays, getHolidayName } from "../../lib/ph-holidays";
@@ -12,9 +11,14 @@ function toDateOnlyString(date) {
   return `${year}-${month}-${day}`;
 }
 
-export default function DatePicker({ label, value, onChange, minDate }) {
-  const [open, setOpen] = useState(false);
-
+export default function DatePicker({
+  label,
+  value,
+  onChange,
+  minDate,
+  open,
+  onOpenChange,
+}) {
   const selectedDate = value ? new Date(`${value}T00:00:00`) : undefined;
   const displayYear = selectedDate
     ? selectedDate.getFullYear()
@@ -28,7 +32,7 @@ export default function DatePicker({ label, value, onChange, minDate }) {
   function handleSelect(date) {
     if (!date) return;
     onChange(toDateOnlyString(date));
-    setOpen(false);
+    onOpenChange(false);
   }
 
   return (
@@ -36,14 +40,14 @@ export default function DatePicker({ label, value, onChange, minDate }) {
       <label className="text-xs font-semibold text-zinc-500">{label}</label>
       <button
         type="button"
-        onClick={() => setOpen((v) => !v)}
+        onClick={() => onOpenChange(!open)}
         className="mt-1 w-full rounded-lg border border-zinc-300 px-3 py-2 text-left"
       >
         {value || "Select date"}
       </button>
 
       {open && (
-        <div className="absolute z-20 mt-2 rounded-xl border border-zinc-200 bg-white p-3 shadow-xl">
+        <div className="ph-calendar absolute z-30 mt-2 rounded-xl border border-zinc-200 bg-white p-3 shadow-2xl">
           <DayPicker
             mode="single"
             selected={selectedDate}

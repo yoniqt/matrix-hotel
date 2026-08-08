@@ -25,6 +25,22 @@ body {
   font-family: Arial, Helvetica, sans-serif;
 }
 
+.ph-calendar,
+.ph-calendar * {
+  color: #18181b !important;
+}
+.ph-calendar {
+  --rdp-accent-color: #4f46e5;
+  --rdp-today-color: #4f46e5;
+}
+.ph-calendar button:disabled {
+  color: #d4d4d8 !important;
+}
+.ph-calendar caption_label,
+.ph-calendar .rdp-caption_label {
+  font-weight: 700;
+}
+
 .ph-holiday {
   color: #dc2626 !important;
   font-weight: 700;

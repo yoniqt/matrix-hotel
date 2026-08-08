@@ -26,6 +26,7 @@ function roomImage(room) {
 export default function Home() {
   const [checkIn, setCheckIn] = useState("");
   const [checkOut, setCheckOut] = useState("");
+  const [openPicker, setOpenPicker] = useState(null); // "checkin" | "checkout" | null
   const [rooms, setRooms] = useState(null);
   const [searchStatus, setSearchStatus] = useState("idle");
   const [searchMessage, setSearchMessage] = useState("");
@@ -116,13 +117,13 @@ export default function Home() {
           className="absolute inset-0 bg-cover bg-center"
           style={{
             backgroundImage:
-              "url('https://picsum.photos/seed/hotel-hero/1600/900')",
+              "url('https://picsum.photos/seed/tropical-resort-pool/1600/900')",
           }}
         />
-        <div className="absolute inset-0 bg-black/50" />
+        <div className="absolute inset-0 bg-black/40" />
 
         <nav className="relative z-10 flex items-center justify-between px-8 py-6 text-white">
-          <span className="text-xl font-semibold italic">Stayhaven Hotel</span>
+          <span className="text-xl font-semibold italic">The Matrix Hotel</span>
           <div className="hidden gap-8 text-sm font-medium sm:flex">
             <span>Home</span>
             <span>About</span>
@@ -136,7 +137,7 @@ export default function Home() {
             Get luxury and comfort
           </p>
           <h1 className="mt-4 max-w-2xl text-4xl font-bold sm:text-5xl">
-            Discover Your Perfect Stay at Stayhaven
+            Discover Your Perfect Stay at The Matrix Hotel
           </h1>
         </div>
 
@@ -151,6 +152,8 @@ export default function Home() {
               value={checkIn}
               onChange={setCheckIn}
               minDate={todayString()}
+              open={openPicker === "checkin"}
+              onOpenChange={(next) => setOpenPicker(next ? "checkin" : null)}
             />
           </div>
           <div className="flex-1">
@@ -159,6 +162,8 @@ export default function Home() {
               value={checkOut}
               onChange={setCheckOut}
               minDate={checkIn || todayString()}
+              open={openPicker === "checkout"}
+              onOpenChange={(next) => setOpenPicker(next ? "checkout" : null)}
             />
           </div>
           <button
