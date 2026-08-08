@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import DatePicker from "./ui/date-picker";
 import HeroCarousel from "./ui/hero-carousel";
@@ -162,6 +162,13 @@ export default function Home() {
     const timer = setTimeout(() => setShowWelcome(false), 2200);
     return () => clearTimeout(timer);
   }, []);
+
+  const newsScrollRef = useRef(null);
+  function scrollNews(direction) {
+    const el = newsScrollRef.current;
+    if (!el) return;
+    el.scrollBy({ left: direction * el.clientWidth * 0.9, behavior: "smooth" });
+  }
 
   async function handleSearch(e) {
     e.preventDefault();
@@ -460,51 +467,64 @@ export default function Home() {
       {/* News & Events */}
       <div className="mx-auto max-w-6xl px-6 pb-16">
         <div className="flex items-center justify-between gap-4">
-          <div className="flex-1" />
-          <h2 className="flex-[2] text-center text-2xl font-semibold tracking-wide text-zinc-100 uppercase">
+          <h2 className="text-2xl font-semibold tracking-wide text-zinc-100 uppercase">
             {t("newsEvents")}
           </h2>
-          <div className="flex flex-1 justify-end">
-            <a
-              href="#"
-              className="rounded-full bg-amber-500 px-5 py-2 text-sm font-semibold text-black transition-opacity hover:opacity-90"
+          <div className="flex items-center gap-3">
+            <button
+              type="button"
+              onClick={() => scrollNews(-1)}
+              aria-label="Previous"
+              className="rounded-full border border-white/10 bg-zinc-900/50 p-3 text-zinc-300 transition-all hover:bg-amber-500 hover:text-black"
             >
-              {t("viewAll")} +
-            </a>
+              ‹
+            </button>
+            <button
+              type="button"
+              onClick={() => scrollNews(1)}
+              aria-label="Next"
+              className="rounded-full border border-white/10 bg-zinc-900/50 p-3 text-zinc-300 transition-all hover:bg-amber-500 hover:text-black"
+            >
+              ›
+            </button>
           </div>
         </div>
-        <div className="mt-10 grid gap-8 sm:grid-cols-3">
+
+        <div
+          ref={newsScrollRef}
+          className="mt-10 flex gap-8 overflow-x-auto scroll-smooth pb-2 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+        >
           {NEWS_EVENTS.map((item) => (
             <div
               key={item.id}
-              className="group relative aspect-[3/4] overflow-hidden rounded-2xl border border-white/[0.05]"
+              className="w-[85%] shrink-0 sm:w-[calc((100%-4rem)/3)]"
             >
-              <img
-                src={item.image}
-                alt={item.title}
-                className="absolute inset-0 h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent" />
+              <div className="group relative aspect-[16/10] overflow-hidden rounded-2xl border border-white/[0.05]">
+                <img
+                  src={item.image}
+                  alt={item.title}
+                  className="absolute inset-0 h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+                />
+                <span className="absolute top-4 left-4 rounded-full bg-black/60 px-3 py-1 text-xs font-semibold tracking-wide text-amber-400 backdrop-blur-sm">
+                  {item.date}
+                </span>
+              </div>
 
-              <span className="absolute top-4 left-4 rounded-full bg-black/60 px-3 py-1 text-xs font-semibold tracking-wide text-amber-400 backdrop-blur-sm">
-                {item.date}
-              </span>
-
-              <div className="absolute inset-x-0 bottom-0 p-6">
+              <div className="mt-4">
                 <p className="text-xs font-semibold tracking-[0.2em] text-amber-400 uppercase">
                   {item.tag}
                 </p>
-                <h3 className="mt-2 text-xl font-bold tracking-wide text-white">
+                <h3 className="mt-2 text-xl font-bold tracking-wide text-zinc-100">
                   {item.title}
                 </h3>
-                <p className="mt-2 text-sm text-zinc-300/90">{item.desc}</p>
+                <p className="mt-2 line-clamp-2 text-sm text-zinc-400">
+                  {item.desc}
+                </p>
                 <a
                   href="#"
-                  className="group/link mt-4 inline-flex items-center gap-1 text-sm font-semibold text-amber-400"
+                  className="group/link mt-3 inline-flex items-center gap-1 text-sm font-semibold text-zinc-400 transition-colors hover:text-amber-400"
                 >
-                  <span className="border-b border-transparent pb-0.5 group-hover/link:border-amber-400">
-                    {t("viewDetails")}
-                  </span>
+                  <span>{t("viewDetails")}</span>
                   <span className="transition-transform duration-300 group-hover/link:translate-x-1">
                     →
                   </span>
