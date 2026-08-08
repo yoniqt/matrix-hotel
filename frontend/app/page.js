@@ -300,29 +300,26 @@ export default function Home() {
       {/* Amenity details modal */}
       {selectedAmenity && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 px-4">
-          <div className="max-h-[85vh] w-full max-w-lg overflow-y-auto rounded-2xl bg-white">
+          <div className="relative max-h-[85vh] w-full max-w-lg overflow-y-auto rounded-2xl bg-white">
+            <button
+              onClick={() => setSelectedAmenity(null)}
+              aria-label="Close"
+              className="absolute top-4 right-4 z-10 flex h-9 w-9 items-center justify-center rounded-full bg-black/50 text-xl leading-none text-white backdrop-blur transition-colors hover:bg-black/70"
+            >
+              ×
+            </button>
             <img
               src={selectedAmenity.image}
               alt={selectedAmenity.name}
               className="h-72 w-full object-cover"
             />
             <div className="p-8">
-              <div className="flex items-start justify-between">
-                <div>
-                  <h2 className="text-2xl font-bold text-zinc-900">
-                    {selectedAmenity.name}
-                  </h2>
-                  <p className="mt-1 text-sm text-zinc-500">
-                    📍 {selectedAmenity.location}
-                  </p>
-                </div>
-                <button
-                  onClick={() => setSelectedAmenity(null)}
-                  className="text-2xl leading-none text-zinc-400"
-                >
-                  ×
-                </button>
-              </div>
+              <h2 className="text-2xl font-bold text-zinc-900">
+                {selectedAmenity.name}
+              </h2>
+              <p className="mt-1 text-sm text-zinc-500">
+                📍 {selectedAmenity.location}
+              </p>
 
               <p className="mt-4 text-zinc-700">{selectedAmenity.description}</p>
 
