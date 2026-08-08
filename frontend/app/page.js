@@ -256,7 +256,7 @@ export default function Home() {
                 <img
                   src={amenity.image}
                   alt={`Hotel ${amenity.name.toLowerCase()}`}
-                  className="h-56 w-full object-cover"
+                  className="h-72 w-full object-cover"
                 />
                 <div className="p-5 text-center">
                   <p className="text-xl font-semibold text-zinc-900">
