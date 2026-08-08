@@ -1,8 +1,14 @@
 "use client";
 
 import { useState } from "react";
+import DatePicker from "./ui/date-picker";
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL;
+
+function todayString() {
+  const now = new Date();
+  return `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, "0")}-${String(now.getDate()).padStart(2, "0")}`;
+}
 
 const ROOM_TYPE_IMAGES = {
   Standard: "https://picsum.photos/seed/room-standard/600/400",
@@ -36,6 +42,13 @@ export default function Home() {
 
   async function handleSearch(e) {
     e.preventDefault();
+
+    if (!checkIn || !checkOut) {
+      setSearchStatus("error");
+      setSearchMessage("Please select both check-in and check-out dates.");
+      return;
+    }
+
     setSearchStatus("searching");
     setSearchMessage("");
     setRooms(null);
@@ -133,27 +146,19 @@ export default function Home() {
           className="relative z-10 mx-auto -mb-10 flex w-full max-w-3xl flex-col gap-4 rounded-2xl bg-white p-6 shadow-xl sm:flex-row sm:items-end"
         >
           <div className="flex-1">
-            <label className="text-xs font-semibold text-zinc-500">
-              Check-in
-            </label>
-            <input
-              required
-              type="date"
+            <DatePicker
+              label="Check-in"
               value={checkIn}
-              onChange={(e) => setCheckIn(e.target.value)}
-              className="mt-1 w-full rounded-lg border border-zinc-300 px-3 py-2"
+              onChange={setCheckIn}
+              minDate={todayString()}
             />
           </div>
           <div className="flex-1">
-            <label className="text-xs font-semibold text-zinc-500">
-              Check-out
-            </label>
-            <input
-              required
-              type="date"
+            <DatePicker
+              label="Check-out"
               value={checkOut}
-              onChange={(e) => setCheckOut(e.target.value)}
-              className="mt-1 w-full rounded-lg border border-zinc-300 px-3 py-2"
+              onChange={setCheckOut}
+              minDate={checkIn || todayString()}
             />
           </div>
           <button

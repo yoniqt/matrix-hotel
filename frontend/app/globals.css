@@ -24,3 +24,17 @@ body {
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
 }
+
+.ph-holiday {
+  color: #dc2626 !important;
+  font-weight: 700;
+}
+.ph-holiday::after {
+  content: "";
+  display: block;
+  width: 4px;
+  height: 4px;
+  margin: 2px auto 0;
+  border-radius: 9999px;
+  background: #dc2626;
+}
