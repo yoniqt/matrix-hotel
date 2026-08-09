@@ -270,11 +270,12 @@ export default function Home() {
         </p>
       )}
 
-      {/* Showcase - visible before a successful search (idle) and also
-          when the search form itself was invalid (error) - a validation
-          message like "checkout must be after checkin" shouldn't blank
-          out the whole page, only a real result set should replace this. */}
-      {(searchStatus === "idle" || searchStatus === "error") && (
+      {/* Showcase - stays mounted through idle/searching/error/no-results
+          states and only unmounts once there's an actual room list to show.
+          Hiding it during the brief "searching" state (as it did before)
+          made the whole page jump - Results/Footer snapping up and back
+          down - every time the search button was clicked. */}
+      {!(rooms && rooms.length > 0) && (
         <div className="mx-auto max-w-[1680px] px-10 pt-24 pb-4">
           <div className="mx-auto mb-12 max-w-3xl text-center">
             <p className="text-sm text-[var(--text-secondary)]">
