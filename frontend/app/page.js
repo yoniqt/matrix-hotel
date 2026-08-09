@@ -149,7 +149,10 @@ export default function Home() {
 
     setSearchStatus("searching");
     setSearchMessage("");
-    setRooms(null);
+    // Deliberately not clearing rooms here - if a previous search already
+    // has results on screen, they stay visible (and the showcase stays
+    // hidden) while the new search is in flight, instead of both flashing
+    // in and out on every repeat search.
 
     try {
       const res = await fetch(
@@ -160,6 +163,7 @@ export default function Home() {
       if (!data.success) {
         setSearchStatus("error");
         setSearchMessage(data.message);
+        setRooms(null);
         return;
       }
 
@@ -168,6 +172,7 @@ export default function Home() {
     } catch {
       setSearchStatus("error");
       setSearchMessage("Could not reach the server. Is the backend running?");
+      setRooms(null);
     }
   }
 
