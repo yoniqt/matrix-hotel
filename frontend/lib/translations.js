@@ -49,6 +49,9 @@ export const TRANSLATIONS = {
     viewDetails: "View Details",
     pickDatesHint:
       "Pick your check-in and check-out dates above to see available rooms.",
+    escapeHeadline: "Discover Your Ultimate Escape",
+    escapeParagraph:
+      "Where uncompromised luxury meets seamless relaxation. Our curated spaces are designed to indulge every whim. From state-of-the-art facilities to unforgettable nightlife experiences, explore a new standard of personalized comfort and exceptional service.",
   },
   Filipino: {
     tagline: "Karanasang Maluho at Komportable",
@@ -95,6 +98,9 @@ export const TRANSLATIONS = {
     viewDetails: "Tingnan ang Detalye",
     pickDatesHint:
       "Piliin ang check-in at check-out dates sa itaas para makita ang mga magagamit na kwarto.",
+    escapeHeadline: "Tuklasin ang Iyong Ganap na Paglayo",
+    escapeParagraph:
+      "Kung saan nagtatagpo ang walang-kapantay na luho at ganap na relaxation. Ang aming mga espasyo ay dinisenyo upang masiyahan sa bawat kagustuhan. Mula sa pinakabagong pasilidad hanggang sa hindi malilimutang karanasan sa gabi, tuklasin ang bagong antas ng personalized na ginhawa at natatanging serbisyo.",
   },
   "中文 (Chinese)": {
     tagline: "尽享奢华与舒适",
@@ -139,6 +145,9 @@ export const TRANSLATIONS = {
     viewAll: "查看全部",
     viewDetails: "查看详情",
     pickDatesHint: "请在上方选择入住和退房日期以查看可预订房间。",
+    escapeHeadline: "探索您的终极逃离",
+    escapeParagraph:
+      "在这里，极致奢华与无间放松完美相遇。我们精心打造的空间旨在满足您的每一个愿望。从先进的设施到难忘的夜生活体验，尽享个性化舒适与卓越服务的全新标准。",
   },
   "日本語 (Japanese)": {
     tagline: "ラグジュアリーと快適さを",

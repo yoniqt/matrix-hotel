@@ -4,9 +4,9 @@ import { useEffect, useState } from "react";
 import { useParams, useSearchParams } from "next/navigation";
 import Link from "next/link";
 import {
-  roomImage,
   ROOM_TYPE_DESCRIPTIONS,
   ROOM_TYPE_AMENITIES,
+  ROOM_TYPE_GALLERY,
   AMENITY_ICONS,
   CHECK_IN_OUT_POLICY,
   groupRoomsByType,
@@ -30,6 +30,18 @@ export default function RoomDetailPage() {
 
   const [room, setRoom] = useState(null);
   const [loadStatus, setLoadStatus] = useState("loading");
+
+  const gallery = ROOM_TYPE_GALLERY[roomType] || [];
+  const [activeImage, setActiveImage] = useState(0);
+  useEffect(() => {
+    setActiveImage(0);
+  }, [roomType]);
+  function nextImage() {
+    setActiveImage((i) => (i + 1) % gallery.length);
+  }
+  function prevImage() {
+    setActiveImage((i) => (i - 1 + gallery.length) % gallery.length);
+  }
 
   const [quantity, setQuantity] = useState(1);
   const [adults, setAdults] = useState(1);
@@ -172,13 +184,52 @@ export default function RoomDetailPage() {
           {t("backToResults")}
         </Link>
 
-        {/* Gallery - currently one photo per type; more can be added later */}
-        <div className="mt-6 overflow-hidden rounded-2xl">
+        {/* Gallery - the homepage preview always shows gallery[0]; clicking
+            Book This Room brings the guest here to see the rest one at a
+            time via the arrows. */}
+        <div className="relative mt-6 overflow-hidden rounded-2xl">
           <img
-            src={roomImage(room)}
-            alt={roomType}
+            src={gallery[activeImage]}
+            alt={`${roomType} room photo ${activeImage + 1}`}
             className="h-[420px] w-full object-cover"
           />
+
+          {gallery.length > 1 && (
+            <>
+              <button
+                type="button"
+                onClick={prevImage}
+                aria-label="Previous photo"
+                className="absolute top-1/2 left-4 -translate-y-1/2 rounded-full border border-white/10 bg-black/50 p-3 text-xl text-white backdrop-blur-sm transition-all hover:bg-[var(--accent-color)] hover:text-black"
+              >
+                ‹
+              </button>
+              <button
+                type="button"
+                onClick={nextImage}
+                aria-label="Next photo"
+                className="absolute top-1/2 right-4 -translate-y-1/2 rounded-full border border-white/10 bg-black/50 p-3 text-xl text-white backdrop-blur-sm transition-all hover:bg-[var(--accent-color)] hover:text-black"
+              >
+                ›
+              </button>
+
+              <div className="absolute bottom-4 left-1/2 flex -translate-x-1/2 gap-2">
+                {gallery.map((src, i) => (
+                  <button
+                    key={src}
+                    type="button"
+                    onClick={() => setActiveImage(i)}
+                    aria-label={`Show photo ${i + 1}`}
+                    className={`h-2 w-2 rounded-full transition-all ${
+                      i === activeImage
+                        ? "w-5 bg-[var(--accent-color)]"
+                        : "bg-white/50"
+                    }`}
+                  />
+                ))}
+              </div>
+            </>
+          )}
         </div>
 
         <div className="mt-8 grid gap-10 lg:grid-cols-3">

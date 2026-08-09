@@ -244,17 +244,23 @@ export default function Home() {
         </form>
       </div>
 
-      {searchStatus === "idle" && (
-        <p className="mt-16 px-6 text-center text-sm text-[var(--text-secondary)]">
-          {t("pickDatesHint")}
-        </p>
-      )}
-
       {/* Showcase - always visible, fills the page before anyone searches.
           Rooms are intentionally NOT shown here - they only appear after a
           date search, so this section is purely about hotel amenities. */}
       {searchStatus === "idle" && (
         <div className="mx-auto max-w-[1680px] px-10 pt-24 pb-4">
+          <div className="mx-auto mb-12 max-w-3xl text-center">
+            <p className="text-sm text-[var(--text-secondary)]">
+              {t("pickDatesHint")}
+            </p>
+            <h2 className="mt-4 text-3xl font-bold tracking-widest text-[var(--text-primary)] uppercase sm:text-5xl">
+              {t("escapeHeadline")}
+            </h2>
+            <p className="mx-auto mt-6 max-w-3xl text-base text-[var(--text-secondary)] sm:text-lg">
+              {t("escapeParagraph")}
+            </p>
+          </div>
+
           <div className="grid gap-8 sm:grid-cols-3">
             {AMENITIES.map((amenity) => (
               <div

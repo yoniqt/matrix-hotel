@@ -1,13 +1,32 @@
 export const ROOM_TYPE_IMAGES = {
-  Standard: "/images/rooms/standard.webp",
-  Deluxe: "/images/rooms/deluxe.webp",
-  Suite: "/images/rooms/suite.jpg",
-  Family: "/images/rooms/family.jpg",
+  Standard: "/images/rooms/standard/standard.webp",
+  Deluxe: "/images/rooms/deluxe/deluxe.webp",
+  Suite: "/images/rooms/suite/suite.jpg",
+  Family: "/images/rooms/family/family.jpg",
 };
 
 export function roomImage(room) {
-  return ROOM_TYPE_IMAGES[room.room_type] || "/images/rooms/standard.webp";
+  return (
+    ROOM_TYPE_IMAGES[room.room_type] || "/images/rooms/standard/standard.webp"
+  );
 }
+
+// Full photo set per room type - the room detail page's gallery. The first
+// entry always matches ROOM_TYPE_IMAGES so the preview card and the gallery
+// open on the same photo.
+export const ROOM_TYPE_GALLERY = {
+  Standard: [
+    "/images/rooms/standard/standard.webp",
+    "/images/rooms/standard/standard-2.jpg",
+    "/images/rooms/standard/standard-bathroom.jpg",
+  ],
+  Deluxe: [
+    "/images/rooms/deluxe/deluxe.webp",
+    "/images/rooms/deluxe/deluxe-bathroom.jpg",
+  ],
+  Suite: ["/images/rooms/suite/suite.jpg"],
+  Family: ["/images/rooms/family/family.jpg"],
+};
 
 export const ROOM_TYPE_DESCRIPTIONS = {
   Standard:
