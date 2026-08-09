@@ -27,7 +27,10 @@ export const ROOM_TYPE_GALLERY = {
     "/images/rooms/suite/suite.jpg",
     "/images/rooms/suite/suite-bathroom.webp",
   ],
-  Family: ["/images/rooms/family/family.jpg"],
+  Family: [
+    "/images/rooms/family/family.jpg",
+    "/images/rooms/family/family-bathroom.png",
+  ],
 };
 
 export const ROOM_TYPE_DESCRIPTIONS = {
