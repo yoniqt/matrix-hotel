@@ -17,14 +17,16 @@ export function roomImage(room) {
 export const ROOM_TYPE_GALLERY = {
   Standard: [
     "/images/rooms/standard/standard.webp",
-    "/images/rooms/standard/standard-2.jpg",
     "/images/rooms/standard/standard-bathroom.jpg",
   ],
   Deluxe: [
     "/images/rooms/deluxe/deluxe.webp",
     "/images/rooms/deluxe/deluxe-bathroom.jpg",
   ],
-  Suite: ["/images/rooms/suite/suite.jpg"],
+  Suite: [
+    "/images/rooms/suite/suite.jpg",
+    "/images/rooms/suite/suite-bathroom.webp",
+  ],
   Family: ["/images/rooms/family/family.jpg"],
 };
 
