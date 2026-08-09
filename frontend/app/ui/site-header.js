@@ -38,12 +38,7 @@ export default function SiteHeader() {
           <Link href="/" className="hover:text-[var(--accent-color)]">
             {t("home")}
           </Link>
-          <Link
-            href="/about"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="hover:text-[var(--accent-color)]"
-          >
+          <Link href="/about" className="hover:text-[var(--accent-color)]">
             {t("about")}
           </Link>
           <Link href="/rooms" className="hover:text-[var(--accent-color)]">

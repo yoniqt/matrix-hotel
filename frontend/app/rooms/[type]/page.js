@@ -34,6 +34,10 @@ export default function RoomDetailPage() {
   const roomType = slugToRoomType(params.type);
   const checkIn = searchParams.get("check_in") || "";
   const checkOut = searchParams.get("check_out") || "";
+  const cameFromRooms = searchParams.get("from") === "rooms";
+  const backHref = cameFromRooms
+    ? "/rooms"
+    : `/?check_in=${checkIn}&check_out=${checkOut}`;
 
   const [pendingCheckIn, setPendingCheckIn] = useState("");
   const [pendingCheckOut, setPendingCheckOut] = useState("");
@@ -42,8 +46,9 @@ export default function RoomDetailPage() {
   function handleCheckAvailability(e) {
     e.preventDefault();
     if (!pendingCheckIn || !pendingCheckOut) return;
+    const fromParam = cameFromRooms ? "&from=rooms" : "";
     router.push(
-      `/rooms/${params.type}?check_in=${pendingCheckIn}&check_out=${pendingCheckOut}`
+      `/rooms/${params.type}?check_in=${pendingCheckIn}&check_out=${pendingCheckOut}${fromParam}`
     );
   }
 
@@ -235,7 +240,7 @@ export default function RoomDetailPage() {
       <main className="min-h-screen bg-[var(--bg-primary)]">
       <div className="mx-auto max-w-5xl px-6 py-10">
         <Link
-          href={`/?check_in=${checkIn}&check_out=${checkOut}`}
+          href={backHref}
           className="text-sm font-medium text-[var(--text-secondary)] underline"
         >
           {t("backToResults")}

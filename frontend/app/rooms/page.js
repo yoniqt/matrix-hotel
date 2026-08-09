@@ -81,7 +81,7 @@ export default function RoomsPage() {
                   </span>
                 </p>
                 <Link
-                  href={`/rooms/${roomTypeToSlug(room.room_type)}`}
+                  href={`/rooms/${roomTypeToSlug(room.room_type)}?from=rooms`}
                   className="mt-5 block w-full rounded-full bg-[var(--accent-color)] px-5 py-2.5 text-center font-medium text-black transition-opacity hover:opacity-90"
                 >
                   {t("bookNow")}
