@@ -253,7 +253,7 @@ export default function Home() {
           <button
             type="submit"
             disabled={searchStatus === "searching"}
-            className="rounded-lg bg-[var(--accent-color)] px-8 py-2.5 font-semibold text-black transition-opacity hover:opacity-90 disabled:opacity-50"
+            className="min-w-[160px] rounded-lg bg-[var(--accent-color)] px-8 py-2.5 text-center font-semibold text-black transition-opacity hover:opacity-90 disabled:opacity-50"
           >
             {searchStatus === "searching" ? t("searching") : t("search")}
           </button>
