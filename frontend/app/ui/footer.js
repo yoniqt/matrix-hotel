@@ -1,6 +1,9 @@
 export default function Footer() {
   return (
-    <footer className="bg-[var(--bg-secondary)] px-6 py-12 text-[var(--text-secondary)]">
+    <footer
+      id="site-footer"
+      className="bg-[var(--bg-secondary)] px-6 py-12 text-[var(--text-secondary)]"
+    >
       <nav className="flex flex-wrap items-center justify-center gap-x-8 gap-y-2 text-sm font-medium tracking-wide text-[var(--text-secondary)] uppercase">
         <span>About Us</span>
         <span>Amenities</span>

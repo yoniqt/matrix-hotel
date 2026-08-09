@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { useParams, useSearchParams } from "next/navigation";
+import { useParams, useSearchParams, useRouter } from "next/navigation";
 import Link from "next/link";
 import {
   ROOM_TYPE_DESCRIPTIONS,
@@ -16,17 +16,36 @@ import { useCurrency } from "../../currency-provider";
 import { useLanguage } from "../../language-provider";
 import { formatPrice } from "../../../lib/currency";
 import SiteHeader from "../../ui/site-header";
+import DatePicker from "../../ui/date-picker";
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL;
+
+function todayString() {
+  const now = new Date();
+  return `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, "0")}-${String(now.getDate()).padStart(2, "0")}`;
+}
 
 export default function RoomDetailPage() {
   const { currency } = useCurrency();
   const { t } = useLanguage();
   const params = useParams();
+  const router = useRouter();
   const searchParams = useSearchParams();
   const roomType = slugToRoomType(params.type);
   const checkIn = searchParams.get("check_in") || "";
   const checkOut = searchParams.get("check_out") || "";
+
+  const [pendingCheckIn, setPendingCheckIn] = useState("");
+  const [pendingCheckOut, setPendingCheckOut] = useState("");
+  const [pendingOpenPicker, setPendingOpenPicker] = useState(null);
+
+  function handleCheckAvailability(e) {
+    e.preventDefault();
+    if (!pendingCheckIn || !pendingCheckOut) return;
+    router.push(
+      `/rooms/${params.type}?check_in=${pendingCheckIn}&check_out=${pendingCheckOut}`
+    );
+  }
 
   const [room, setRoom] = useState(null);
   const [loadStatus, setLoadStatus] = useState("loading");
@@ -123,16 +142,54 @@ export default function RoomDetailPage() {
     return (
       <>
         <SiteHeader />
-        <main className="min-h-screen bg-[var(--bg-primary)] px-6 py-24 text-center">
-          <div className="mx-auto max-w-2xl">
-            <p className="text-[var(--text-secondary)]">
-              Please search with your check-in and check-out dates first.
+        <main className="min-h-screen bg-[var(--bg-primary)] px-6 py-24">
+          <div className="mx-auto max-w-md text-center">
+            <h1 className="text-2xl font-bold text-[var(--text-primary)]">
+              {roomType} Room
+            </h1>
+            <p className="mt-2 text-[var(--text-secondary)]">
+              Pick your dates to check availability and pricing for this
+              room.
             </p>
-            <Link
-              href="/"
-              className="mt-4 inline-block rounded-full bg-[var(--accent-color)] px-6 py-3 font-medium text-black"
+
+            <form
+              onSubmit={handleCheckAvailability}
+              className="mt-8 flex flex-col gap-4 rounded-2xl border border-[var(--border-color)] bg-[var(--bg-secondary)] p-6 text-left"
             >
-              Back to search
+              <DatePicker
+                label="Check-in"
+                value={pendingCheckIn}
+                onChange={setPendingCheckIn}
+                minDate={todayString()}
+                open={pendingOpenPicker === "checkin"}
+                onOpenChange={(next) =>
+                  setPendingOpenPicker(next ? "checkin" : null)
+                }
+              />
+              <DatePicker
+                label="Check-out"
+                value={pendingCheckOut}
+                onChange={setPendingCheckOut}
+                minDate={pendingCheckIn || todayString()}
+                open={pendingOpenPicker === "checkout"}
+                onOpenChange={(next) =>
+                  setPendingOpenPicker(next ? "checkout" : null)
+                }
+              />
+              <button
+                type="submit"
+                disabled={!pendingCheckIn || !pendingCheckOut}
+                className="rounded-lg bg-[var(--accent-color)] px-6 py-3 font-medium text-black transition-opacity hover:opacity-90 disabled:opacity-50"
+              >
+                Check availability
+              </button>
+            </form>
+
+            <Link
+              href="/rooms"
+              className="mt-6 inline-block text-sm font-medium text-[var(--text-secondary)] underline"
+            >
+              ← Back to all rooms
             </Link>
           </div>
         </main>
