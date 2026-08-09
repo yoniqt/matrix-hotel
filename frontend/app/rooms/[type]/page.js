@@ -165,7 +165,10 @@ export default function RoomDetailPage() {
       <SiteHeader />
       <main className="min-h-screen bg-[var(--bg-primary)]">
       <div className="mx-auto max-w-5xl px-6 py-10">
-        <Link href="/" className="text-sm font-medium text-[var(--text-secondary)] underline">
+        <Link
+          href={`/?check_in=${checkIn}&check_out=${checkOut}`}
+          className="text-sm font-medium text-[var(--text-secondary)] underline"
+        >
           {t("backToResults")}
         </Link>
 

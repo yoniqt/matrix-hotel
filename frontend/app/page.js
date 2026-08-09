@@ -138,10 +138,8 @@ export default function Home() {
     return () => clearTimeout(timer);
   }, []);
 
-  async function handleSearch(e) {
-    e.preventDefault();
-
-    if (!checkIn || !checkOut) {
+  async function performSearch(ci, co) {
+    if (!ci || !co) {
       setSearchStatus("error");
       setSearchMessage("Please select both check-in and check-out dates.");
       return;
@@ -153,7 +151,7 @@ export default function Home() {
 
     try {
       const res = await fetch(
-        `${API_URL}/api/rooms/available?check_in=${checkIn}&check_out=${checkOut}`
+        `${API_URL}/api/rooms/available?check_in=${ci}&check_out=${co}`
       );
       const data = await res.json();
 
@@ -170,6 +168,26 @@ export default function Home() {
       setSearchMessage("Could not reach the server. Is the backend running?");
     }
   }
+
+  function handleSearch(e) {
+    e.preventDefault();
+    performSearch(checkIn, checkOut);
+  }
+
+  // If we arrived here via "Back to search results" from a room detail
+  // page, the dates are in the URL - restore them and re-run the search
+  // instead of dropping the visitor back at an empty idle state.
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    const ci = params.get("check_in");
+    const co = params.get("check_out");
+    if (ci && co) {
+      setCheckIn(ci);
+      setCheckOut(co);
+      performSearch(ci, co);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <main className="min-h-screen bg-[var(--bg-primary)]">
