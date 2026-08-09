@@ -148,11 +148,11 @@ export default function Home() {
     }
 
     setSearchStatus("searching");
-    setSearchMessage("");
-    // Deliberately not clearing rooms here - if a previous search already
-    // has results on screen, they stay visible (and the showcase stays
-    // hidden) while the new search is in flight, instead of both flashing
-    // in and out on every repeat search.
+    // Deliberately not clearing rooms or searchMessage here - if a previous
+    // search already has results (or an error) on screen, they stay
+    // visible while the new search is in flight, instead of flashing out
+    // and back in on every repeat search (including repeating the exact
+    // same invalid dates, which used to blank the error text each click).
 
     try {
       const res = await fetch(
@@ -167,6 +167,7 @@ export default function Home() {
         return;
       }
 
+      setSearchMessage("");
       setRooms(data.data);
       setSearchStatus("done");
     } catch {
@@ -269,7 +270,7 @@ export default function Home() {
         </form>
       </div>
 
-      {searchStatus === "error" && (
+      {searchMessage && (
         <p className="mt-16 px-6 text-center text-sm text-red-400">
           {searchMessage}
         </p>
