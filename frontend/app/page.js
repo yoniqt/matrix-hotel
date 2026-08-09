@@ -264,10 +264,11 @@ export default function Home() {
         </form>
       </div>
 
-      {/* Showcase - always visible, fills the page before anyone searches.
-          Rooms are intentionally NOT shown here - they only appear after a
-          date search, so this section is purely about hotel amenities. */}
-      {searchStatus === "idle" && (
+      {/* Showcase - visible before a successful search (idle) and also
+          when the search form itself was invalid (error) - a validation
+          message like "checkout must be after checkin" shouldn't blank
+          out the whole page, only a real result set should replace this. */}
+      {(searchStatus === "idle" || searchStatus === "error") && (
         <div className="mx-auto max-w-[1680px] px-10 pt-24 pb-4">
           <div className="mx-auto mb-12 max-w-3xl text-center">
             <p className="text-sm text-[var(--text-secondary)]">
