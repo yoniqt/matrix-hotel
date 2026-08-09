@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
 import Link from "next/link";
 import DatePicker from "./ui/date-picker";
 import HeroCarousel from "./ui/hero-carousel";
@@ -121,6 +122,7 @@ const SERVICES = [
 
 
 export default function Home() {
+  const router = useRouter();
   const { currency } = useCurrency();
   const { t } = useLanguage();
   const [checkIn, setCheckIn] = useState("");
@@ -172,6 +174,15 @@ export default function Home() {
   function handleSearch(e) {
     e.preventDefault();
     performSearch(checkIn, checkOut);
+  }
+
+  function clearSearch() {
+    setCheckIn("");
+    setCheckOut("");
+    setRooms(null);
+    setSearchStatus("idle");
+    setSearchMessage("");
+    router.replace("/");
   }
 
   // If we arrived here via "Back to search results" from a room detail
@@ -237,10 +248,19 @@ export default function Home() {
           <button
             type="submit"
             disabled={searchStatus === "searching"}
-            className="rounded-lg bg-amber-500 px-8 py-2.5 font-semibold text-white transition-opacity hover:opacity-90 disabled:opacity-50"
+            className="rounded-lg bg-[var(--accent-color)] px-8 py-2.5 font-semibold text-black transition-opacity hover:opacity-90 disabled:opacity-50"
           >
             {searchStatus === "searching" ? t("searching") : t("search")}
           </button>
+          {(checkIn || checkOut) && (
+            <button
+              type="button"
+              onClick={clearSearch}
+              className="rounded-lg border border-[var(--border-color)] px-6 py-2.5 font-semibold text-[var(--text-secondary)] transition-colors hover:border-[var(--accent-color)] hover:text-[var(--accent-color)]"
+            >
+              {t("clear")}
+            </button>
+          )}
         </form>
       </div>
 
