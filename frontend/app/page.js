@@ -264,6 +264,12 @@ export default function Home() {
         </form>
       </div>
 
+      {searchStatus === "error" && (
+        <p className="mt-16 px-6 text-center text-sm text-red-400">
+          {searchMessage}
+        </p>
+      )}
+
       {/* Showcase - visible before a successful search (idle) and also
           when the search form itself was invalid (error) - a validation
           message like "checkout must be after checkin" shouldn't blank
@@ -393,9 +399,6 @@ export default function Home() {
 
       {/* Results */}
       <div className="mx-auto max-w-5xl px-6 pt-16 pb-16">
-        {searchStatus === "error" && (
-          <p className="text-center text-red-400">{searchMessage}</p>
-        )}
         {rooms && rooms.length === 0 && (
           <p className="text-center text-[var(--text-secondary)]">
             No rooms available for those dates. Try different dates.
