@@ -191,7 +191,7 @@ export default function RoomDetailPage() {
           <img
             src={gallery[activeImage]}
             alt={`${roomType} room photo ${activeImage + 1}`}
-            className="h-[420px] w-full object-cover"
+            className="aspect-[3/2] w-full object-cover"
           />
 
           {gallery.length > 1 && (
