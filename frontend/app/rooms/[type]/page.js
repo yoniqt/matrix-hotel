@@ -17,6 +17,8 @@ import { useLanguage } from "../../language-provider";
 import { formatPrice } from "../../../lib/currency";
 import SiteHeader from "../../ui/site-header";
 import DatePicker from "../../ui/date-picker";
+import PaymentModal from "../../ui/payment-modal";
+import BookingReceipt from "../../ui/booking-receipt";
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL;
 
@@ -79,6 +81,8 @@ export default function RoomDetailPage() {
   const [showPolicyModal, setShowPolicyModal] = useState(false);
   const [bookingStatus, setBookingStatus] = useState("idle");
   const [bookingMessage, setBookingMessage] = useState("");
+  const [pendingBooking, setPendingBooking] = useState(null);
+  const [confirmedBooking, setConfirmedBooking] = useState(null);
 
   useEffect(() => {
     if (!checkIn || !checkOut) {
@@ -113,35 +117,43 @@ export default function RoomDetailPage() {
     const roomIdsToBook = room.roomIds.slice(0, quantity);
 
     try {
-      for (const roomId of roomIdsToBook) {
-        const res = await fetch(`${API_URL}/api/bookings`, {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            ...form,
-            room_id: roomId,
-            check_in_date: checkIn,
-            check_out_date: checkOut,
-            guests_count: adults,
-          }),
-        });
-        const data = await res.json();
+      const res = await fetch(`${API_URL}/api/bookings`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          ...form,
+          room_ids: roomIdsToBook,
+          check_in_date: checkIn,
+          check_out_date: checkOut,
+          guests_count: adults,
+        }),
+      });
+      const data = await res.json();
 
-        if (!data.success) {
-          setBookingStatus("error");
-          setBookingMessage(data.message);
-          return;
-        }
+      if (!data.success) {
+        setBookingStatus("error");
+        setBookingMessage(data.message);
+        return;
       }
 
-      setBookingStatus("success");
-      setBookingMessage(
-        `${roomIdsToBook.length} room${roomIdsToBook.length > 1 ? "s" : ""} booked successfully!`
-      );
+      setPendingBooking(data.data);
+      setBookingStatus("awaiting_payment");
     } catch {
       setBookingStatus("error");
       setBookingMessage("Something went wrong. Please try again.");
     }
+  }
+
+  function handlePaymentConfirmed(bookingData) {
+    setConfirmedBooking(bookingData);
+    setBookingStatus("confirmed");
+    setPendingBooking(null);
+  }
+
+  function handlePaymentCancelled() {
+    setPendingBooking(null);
+    setBookingStatus("idle");
+    setBookingMessage("Payment cancelled - your room hold has been released.");
   }
 
   if (loadStatus === "no-dates") {
@@ -230,6 +242,21 @@ export default function RoomDetailPage() {
               Back to search
             </Link>
           </div>
+        </main>
+      </>
+    );
+  }
+
+  if (bookingStatus === "confirmed" && confirmedBooking) {
+    return (
+      <>
+        <SiteHeader />
+        <main className="min-h-screen bg-[var(--bg-primary)] px-6 py-16">
+          <BookingReceipt
+            booking={confirmedBooking}
+            currency={currency}
+            formatPrice={formatPrice}
+          />
         </main>
       </>
     );
@@ -495,7 +522,11 @@ export default function RoomDetailPage() {
 
               <button
                 type="submit"
-                disabled={bookingStatus === "sending" || !agreedToPolicy}
+                disabled={
+                  bookingStatus === "sending" ||
+                  bookingStatus === "awaiting_payment" ||
+                  !agreedToPolicy
+                }
                 className="rounded-full bg-[var(--accent-color)] px-6 py-3 font-medium text-black disabled:opacity-50"
               >
                 {bookingStatus === "sending" ? t("booking") : t("confirmBooking")}
@@ -504,9 +535,9 @@ export default function RoomDetailPage() {
               {bookingMessage && (
                 <p
                   className={
-                    bookingStatus === "success"
-                      ? "text-green-400"
-                      : "text-red-400"
+                    bookingStatus === "error"
+                      ? "text-red-400"
+                      : "text-[var(--text-secondary)]"
                   }
                 >
                   {bookingMessage}
@@ -517,6 +548,21 @@ export default function RoomDetailPage() {
         </div>
       </div>
       </main>
+
+      {bookingStatus === "awaiting_payment" && pendingBooking && (
+        <PaymentModal
+          bookingReference={pendingBooking.booking_reference}
+          totalAmount={pendingBooking.total_amount}
+          currency={currency}
+          formatPrice={formatPrice}
+          roomType={roomType}
+          quantity={quantity}
+          checkIn={checkIn}
+          checkOut={checkOut}
+          onConfirmed={handlePaymentConfirmed}
+          onCancelled={handlePaymentCancelled}
+        />
+      )}
 
       {showPolicyModal && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 px-4">

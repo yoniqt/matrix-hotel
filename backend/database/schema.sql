@@ -26,9 +26,12 @@ CREATE TABLE bookings (
   special_requests TEXT,
   status VARCHAR(20) NOT NULL DEFAULT 'confirmed',
   guests_count INT NOT NULL DEFAULT 1,
+  booking_reference VARCHAR(20) NOT NULL DEFAULT '',
+  payment_status VARCHAR(20) NOT NULL DEFAULT 'pending',
   created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
   FOREIGN KEY (guest_id) REFERENCES guests(id) ON DELETE CASCADE,
-  FOREIGN KEY (room_id) REFERENCES rooms(id) ON DELETE CASCADE
+  FOREIGN KEY (room_id) REFERENCES rooms(id) ON DELETE CASCADE,
+  INDEX idx_booking_reference (booking_reference)
 );
 
 INSERT INTO rooms (room_number, room_type, price_per_night, capacity) VALUES
