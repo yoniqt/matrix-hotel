@@ -90,6 +90,9 @@ export default function RoomDetailPage() {
       return;
     }
 
+    setLoadStatus("loading");
+    setRoom(null);
+
     fetch(`${API_URL}/api/rooms/available?check_in=${checkIn}&check_out=${checkOut}`)
       .then((res) => res.json())
       .then((data) => {
@@ -111,6 +114,15 @@ export default function RoomDetailPage() {
 
   async function handleBookingSubmit(e) {
     e.preventDefault();
+
+    if (!room) {
+      setBookingStatus("error");
+      setBookingMessage(
+        "This room is no longer available for your dates. Please refresh and try again."
+      );
+      return;
+    }
+
     setBookingStatus("sending");
     setBookingMessage("");
 
@@ -161,6 +173,21 @@ export default function RoomDetailPage() {
     setBookingStatus("idle");
     setBookingMessage(
       "Your 30-minute payment window expired - the room hold was released. Please try booking again."
+    );
+  }
+
+  if (bookingStatus === "confirmed" && confirmedBooking) {
+    return (
+      <>
+        <SiteHeader />
+        <main className="min-h-screen bg-[var(--bg-primary)] px-6 py-16">
+          <BookingReceipt
+            booking={confirmedBooking}
+            currency={currency}
+            formatPrice={formatPrice}
+          />
+        </main>
+      </>
     );
   }
 
@@ -250,21 +277,6 @@ export default function RoomDetailPage() {
               Back to search
             </Link>
           </div>
-        </main>
-      </>
-    );
-  }
-
-  if (bookingStatus === "confirmed" && confirmedBooking) {
-    return (
-      <>
-        <SiteHeader />
-        <main className="min-h-screen bg-[var(--bg-primary)] px-6 py-16">
-          <BookingReceipt
-            booking={confirmedBooking}
-            currency={currency}
-            formatPrice={formatPrice}
-          />
         </main>
       </>
     );
