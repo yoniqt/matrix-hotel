@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import { useLanguage } from "../language-provider";
 
 const NEWS_EVENTS = [
@@ -11,6 +11,13 @@ const NEWS_EVENTS = [
     title: "Neon & Beats Rooftop Party",
     desc: "Refresh your night with renowned guest DJs, mesmerizing neon lighting transitions, and free-flowing crafted cocktails.",
     image: "/images/events/rooftop.jpg",
+    location: "Rooftop, 16th Floor",
+    time: "9:00 PM – 1:00 AM",
+    highlights: [
+      "Live sets from 3 guest DJs",
+      "Signature neon cocktail menu",
+      "Smart casual dress code",
+    ],
   },
   {
     id: 2,
@@ -19,6 +26,13 @@ const NEWS_EVENTS = [
     title: "Elegance Wine Tasting Soirée",
     desc: "An intimate evening for wine connoisseurs. Savor world-class vintage wines paired with artisan cheeses.",
     image: "/images/events/wine.jpg",
+    location: "The Cellar Room, 2nd Floor",
+    time: "7:00 PM – 10:00 PM",
+    highlights: [
+      "6 world-class vintage wines",
+      "Curated artisan cheese pairings",
+      "Limited to 30 guests",
+    ],
   },
   {
     id: 3,
@@ -27,6 +41,13 @@ const NEWS_EVENTS = [
     title: "Mindfulness & Spa Retreat",
     desc: "Reset your mind and body with a full day of sound healing meditation, premium aromatherapy, and organic herbal high tea.",
     image: "/images/events/spa-retreat.jpg",
+    location: "Wellness Spa, 3rd Floor",
+    time: "8:00 AM – 5:00 PM",
+    highlights: [
+      "Guided sound healing meditation",
+      "Premium aromatherapy session",
+      "Organic herbal high tea included",
+    ],
   },
   {
     id: 4,
@@ -35,6 +56,13 @@ const NEWS_EVENTS = [
     title: "Family Fun Weekend Getaway",
     desc: "A fun-filled weekend for the whole family - with games, movie night, and a delicious family-style dinner everyone is sure to love.",
     image: "/images/events/family-weekend.jpg",
+    location: "Hotel Lobby & Function Hall",
+    time: "All Weekend",
+    highlights: [
+      "Kids' game corner",
+      "Outdoor movie night",
+      "Family-style buffet dinner",
+    ],
   },
   {
     id: 5,
@@ -43,6 +71,13 @@ const NEWS_EVENTS = [
     title: "Sunrise Yoga & Fitness Bootcamp",
     desc: "Start your morning right with a refreshing yoga session and a high-energy fitness bootcamp led by our certified trainers.",
     image: "/images/events/yoga.jpg",
+    location: "Fitness Studio, 2nd Floor",
+    time: "6:00 AM – 8:00 AM",
+    highlights: [
+      "Certified yoga instructor",
+      "High-energy bootcamp circuit",
+      "Complimentary post-workout smoothies",
+    ],
   },
   {
     id: 6,
@@ -51,12 +86,20 @@ const NEWS_EVENTS = [
     title: "Countdown to New Year Gala",
     desc: "Welcome the new year with a live band, a dazzling fireworks display, and an unforgettable gala dinner.",
     image: "/images/hero/exterior.jpg",
+    location: "Rooftop Pool Deck",
+    time: "8:00 PM – 1:00 AM",
+    highlights: [
+      "Live band performance",
+      "Rooftop fireworks viewing",
+      "5-course gala dinner",
+    ],
   },
 ];
 
 export default function NewsEvents() {
   const { t } = useLanguage();
   const scrollRef = useRef(null);
+  const [selectedEvent, setSelectedEvent] = useState(null);
 
   function scroll(direction) {
     const el = scrollRef.current;
@@ -116,15 +159,16 @@ export default function NewsEvents() {
                     <p className="mt-2 line-clamp-2 text-sm text-[var(--text-secondary)]">
                       {item.desc}
                     </p>
-                    <a
-                      href="#"
+                    <button
+                      type="button"
+                      onClick={() => setSelectedEvent(item)}
                       className="group/link mt-3 inline-flex items-center gap-1 text-sm font-semibold text-[var(--text-secondary)] transition-colors hover:text-[var(--accent-color)]"
                     >
                       <span>{t("viewDetails")}</span>
                       <span className="transition-transform duration-300 group-hover/link:translate-x-1">
                         →
                       </span>
-                    </a>
+                    </button>
                   </div>
                 </div>
               ))}
@@ -141,6 +185,74 @@ export default function NewsEvents() {
           </button>
         </div>
       </div>
+
+      {selectedEvent && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 px-4">
+          <div className="relative max-h-[85vh] w-full max-w-lg overflow-y-auto rounded-2xl border border-[var(--border-color)] bg-[var(--bg-secondary)]">
+            <button
+              onClick={() => setSelectedEvent(null)}
+              aria-label="Close"
+              className="absolute top-4 right-4 z-10 flex h-9 w-9 items-center justify-center rounded-full bg-black/50 text-xl leading-none text-white backdrop-blur transition-colors hover:bg-black/70"
+            >
+              ×
+            </button>
+            <img
+              src={selectedEvent.image}
+              alt={selectedEvent.title}
+              className="h-72 w-full object-cover"
+            />
+            <div className="p-8">
+              <p className="text-xs font-semibold tracking-[0.2em] text-[var(--accent-strong)] uppercase">
+                {selectedEvent.tag}
+              </p>
+              <h2 className="mt-2 text-2xl font-bold text-[var(--text-primary)]">
+                {selectedEvent.title}
+              </h2>
+              <p className="mt-1 text-sm text-[var(--text-secondary)]">
+                📍 {selectedEvent.location}
+              </p>
+
+              <p className="mt-4 text-[var(--text-secondary)]">
+                {selectedEvent.desc}
+              </p>
+
+              <div className="mt-6 grid grid-cols-2 gap-4">
+                <div>
+                  <p className="text-xs font-semibold uppercase tracking-wide text-[var(--text-secondary)]">
+                    Date
+                  </p>
+                  <p className="text-lg font-semibold text-[var(--text-primary)]">
+                    {selectedEvent.date}
+                  </p>
+                </div>
+                <div>
+                  <p className="text-xs font-semibold uppercase tracking-wide text-[var(--text-secondary)]">
+                    Time
+                  </p>
+                  <p className="text-lg font-semibold text-[var(--text-primary)]">
+                    {selectedEvent.time}
+                  </p>
+                </div>
+              </div>
+
+              <p className="mt-6 text-xs font-semibold uppercase tracking-wide text-[var(--text-secondary)]">
+                Highlights
+              </p>
+              <ul className="mt-2 flex flex-col gap-2">
+                {selectedEvent.highlights.map((feature) => (
+                  <li
+                    key={feature}
+                    className="flex items-center gap-3 text-[var(--text-secondary)]"
+                  >
+                    <span className="h-1.5 w-1.5 shrink-0 rounded-full bg-[var(--accent-color)]" />
+                    {feature}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
