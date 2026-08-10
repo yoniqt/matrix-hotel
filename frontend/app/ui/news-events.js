@@ -9,7 +9,7 @@ const NEWS_EVENTS = [
     tag: "01 / NIGHTLIFE",
     date: "OCT 16",
     title: "Neon & Beats Rooftop Party",
-    desc: "Sariwain ang gabi kasama ang mga sikat na guest DJs, nakabibighaning neon lighting transitions, at free-flowing crafted cocktails.",
+    desc: "Refresh your night with renowned guest DJs, mesmerizing neon lighting transitions, and free-flowing crafted cocktails.",
     image: "/images/events/rooftop.jpg",
   },
   {
@@ -17,7 +17,7 @@ const NEWS_EVENTS = [
     tag: "02 / CULINARY",
     date: "OCT 28",
     title: "Elegance Wine Tasting Soirée",
-    desc: "Isang intimate na gabi para sa mga wine connoisseurs. Tikman ang mga world-class vintage wines na ipinares sa mga artisan cheeses.",
+    desc: "An intimate evening for wine connoisseurs. Savor world-class vintage wines paired with artisan cheeses.",
     image: "/images/events/wine.jpg",
   },
   {
@@ -25,7 +25,7 @@ const NEWS_EVENTS = [
     tag: "03 / WELLNESS",
     date: "NOV 05",
     title: "Mindfulness & Spa Retreat",
-    desc: "I-reset ang iyong isip at katawan sa isang buong araw ng sound healing meditation, premium aromatherapy, at organic herbal high tea.",
+    desc: "Reset your mind and body with a full day of sound healing meditation, premium aromatherapy, and organic herbal high tea.",
     image: "/images/events/spa-retreat.jpg",
   },
   {
@@ -33,15 +33,15 @@ const NEWS_EVENTS = [
     tag: "04 / FAMILY",
     date: "NOV 15",
     title: "Family Fun Weekend Getaway",
-    desc: "Isang masayang weekend para sa buong pamilya - may mga laro, movie night, at masarap na family-style dinner na tiyak na magugustuhan ng lahat.",
-    image: "/images/rooms/family.jpg",
+    desc: "A fun-filled weekend for the whole family - with games, movie night, and a delicious family-style dinner everyone is sure to love.",
+    image: "/images/rooms/family/family.jpg",
   },
   {
     id: 5,
     tag: "05 / FITNESS",
     date: "NOV 22",
     title: "Sunrise Yoga & Fitness Bootcamp",
-    desc: "Simulan ang umaga nang tama sa isang refreshing yoga session at high-energy fitness bootcamp kasama ang aming certified trainers.",
+    desc: "Start your morning right with a refreshing yoga session and a high-energy fitness bootcamp led by our certified trainers.",
     image: "/images/amenities/gym.jpg",
   },
   {
@@ -49,7 +49,7 @@ const NEWS_EVENTS = [
     tag: "06 / SEASONAL",
     date: "DEC 31",
     title: "Countdown to New Year Gala",
-    desc: "Salubungin ang bagong taon kasama ang live band, fireworks display, at isang gala dinner na hindi malilimutan.",
+    desc: "Welcome the new year with a live band, a dazzling fireworks display, and an unforgettable gala dinner.",
     image: "/images/hero/exterior.jpg",
   },
 ];
