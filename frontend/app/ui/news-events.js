@@ -34,7 +34,7 @@ const NEWS_EVENTS = [
     date: "NOV 15",
     title: "Family Fun Weekend Getaway",
     desc: "A fun-filled weekend for the whole family - with games, movie night, and a delicious family-style dinner everyone is sure to love.",
-    image: "/images/rooms/family/family.jpg",
+    image: "/images/events/family-weekend.jpg",
   },
   {
     id: 5,
@@ -42,7 +42,7 @@ const NEWS_EVENTS = [
     date: "NOV 22",
     title: "Sunrise Yoga & Fitness Bootcamp",
     desc: "Start your morning right with a refreshing yoga session and a high-energy fitness bootcamp led by our certified trainers.",
-    image: "/images/amenities/gym.jpg",
+    image: "/images/events/yoga.jpg",
   },
   {
     id: 6,
