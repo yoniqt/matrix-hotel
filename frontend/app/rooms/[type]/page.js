@@ -76,6 +76,7 @@ export default function RoomDetailPage() {
     special_requests: "",
   });
   const [agreedToPolicy, setAgreedToPolicy] = useState(false);
+  const [showPolicyModal, setShowPolicyModal] = useState(false);
   const [bookingStatus, setBookingStatus] = useState("idle");
   const [bookingMessage, setBookingMessage] = useState("");
 
@@ -480,7 +481,16 @@ export default function RoomDetailPage() {
                   onChange={(e) => setAgreedToPolicy(e.target.checked)}
                   className="mt-0.5"
                 />
-                {t("agreePolicy")}
+                <button
+                  type="button"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    setShowPolicyModal(true);
+                  }}
+                  className="text-left underline decoration-dotted underline-offset-2 hover:text-[var(--accent-color)]"
+                >
+                  {t("agreePolicy")}
+                </button>
               </label>
 
               <button
@@ -507,6 +517,84 @@ export default function RoomDetailPage() {
         </div>
       </div>
       </main>
+
+      {showPolicyModal && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 px-4">
+          <div className="relative max-h-[85vh] w-full max-w-md overflow-y-auto rounded-2xl border border-[var(--border-color)] bg-[var(--bg-secondary)] p-8">
+            <button
+              onClick={() => setShowPolicyModal(false)}
+              aria-label="Close"
+              className="absolute top-4 right-4 flex h-9 w-9 items-center justify-center rounded-full bg-black/50 text-xl leading-none text-white backdrop-blur transition-colors hover:bg-black/70"
+            >
+              ×
+            </button>
+
+            <h2 className="text-xl font-bold text-[var(--text-primary)]">
+              {t("cancellationPolicy")}
+            </h2>
+            <p className="mt-2 text-sm text-[var(--text-secondary)]">
+              {t("cancellationPolicyText")}
+            </p>
+
+            <h2 className="mt-6 text-xl font-bold text-[var(--text-primary)]">
+              {t("checkInOut")}
+            </h2>
+            <ul className="mt-2 flex flex-col gap-1 text-sm text-[var(--text-secondary)]">
+              <li>
+                <span className="font-semibold text-[var(--text-primary)]">
+                  {t("checkIn")}
+                </span>{" "}
+                {CHECK_IN_OUT_POLICY.checkIn}
+              </li>
+              <li>
+                <span className="font-semibold text-[var(--text-primary)]">
+                  {t("checkOut")}
+                </span>{" "}
+                {CHECK_IN_OUT_POLICY.checkOut}
+              </li>
+              <li>
+                <span className="font-semibold text-[var(--text-primary)]">
+                  {t("lateCheckoutHours")}
+                </span>{" "}
+                {CHECK_IN_OUT_POLICY.lateCheckoutHours}
+              </li>
+              <li>
+                <span className="font-semibold text-[var(--text-primary)]">
+                  {t("lateCheckoutFee")}
+                </span>{" "}
+                {CHECK_IN_OUT_POLICY.lateCheckoutFee}
+              </li>
+            </ul>
+
+            <h2 className="mt-6 text-xl font-bold text-[var(--text-primary)]">
+              Booking Terms
+            </h2>
+            <ul className="mt-2 flex flex-col gap-2 text-sm text-[var(--text-secondary)]">
+              <li className="flex items-center gap-3">
+                <span className="h-1.5 w-1.5 shrink-0 rounded-full bg-[var(--accent-color)]" />
+                A valid government-issued ID is required at check-in.
+              </li>
+              <li className="flex items-center gap-3">
+                <span className="h-1.5 w-1.5 shrink-0 rounded-full bg-[var(--accent-color)]" />
+                Full payment is charged at the time of booking.
+              </li>
+              <li className="flex items-center gap-3">
+                <span className="h-1.5 w-1.5 shrink-0 rounded-full bg-[var(--accent-color)]" />
+                Rates are subject to availability and may change without
+                notice.
+              </li>
+            </ul>
+
+            <button
+              type="button"
+              onClick={() => setShowPolicyModal(false)}
+              className="mt-8 w-full rounded-full bg-[var(--accent-color)] px-6 py-3 font-medium text-black"
+            >
+              Close
+            </button>
+          </div>
+        </div>
+      )}
     </>
   );
 }
