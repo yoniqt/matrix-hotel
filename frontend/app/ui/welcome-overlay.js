@@ -40,7 +40,7 @@ export default function WelcomeOverlay({ show }) {
               transition={{ duration: 1, ease: EASE, delay: 0.5 }}
               className={`${serif.className} mt-5 bg-gradient-to-b from-amber-100 via-amber-300 to-amber-500 bg-clip-text text-4xl italic tracking-wide text-transparent sm:text-6xl`}
             >
-              Welcome to Matriz Hotel
+              Welcome to Matrix Hotel
             </motion.h1>
 
             <motion.div
