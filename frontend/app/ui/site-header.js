@@ -35,6 +35,36 @@ export default function SiteHeader() {
       : "rounded-full px-3 py-1 hover:text-[var(--accent-color)]";
   }
 
+  // Clicking Home/the logo while already on "/" is a same-URL Link click,
+  // so Next.js does nothing - no navigation, no scroll. Same for Contact:
+  // once the #site-footer hash is already in the URL, clicking it again
+  // doesn't re-trigger a jump because the URL hasn't changed. Handling the
+  // scroll manually fixes both, and "instant" (not "smooth") skips the
+  // browser's built-in anchor-scroll animation.
+  function handleHomeClick(e) {
+    if (pathname === "/") {
+      e.preventDefault();
+      window.scrollTo({ top: 0, behavior: "instant" });
+    }
+    setMenuOpen(false);
+  }
+
+  function handleContactClick(e) {
+    if (pathname === "/") {
+      e.preventDefault();
+      document
+        .getElementById("site-footer")
+        ?.scrollIntoView({ behavior: "instant", block: "start" });
+    }
+    setMenuOpen(false);
+  }
+
+  function handleNavClick(href, e) {
+    if (href === "/") return handleHomeClick(e);
+    if (href === "/#site-footer") return handleContactClick(e);
+    setMenuOpen(false);
+  }
+
   return (
     <header className="relative z-20 bg-[var(--bg-secondary)] text-[var(--text-primary)]">
       <div className="flex items-center justify-between px-8 py-2 text-xs text-[var(--text-secondary)]">
@@ -69,13 +99,18 @@ export default function SiteHeader() {
           <span className="h-0.5 w-6 bg-[var(--text-primary)]" />
         </button>
 
-        <Link href="/" className="text-xl font-semibold italic">
+        <Link href="/" onClick={handleHomeClick} className="text-xl font-semibold italic">
           The Matrix Hotel
         </Link>
 
         <div className="hidden gap-2 text-sm font-medium sm:flex">
           {NAV_LINKS.map(({ href, key }) => (
-            <Link key={href} href={href} className={linkClass(href)}>
+            <Link
+              key={href}
+              href={href}
+              onClick={(e) => handleNavClick(href, e)}
+              className={linkClass(href)}
+            >
               {t(key)}
             </Link>
           ))}
@@ -88,7 +123,7 @@ export default function SiteHeader() {
             <Link
               key={href}
               href={href}
-              onClick={() => setMenuOpen(false)}
+              onClick={(e) => handleNavClick(href, e)}
               className={linkClass(href)}
             >
               {t(key)}

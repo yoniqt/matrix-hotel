@@ -3,6 +3,7 @@ import "./globals.css";
 import { ThemeProvider } from "./theme-provider";
 import { CurrencyProvider } from "./currency-provider";
 import { LanguageProvider } from "./language-provider";
+import BackToTop from "./ui/back-to-top";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -31,6 +32,7 @@ export default function RootLayout({ children }) {
             <CurrencyProvider>{children}</CurrencyProvider>
           </LanguageProvider>
         </ThemeProvider>
+        <BackToTop />
       </body>
     </html>
   );
