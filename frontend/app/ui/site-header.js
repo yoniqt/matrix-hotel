@@ -1,5 +1,6 @@
 "use client";
 
+import { useState } from "react";
 import Link from "next/link";
 import TopSelectors from "./top-selectors";
 import { useLanguage } from "../language-provider";
@@ -8,6 +9,7 @@ import { useTheme } from "../theme-provider";
 export default function SiteHeader() {
   const { t } = useLanguage();
   const { theme, toggleTheme } = useTheme();
+  const [menuOpen, setMenuOpen] = useState(false);
 
   return (
     <header className="relative z-20 bg-[var(--bg-secondary)] text-[var(--text-primary)]">
@@ -48,7 +50,52 @@ export default function SiteHeader() {
             {t("contact")}
           </Link>
         </div>
+
+        <button
+          type="button"
+          onClick={() => setMenuOpen((open) => !open)}
+          aria-label="Toggle menu"
+          aria-expanded={menuOpen}
+          className="flex flex-col gap-1.5 sm:hidden"
+        >
+          <span className="h-0.5 w-6 bg-[var(--text-primary)]" />
+          <span className="h-0.5 w-6 bg-[var(--text-primary)]" />
+          <span className="h-0.5 w-6 bg-[var(--text-primary)]" />
+        </button>
       </nav>
+
+      {menuOpen && (
+        <div className="flex flex-col gap-4 border-t border-[var(--border-color)] px-8 py-4 text-sm font-medium sm:hidden">
+          <Link
+            href="/"
+            onClick={() => setMenuOpen(false)}
+            className="hover:text-[var(--accent-color)]"
+          >
+            {t("home")}
+          </Link>
+          <Link
+            href="/about"
+            onClick={() => setMenuOpen(false)}
+            className="hover:text-[var(--accent-color)]"
+          >
+            {t("about")}
+          </Link>
+          <Link
+            href="/rooms"
+            onClick={() => setMenuOpen(false)}
+            className="hover:text-[var(--accent-color)]"
+          >
+            {t("rooms")}
+          </Link>
+          <Link
+            href="/#site-footer"
+            onClick={() => setMenuOpen(false)}
+            className="hover:text-[var(--accent-color)]"
+          >
+            {t("contact")}
+          </Link>
+        </div>
+      )}
     </header>
   );
 }
