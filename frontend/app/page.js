@@ -136,6 +136,14 @@ export default function Home() {
 
   const [showWelcome, setShowWelcome] = useState(true);
   useEffect(() => {
+    // Only play the splash once per browser session - otherwise it
+    // replays every time this page remounts, including when the Contact
+    // or Home nav link brings you back here from another page.
+    if (sessionStorage.getItem("welcomeShown")) {
+      setShowWelcome(false);
+      return;
+    }
+    sessionStorage.setItem("welcomeShown", "true");
     const timer = setTimeout(() => setShowWelcome(false), 2200);
     return () => clearTimeout(timer);
   }, []);
