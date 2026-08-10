@@ -13,9 +13,18 @@ const POLL_INTERVAL_MS = 3000;
 // real GCash/QR Ph charge. "Simulate Payment Received" stands in for the
 // webhook a real gateway would fire; polling GET /reference/:ref is the
 // same shape a real integration would use to confirm payment server-side.
+function formatCountdown(ms) {
+  if (ms <= 0) return "00:00";
+  const totalSeconds = Math.floor(ms / 1000);
+  const minutes = Math.floor(totalSeconds / 60);
+  const seconds = totalSeconds % 60;
+  return `${String(minutes).padStart(2, "0")}:${String(seconds).padStart(2, "0")}`;
+}
+
 export default function PaymentModal({
   bookingReference,
   totalAmount,
+  expiresAt,
   currency,
   formatPrice,
   roomType,
@@ -24,10 +33,14 @@ export default function PaymentModal({
   checkOut,
   onConfirmed,
   onCancelled,
+  onExpired,
 }) {
   const [qrDataUrl, setQrDataUrl] = useState(null);
   const [simulating, setSimulating] = useState(false);
   const [cancelling, setCancelling] = useState(false);
+  const [msRemaining, setMsRemaining] = useState(
+    () => new Date(expiresAt).getTime() - Date.now()
+  );
   const pollRef = useRef(null);
 
   useEffect(() => {
@@ -36,12 +49,25 @@ export default function PaymentModal({
   }, [bookingReference, totalAmount]);
 
   useEffect(() => {
+    const expiresAtMs = new Date(expiresAt).getTime();
+    const tick = setInterval(() => {
+      setMsRemaining(expiresAtMs - Date.now());
+    }, 1000);
+    return () => clearInterval(tick);
+  }, [expiresAt]);
+
+  useEffect(() => {
     async function poll() {
       try {
         const res = await fetch(`${API_URL}/api/bookings/reference/${bookingReference}`);
         const data = await res.json();
-        if (data.success && data.data.payment_status === "paid") {
+        if (!data.success) return;
+        if (data.data.payment_status === "paid") {
+          clearInterval(pollRef.current);
           onConfirmed(data.data);
+        } else if (data.data.payment_status === "expired") {
+          clearInterval(pollRef.current);
+          onExpired();
         }
       } catch {
         // Network hiccup during polling isn't fatal - just try again next tick.
@@ -97,6 +123,13 @@ export default function PaymentModal({
         </h2>
         <p className="mt-1 text-sm text-[var(--text-secondary)]">
           Booking Ref: <span className="font-mono font-semibold">{bookingReference}</span>
+        </p>
+        <p
+          className={`mt-2 text-sm font-semibold ${
+            msRemaining < 5 * 60 * 1000 ? "text-red-400" : "text-[var(--text-secondary)]"
+          }`}
+        >
+          Room held for {formatCountdown(msRemaining)}
         </p>
 
         <div className="mt-5 rounded-xl border border-[var(--border-color)] bg-[var(--input-bg)] p-4 text-left text-sm text-[var(--text-secondary)]">

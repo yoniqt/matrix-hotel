@@ -156,6 +156,14 @@ export default function RoomDetailPage() {
     setBookingMessage("Payment cancelled - your room hold has been released.");
   }
 
+  function handlePaymentExpired() {
+    setPendingBooking(null);
+    setBookingStatus("idle");
+    setBookingMessage(
+      "Your 30-minute payment window expired - the room hold was released. Please try booking again."
+    );
+  }
+
   if (loadStatus === "no-dates") {
     return (
       <>
@@ -553,6 +561,7 @@ export default function RoomDetailPage() {
         <PaymentModal
           bookingReference={pendingBooking.booking_reference}
           totalAmount={pendingBooking.total_amount}
+          expiresAt={pendingBooking.expires_at}
           currency={currency}
           formatPrice={formatPrice}
           roomType={roomType}
@@ -561,6 +570,7 @@ export default function RoomDetailPage() {
           checkOut={checkOut}
           onConfirmed={handlePaymentConfirmed}
           onCancelled={handlePaymentCancelled}
+          onExpired={handlePaymentExpired}
         />
       )}
 

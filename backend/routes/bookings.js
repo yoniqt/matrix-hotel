@@ -1,6 +1,10 @@
 const express = require("express");
 const router = express.Router();
 const db = require("../config/db");
+const {
+  PENDING_EXPIRY_MINUTES,
+  expireStalePending,
+} = require("../utils/bookingExpiry");
 
 const REF_CHARS = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789"; // no 0/O/1/I - easier to read at check-in
 
@@ -142,6 +146,10 @@ router.post("/", async (req, res) => {
       0
     );
 
+    const expiresAt = new Date(
+      Date.now() + PENDING_EXPIRY_MINUTES * 60 * 1000
+    ).toISOString();
+
     res.status(201).json({
       success: true,
       data: {
@@ -151,6 +159,7 @@ router.post("/", async (req, res) => {
         room_count: room_ids.length,
         check_in_date,
         check_out_date,
+        expires_at: expiresAt,
       },
     });
   } catch (error) {
@@ -165,14 +174,20 @@ router.post("/", async (req, res) => {
 // verification, since there's no real payment gateway wired up here).
 router.get("/reference/:ref", async (req, res) => {
   try {
+    // Check-and-expire on demand first, so a guest polling this exact
+    // reference sees 'expired' the moment the 30 minutes are up, without
+    // waiting for the next periodic sweep tick.
+    await expireStalePending(req.params.ref);
+
     const [rows] = await db.query(
       `SELECT bookings.*, guests.name AS guest_name, guests.email AS guest_email,
-              rooms.room_number, rooms.room_type, rooms.price_per_night
+              rooms.room_number, rooms.room_type, rooms.price_per_night,
+              DATE_ADD(bookings.created_at, INTERVAL ? MINUTE) AS expires_at
        FROM bookings
        JOIN guests ON bookings.guest_id = guests.id
        JOIN rooms ON bookings.room_id = rooms.id
        WHERE bookings.booking_reference = ?`,
-      [req.params.ref]
+      [PENDING_EXPIRY_MINUTES, req.params.ref]
     );
 
     if (rows.length === 0) {
@@ -195,6 +210,7 @@ router.get("/reference/:ref", async (req, res) => {
         guest_email: rows[0].guest_email,
         check_in_date: rows[0].check_in_date,
         check_out_date: rows[0].check_out_date,
+        expires_at: rows[0].expires_at,
         nights,
         total_amount: totalAmount,
         rooms: rows.map((r) => ({
