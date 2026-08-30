@@ -21,24 +21,6 @@ function nightsBetween(checkIn, checkOut) {
   return Math.round(ms / (1000 * 60 * 60 * 24));
 }
 
-// GET /api/bookings - list all bookings (admin view)
-router.get("/", async (req, res) => {
-  try {
-    const [bookings] = await db.query(
-      `SELECT bookings.*, guests.name AS guest_name, guests.email AS guest_email,
-              rooms.room_number, rooms.room_type
-       FROM bookings
-       JOIN guests ON bookings.guest_id = guests.id
-       JOIN rooms ON bookings.room_id = rooms.id
-       ORDER BY bookings.check_in_date`
-    );
-    res.json({ success: true, data: bookings });
-  } catch (error) {
-    console.error("Error fetching bookings:", error.message);
-    res.status(500).json({ success: false, message: "Failed to fetch bookings." });
-  }
-});
-
 // POST /api/bookings - create one or more pending bookings (one per room_id)
 // under a single shared booking_reference. Nothing is "confirmed" for the
 // guest yet - status holds the room(s) so nobody else can grab them while

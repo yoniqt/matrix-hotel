@@ -4,6 +4,7 @@ const cors = require("cors");
 
 const roomsRouter = require("./routes/rooms");
 const bookingsRouter = require("./routes/bookings");
+const adminRouter = require("./routes/admin");
 const { expireAllStalePending } = require("./utils/bookingExpiry");
 
 const app = express();
@@ -13,6 +14,7 @@ app.use(express.json());
 
 app.use("/api/rooms", roomsRouter);
 app.use("/api/bookings", bookingsRouter);
+app.use("/api/admin", adminRouter);
 
 app.get("/", (req, res) => {
   res.json({ success: true, message: "Reservation system API is running." });
