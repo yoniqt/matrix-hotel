@@ -5,6 +5,12 @@ import { usePathname, useRouter } from "next/navigation";
 import Link from "next/link";
 import { getAdminToken, clearAdminToken } from "../../lib/admin-api";
 
+const NAV_LINKS = [
+  { href: "/admin/calendar", label: "Calendar" },
+  { href: "/admin/bookings", label: "Bookings" },
+  { href: "/admin/rooms", label: "Rooms" },
+];
+
 export default function AdminLayout({ children }) {
   const pathname = usePathname();
   const router = useRouter();
@@ -37,26 +43,19 @@ export default function AdminLayout({ children }) {
           The Matrix Hotel — Admin
         </span>
         <nav className="flex items-center gap-2 text-sm font-medium">
-          <Link
-            href="/admin/bookings"
-            className={`rounded-full px-3 py-1 ${
-              pathname.startsWith("/admin/bookings")
-                ? "bg-[var(--border-color)] text-[var(--accent-color)]"
-                : "text-[var(--text-secondary)] hover:text-[var(--accent-color)]"
-            }`}
-          >
-            Bookings
-          </Link>
-          <Link
-            href="/admin/rooms"
-            className={`rounded-full px-3 py-1 ${
-              pathname.startsWith("/admin/rooms")
-                ? "bg-[var(--border-color)] text-[var(--accent-color)]"
-                : "text-[var(--text-secondary)] hover:text-[var(--accent-color)]"
-            }`}
-          >
-            Rooms
-          </Link>
+          {NAV_LINKS.map(({ href, label }) => (
+            <Link
+              key={href}
+              href={href}
+              className={`rounded-full px-3 py-1 ${
+                pathname.startsWith(href)
+                  ? "bg-[var(--border-color)] text-[var(--accent-color)]"
+                  : "text-[var(--text-secondary)] hover:text-[var(--accent-color)]"
+              }`}
+            >
+              {label}
+            </Link>
+          ))}
           <button
             type="button"
             onClick={handleLogout}
