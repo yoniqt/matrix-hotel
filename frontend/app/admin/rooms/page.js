@@ -106,6 +106,123 @@ function RoomForm({ initial, onSubmit, onCancel, submitLabel }) {
   );
 }
 
+// Renders as actual <td> cells lined up under the table's own columns,
+// instead of one colSpan cell with a flex-wrap form (which bunched every
+// field against the left edge instead of under its header).
+function EditRoomRow({ room, onSubmit, onCancel }) {
+  const [form, setForm] = useState({
+    room_number: room.room_number,
+    room_type: room.room_type,
+    price_per_night: room.price_per_night,
+    capacity: room.capacity,
+  });
+  const [saving, setSaving] = useState(false);
+  const [error, setError] = useState("");
+
+  async function handleSubmit(e) {
+    e.preventDefault();
+    setError("");
+    setSaving(true);
+    try {
+      await onSubmit(form);
+    } catch (err) {
+      setError(err.message);
+      setSaving(false);
+    }
+  }
+
+  const inputClass =
+    "w-full rounded-lg border border-[var(--border-color)] bg-[var(--input-bg)] px-2 py-1.5 text-[var(--text-primary)] outline-none focus:border-[var(--accent-color)]";
+
+  return (
+    <>
+      <tr>
+        <td className="px-4 py-3">
+          <input
+            form={`edit-room-${room.id}`}
+            type="text"
+            value={form.room_number}
+            onChange={(e) => setForm({ ...form, room_number: e.target.value })}
+            required
+            className={inputClass}
+          />
+        </td>
+        <td className="px-4 py-3">
+          <select
+            form={`edit-room-${room.id}`}
+            value={form.room_type}
+            onChange={(e) => setForm({ ...form, room_type: e.target.value })}
+            className={inputClass}
+          >
+            {ROOM_TYPES.map((t) => (
+              <option key={t} value={t}>
+                {t}
+              </option>
+            ))}
+          </select>
+        </td>
+        <td className="px-4 py-3">
+          <input
+            form={`edit-room-${room.id}`}
+            type="number"
+            min="0"
+            step="0.01"
+            value={form.price_per_night}
+            onChange={(e) => setForm({ ...form, price_per_night: e.target.value })}
+            required
+            className={inputClass}
+          />
+        </td>
+        <td className="px-4 py-3">
+          <input
+            form={`edit-room-${room.id}`}
+            type="number"
+            min="1"
+            value={form.capacity}
+            onChange={(e) => setForm({ ...form, capacity: e.target.value })}
+            required
+            className={inputClass}
+          />
+        </td>
+        <td className="px-4 py-3 text-[var(--text-secondary)]">
+          <span className={`rounded-full px-2.5 py-1 text-xs font-semibold ${STATUS_STYLES[room.status] || STATUS_STYLES.Available}`}>
+            {room.status || "Available"}
+          </span>
+        </td>
+        <td className="px-4 py-3">
+          <form
+            id={`edit-room-${room.id}`}
+            onSubmit={handleSubmit}
+            className="flex gap-2"
+          >
+            <button
+              type="submit"
+              disabled={saving}
+              className="rounded-full bg-[var(--accent-color)] px-3 py-1 text-xs font-semibold text-black hover:opacity-90 disabled:opacity-50"
+            >
+              {saving ? "Saving…" : "Save"}
+            </button>
+            <button
+              type="button"
+              onClick={onCancel}
+              className="rounded-full border border-[var(--border-color)] px-3 py-1 text-xs text-[var(--text-secondary)]"
+            >
+              Cancel
+            </button>
+          </form>
+        </td>
+      </tr>
+      {error && (
+        <tr>
+          <td colSpan={6} className="px-4 pb-3 text-sm text-red-400">
+            {error}
+          </td>
+        </tr>
+      )}
+    </>
+  );
+}
+
 export default function AdminRoomsPage() {
   const [rooms, setRooms] = useState(null);
   const [error, setError] = useState("");
@@ -213,21 +330,12 @@ export default function AdminRoomsPage() {
             <tbody className="divide-y divide-[var(--border-color)] text-[var(--text-primary)]">
               {rooms.map((room) =>
                 editingId === room.id ? (
-                  <tr key={room.id}>
-                    <td colSpan={6} className="px-4 py-3">
-                      <RoomForm
-                        initial={{
-                          room_number: room.room_number,
-                          room_type: room.room_type,
-                          price_per_night: room.price_per_night,
-                          capacity: room.capacity,
-                        }}
-                        onSubmit={(form) => handleUpdate(room.id, form)}
-                        onCancel={() => setEditingId(null)}
-                        submitLabel="Save"
-                      />
-                    </td>
-                  </tr>
+                  <EditRoomRow
+                    key={room.id}
+                    room={room}
+                    onSubmit={(form) => handleUpdate(room.id, form)}
+                    onCancel={() => setEditingId(null)}
+                  />
                 ) : (
                   <tr key={room.id}>
                     <td className="px-4 py-3">{room.room_number}</td>
