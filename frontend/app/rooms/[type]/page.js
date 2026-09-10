@@ -27,6 +27,13 @@ function todayString() {
   return `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, "0")}-${String(now.getDate()).padStart(2, "0")}`;
 }
 
+function addDays(dateStr, days) {
+  const [year, month, day] = dateStr.split("-").map(Number);
+  const date = new Date(year, month - 1, day);
+  date.setDate(date.getDate() + days);
+  return `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, "0")}-${String(date.getDate()).padStart(2, "0")}`;
+}
+
 export default function RoomDetailPage() {
   const { currency } = useCurrency();
   const { t } = useLanguage();
@@ -212,7 +219,12 @@ export default function RoomDetailPage() {
               <DatePicker
                 label="Check-in"
                 value={pendingCheckIn}
-                onChange={setPendingCheckIn}
+                onChange={(date) => {
+                  setPendingCheckIn(date);
+                  if (pendingCheckOut && pendingCheckOut <= date) {
+                    setPendingCheckOut("");
+                  }
+                }}
                 minDate={todayString()}
                 open={pendingOpenPicker === "checkin"}
                 onOpenChange={(next) =>
@@ -223,7 +235,7 @@ export default function RoomDetailPage() {
                 label="Check-out"
                 value={pendingCheckOut}
                 onChange={setPendingCheckOut}
-                minDate={pendingCheckIn || todayString()}
+                minDate={pendingCheckIn ? addDays(pendingCheckIn, 1) : addDays(todayString(), 1)}
                 open={pendingOpenPicker === "checkout"}
                 onOpenChange={(next) =>
                   setPendingOpenPicker(next ? "checkout" : null)

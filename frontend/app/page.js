@@ -26,6 +26,13 @@ function todayString() {
   return `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, "0")}-${String(now.getDate()).padStart(2, "0")}`;
 }
 
+function addDays(dateStr, days) {
+  const [year, month, day] = dateStr.split("-").map(Number);
+  const date = new Date(year, month - 1, day);
+  date.setDate(date.getDate() + days);
+  return `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, "0")}-${String(date.getDate()).padStart(2, "0")}`;
+}
+
 const AMENITIES = [
   {
     key: "gym",
@@ -243,7 +250,13 @@ export default function Home() {
             <DatePicker
               label="Check-in"
               value={checkIn}
-              onChange={setCheckIn}
+              onChange={(date) => {
+                setCheckIn(date);
+                // Check-out was picked before this check-in changed - clear
+                // it rather than silently leaving an invalid (same-day or
+                // earlier) date sitting in the field.
+                if (checkOut && checkOut <= date) setCheckOut("");
+              }}
               minDate={todayString()}
               open={openPicker === "checkin"}
               onOpenChange={(next) => setOpenPicker(next ? "checkin" : null)}
@@ -254,7 +267,7 @@ export default function Home() {
               label="Check-out"
               value={checkOut}
               onChange={setCheckOut}
-              minDate={checkIn || todayString()}
+              minDate={checkIn ? addDays(checkIn, 1) : addDays(todayString(), 1)}
               open={openPicker === "checkout"}
               onOpenChange={(next) => setOpenPicker(next ? "checkout" : null)}
             />
