@@ -32,6 +32,7 @@ const STATUS_COLORS = {
 export default function AdminCalendarPage() {
   const [rooms, setRooms] = useState(null);
   const [bookings, setBookings] = useState(null);
+  const [stats, setStats] = useState(null);
   const [error, setError] = useState("");
   const [startDate, setStartDate] = useState(todayStr());
   const [dayCount, setDayCount] = useState(14);
@@ -39,12 +40,14 @@ export default function AdminCalendarPage() {
   useEffect(() => {
     async function load() {
       try {
-        const [roomsRes, bookingsRes] = await Promise.all([
+        const [roomsRes, bookingsRes, statsRes] = await Promise.all([
           fetch(`${API_URL}/api/rooms`),
           adminFetch("/api/admin/bookings"),
+          adminFetch("/api/admin/stats"),
         ]);
         const roomsData = await roomsRes.json();
         const bookingsData = await bookingsRes.json();
+        const statsData = await statsRes.json();
 
         if (roomsData.success) setRooms(roomsData.data);
         if (bookingsData.success) {
@@ -52,6 +55,7 @@ export default function AdminCalendarPage() {
         } else {
           setError(bookingsData.message || "Failed to load bookings.");
         }
+        if (statsData.success) setStats(statsData.data);
       } catch {
         // adminFetch already redirects to login on 401.
       }
@@ -87,6 +91,29 @@ export default function AdminCalendarPage() {
 
   return (
     <div>
+      {stats && (
+        <div className="mb-6 grid grid-cols-2 gap-4 sm:grid-cols-3">
+          <div className="rounded-xl border border-[var(--border-color)] bg-[var(--bg-secondary)] p-4">
+            <p className="text-xs font-medium text-[var(--text-secondary)]">Today's Revenue</p>
+            <p className="mt-1 text-2xl font-bold text-[var(--text-primary)]">
+              ₱{Number(stats.revenue_today).toLocaleString()}
+            </p>
+          </div>
+          <div className="rounded-xl border border-[var(--border-color)] bg-[var(--bg-secondary)] p-4">
+            <p className="text-xs font-medium text-[var(--text-secondary)]">Occupancy Today</p>
+            <p className="mt-1 text-2xl font-bold text-[var(--text-primary)]">
+              {stats.occupancy_rate}%
+            </p>
+          </div>
+          <div className="rounded-xl border border-[var(--border-color)] bg-[var(--bg-secondary)] p-4">
+            <p className="text-xs font-medium text-[var(--text-secondary)]">Rooms Occupied</p>
+            <p className="mt-1 text-2xl font-bold text-[var(--text-primary)]">
+              {stats.occupied_rooms} / {stats.total_rooms}
+            </p>
+          </div>
+        </div>
+      )}
+
       <div className="flex flex-wrap items-center justify-between gap-4">
         <h1 className="text-2xl font-bold text-[var(--text-primary)]">Booking Calendar</h1>
 

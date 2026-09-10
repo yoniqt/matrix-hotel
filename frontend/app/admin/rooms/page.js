@@ -5,6 +5,12 @@ import { adminFetch } from "../../../lib/admin-api";
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL;
 const ROOM_TYPES = ["Standard", "Deluxe", "Suite", "Family"];
+const ROOM_STATUSES = ["Available", "Occupied", "Maintenance"];
+const STATUS_STYLES = {
+  Available: "bg-emerald-500/10 text-emerald-400",
+  Occupied: "bg-amber-500/10 text-amber-400",
+  Maintenance: "bg-red-500/10 text-red-400",
+};
 
 const EMPTY_FORM = { room_number: "", room_type: "Standard", price_per_night: "", capacity: "" };
 
@@ -105,6 +111,7 @@ export default function AdminRoomsPage() {
   const [error, setError] = useState("");
   const [editingId, setEditingId] = useState(null);
   const [deletingId, setDeletingId] = useState(null);
+  const [statusUpdatingId, setStatusUpdatingId] = useState(null);
 
   async function loadRooms() {
     try {
@@ -139,6 +146,24 @@ export default function AdminRoomsPage() {
     if (!data.success) throw new Error(data.message);
     setEditingId(null);
     await loadRooms();
+  }
+
+  async function handleStatusChange(id, status) {
+    setStatusUpdatingId(id);
+    try {
+      const res = await adminFetch(`/api/admin/rooms/${id}/status`, {
+        method: "PATCH",
+        body: JSON.stringify({ status }),
+      });
+      const data = await res.json();
+      if (data.success) {
+        setRooms((prev) => prev.map((r) => (r.id === id ? { ...r, status } : r)));
+      } else {
+        alert(data.message || "Failed to update status.");
+      }
+    } finally {
+      setStatusUpdatingId(null);
+    }
   }
 
   async function handleDelete(id) {
@@ -181,6 +206,7 @@ export default function AdminRoomsPage() {
                 <th className="px-4 py-3 font-medium">Type</th>
                 <th className="px-4 py-3 font-medium">Price/night</th>
                 <th className="px-4 py-3 font-medium">Capacity</th>
+                <th className="px-4 py-3 font-medium">Status</th>
                 <th className="px-4 py-3 font-medium">Actions</th>
               </tr>
             </thead>
@@ -188,7 +214,7 @@ export default function AdminRoomsPage() {
               {rooms.map((room) =>
                 editingId === room.id ? (
                   <tr key={room.id}>
-                    <td colSpan={5} className="px-4 py-3">
+                    <td colSpan={6} className="px-4 py-3">
                       <RoomForm
                         initial={{
                           room_number: room.room_number,
@@ -208,6 +234,22 @@ export default function AdminRoomsPage() {
                     <td className="px-4 py-3">{room.room_type}</td>
                     <td className="px-4 py-3">₱{Number(room.price_per_night).toLocaleString()}</td>
                     <td className="px-4 py-3">{room.capacity}</td>
+                    <td className="px-4 py-3">
+                      <select
+                        value={room.status || "Available"}
+                        onChange={(e) => handleStatusChange(room.id, e.target.value)}
+                        disabled={statusUpdatingId === room.id}
+                        className={`rounded-full border-0 px-2.5 py-1 text-xs font-semibold outline-none disabled:opacity-50 ${
+                          STATUS_STYLES[room.status] || STATUS_STYLES.Available
+                        }`}
+                      >
+                        {ROOM_STATUSES.map((s) => (
+                          <option key={s} value={s} className="bg-[var(--bg-secondary)] text-[var(--text-primary)]">
+                            {s}
+                          </option>
+                        ))}
+                      </select>
+                    </td>
                     <td className="px-4 py-3">
                       <div className="flex gap-2">
                         <button
