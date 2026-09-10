@@ -170,20 +170,33 @@ export default function Home() {
     // same invalid dates, which used to blank the error text each click).
 
     try {
-      const res = await fetch(
-        `${API_URL}/api/rooms/available?check_in=${ci}&check_out=${co}`
-      );
-      const data = await res.json();
+      const [allRes, availableRes] = await Promise.all([
+        fetch(`${API_URL}/api/rooms`),
+        fetch(`${API_URL}/api/rooms/available?check_in=${ci}&check_out=${co}`),
+      ]);
+      const allData = await allRes.json();
+      const availableData = await availableRes.json();
 
-      if (!data.success) {
+      if (!availableData.success) {
         setSearchStatus("error");
-        setSearchMessage(data.message);
+        setSearchMessage(availableData.message);
         setRooms(null);
         return;
       }
 
+      // Always show every room type, even ones sold out for these dates -
+      // silently dropping a type from the results (the old behavior) reads
+      // as "this hotel has no Suite," not "the Suite is booked right now."
+      const availableCountByType = new Map(
+        groupRoomsByType(availableData.data).map((r) => [r.room_type, r.availableCount])
+      );
+      const merged = groupRoomsByType(allData.success ? allData.data : []).map((r) => ({
+        ...r,
+        availableCount: availableCountByType.get(r.room_type) || 0,
+      }));
+
       setSearchMessage("");
-      setRooms(data.data);
+      setRooms(merged);
       setSearchStatus("done");
     } catch {
       setSearchStatus("error");
@@ -435,45 +448,66 @@ export default function Home() {
 
         {rooms && rooms.length > 0 && (
           <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-            {groupRoomsByType(rooms).map((room) => (
-              <div
-                key={room.room_type}
-                className="overflow-hidden rounded-xl border border-[var(--border-color)] bg-[var(--bg-secondary)] shadow-sm"
-              >
-                <img
-                  src={roomImage(room)}
-                  alt={room.room_type}
-                  className="h-44 w-full object-cover"
-                />
-                <div className="p-5">
-                  <h2 className="text-lg font-semibold text-[var(--text-primary)]">
-                    {room.room_type} Room
-                  </h2>
-                  <p className="mt-1 text-sm text-[var(--text-secondary)]">
-                    Up to {room.capacity} guests
-                  </p>
-                  <p className="text-sm font-medium text-emerald-400">
-                    {room.availableCount}{" "}
-                    {room.availableCount === 1 ? "room" : "rooms"} available
-                  </p>
-                  <p className="mt-2 text-sm text-[var(--text-secondary)]">
-                    {ROOM_TYPE_DESCRIPTIONS[room.room_type]}
-                  </p>
-                  <p className="mt-2 text-lg font-bold text-[var(--text-primary)]">
-                    {formatPrice(room.price_per_night, currency)}{" "}
-                    <span className="text-sm font-normal text-[var(--text-secondary)]">
-                      / night
-                    </span>
-                  </p>
-                  <Link
-                    href={`/rooms/${roomTypeToSlug(room.room_type)}?check_in=${checkIn}&check_out=${checkOut}`}
-                    className="mt-4 block w-full rounded-full bg-[var(--accent-color)] px-5 py-2 text-center font-medium text-black transition-opacity hover:opacity-90"
-                  >
-                    {t("bookThisRoom")}
-                  </Link>
+            {rooms.map((room) => {
+              const soldOut = room.availableCount === 0;
+              return (
+                <div
+                  key={room.room_type}
+                  className={`overflow-hidden rounded-xl border border-[var(--border-color)] bg-[var(--bg-secondary)] shadow-sm ${
+                    soldOut ? "opacity-60" : ""
+                  }`}
+                >
+                  <img
+                    src={roomImage(room)}
+                    alt={room.room_type}
+                    className={`h-44 w-full object-cover ${soldOut ? "grayscale" : ""}`}
+                  />
+                  <div className="p-5">
+                    <h2 className="text-lg font-semibold text-[var(--text-primary)]">
+                      {room.room_type} Room
+                    </h2>
+                    <p className="mt-1 text-sm text-[var(--text-secondary)]">
+                      Up to {room.capacity} guests
+                    </p>
+                    {soldOut ? (
+                      <p className="text-sm font-medium text-red-400">
+                        Sold out for these dates
+                      </p>
+                    ) : (
+                      <p className="text-sm font-medium text-emerald-400">
+                        {room.availableCount}{" "}
+                        {room.availableCount === 1 ? "room" : "rooms"} available
+                      </p>
+                    )}
+                    <p className="mt-2 text-sm text-[var(--text-secondary)]">
+                      {ROOM_TYPE_DESCRIPTIONS[room.room_type]}
+                    </p>
+                    <p className="mt-2 text-lg font-bold text-[var(--text-primary)]">
+                      {formatPrice(room.price_per_night, currency)}{" "}
+                      <span className="text-sm font-normal text-[var(--text-secondary)]">
+                        / night
+                      </span>
+                    </p>
+                    {soldOut ? (
+                      <button
+                        type="button"
+                        disabled
+                        className="mt-4 block w-full cursor-not-allowed rounded-full border border-[var(--border-color)] px-5 py-2 text-center font-medium text-[var(--text-secondary)]"
+                      >
+                        Sold Out
+                      </button>
+                    ) : (
+                      <Link
+                        href={`/rooms/${roomTypeToSlug(room.room_type)}?check_in=${checkIn}&check_out=${checkOut}`}
+                        className="mt-4 block w-full rounded-full bg-[var(--accent-color)] px-5 py-2 text-center font-medium text-black transition-opacity hover:opacity-90"
+                      >
+                        {t("bookThisRoom")}
+                      </Link>
+                    )}
+                  </div>
                 </div>
-              </div>
-            ))}
+              );
+            })}
           </div>
         )}
       </div>
