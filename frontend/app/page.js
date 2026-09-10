@@ -207,6 +207,9 @@ export default function Home() {
 
   function handleSearch(e) {
     e.preventDefault();
+    if (checkIn && checkOut) {
+      router.replace(`/?check_in=${checkIn}&check_out=${checkOut}`);
+    }
     performSearch(checkIn, checkOut);
   }
 
