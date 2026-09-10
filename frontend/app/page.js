@@ -137,6 +137,12 @@ export default function Home() {
   const [openPicker, setOpenPicker] = useState(null); // "checkin" | "checkout" | null
   const [rooms, setRooms] = useState(null);
   const [searchStatus, setSearchStatus] = useState("idle");
+  // True only while restoring a search from the URL on first load (e.g.
+  // reloading, or "Back to search results" from a room detail page) - lets
+  // the render show a lightweight spinner instead of the full marketing
+  // showcase, which otherwise flashes for a moment before the results the
+  // visitor was already expecting replace it.
+  const [isRestoringFromUrl, setIsRestoringFromUrl] = useState(false);
   const [searchMessage, setSearchMessage] = useState("");
 
   const [selectedAmenity, setSelectedAmenity] = useState(null);
@@ -232,7 +238,8 @@ export default function Home() {
     if (ci && co) {
       setCheckIn(ci);
       setCheckOut(co);
-      performSearch(ci, co);
+      setIsRestoringFromUrl(true);
+      performSearch(ci, co).finally(() => setIsRestoringFromUrl(false));
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
@@ -313,12 +320,20 @@ export default function Home() {
         </p>
       )}
 
+      {isRestoringFromUrl && (
+        <div className="flex justify-center px-6 pt-24 pb-4">
+          <p className="text-sm text-[var(--text-secondary)]">{t("searching")}</p>
+        </div>
+      )}
+
       {/* Showcase - stays mounted through idle/searching/error/no-results
           states and only unmounts once there's an actual room list to show.
           Hiding it during the brief "searching" state (as it did before)
           made the whole page jump - Results/Footer snapping up and back
-          down - every time the search button was clicked. */}
-      {!(rooms && rooms.length > 0) && (
+          down - every time the search button was clicked. Skipped entirely
+          while isRestoringFromUrl, so reloading a search doesn't flash the
+          marketing content before the results the visitor expects appear. */}
+      {!isRestoringFromUrl && !(rooms && rooms.length > 0) && (
         <div className="mx-auto max-w-[1680px] px-10 pt-24 pb-4">
           <div className="mx-auto mb-12 max-w-3xl text-center">
             <p className="text-sm text-[var(--text-secondary)]">
