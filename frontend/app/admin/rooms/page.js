@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { adminFetch } from "../../../lib/admin-api";
+import ConfirmDialog from "../ui/confirm-dialog";
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL;
 const ROOM_TYPES = ["Standard", "Deluxe", "Suite", "Family"];
@@ -228,6 +229,7 @@ export default function AdminRoomsPage() {
   const [error, setError] = useState("");
   const [editingId, setEditingId] = useState(null);
   const [deletingId, setDeletingId] = useState(null);
+  const [confirmDeleteId, setConfirmDeleteId] = useState(null);
   const [statusUpdatingId, setStatusUpdatingId] = useState(null);
 
   async function loadRooms() {
@@ -284,7 +286,7 @@ export default function AdminRoomsPage() {
   }
 
   async function handleDelete(id) {
-    if (!confirm("Delete this room? This cannot be undone.")) return;
+    setConfirmDeleteId(null);
     setDeletingId(id);
     try {
       const res = await adminFetch(`/api/admin/rooms/${id}`, { method: "DELETE" });
@@ -305,6 +307,15 @@ export default function AdminRoomsPage() {
 
   return (
     <div>
+      <ConfirmDialog
+        open={confirmDeleteId !== null}
+        title="Delete this room?"
+        message="This cannot be undone."
+        confirmLabel="Delete Room"
+        onConfirm={() => handleDelete(confirmDeleteId)}
+        onCancel={() => setConfirmDeleteId(null)}
+      />
+
       <h1 className="text-2xl font-bold text-[var(--text-primary)]">Rooms</h1>
 
       <div className="mt-6 rounded-xl border border-[var(--border-color)] bg-[var(--bg-secondary)] p-4">
@@ -369,7 +380,7 @@ export default function AdminRoomsPage() {
                         </button>
                         <button
                           type="button"
-                          onClick={() => handleDelete(room.id)}
+                          onClick={() => setConfirmDeleteId(room.id)}
                           disabled={deletingId === room.id}
                           className="rounded-full border border-[var(--border-color)] px-3 py-1 text-xs font-medium text-[var(--text-secondary)] hover:border-red-400 hover:text-red-400 disabled:opacity-50"
                         >

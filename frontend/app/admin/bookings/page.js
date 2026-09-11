@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { adminFetch } from "../../../lib/admin-api";
+import ConfirmDialog from "../ui/confirm-dialog";
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL;
 
@@ -189,6 +190,7 @@ export default function AdminBookingsPage() {
   const [error, setError] = useState("");
   const [cancellingId, setCancellingId] = useState(null);
   const [showWalkInForm, setShowWalkInForm] = useState(false);
+  const [confirmCancelId, setConfirmCancelId] = useState(null);
 
   async function loadBookings() {
     try {
@@ -233,7 +235,7 @@ export default function AdminBookingsPage() {
   }
 
   async function handleCancel(id) {
-    if (!confirm("Cancel this booking? This cannot be undone.")) return;
+    setConfirmCancelId(null);
     setCancellingId(id);
     try {
       const res = await adminFetch(`/api/admin/bookings/${id}/cancel`, { method: "PATCH" });
@@ -256,6 +258,15 @@ export default function AdminBookingsPage() {
 
   return (
     <div>
+      <ConfirmDialog
+        open={confirmCancelId !== null}
+        title="Cancel this booking?"
+        message="This cannot be undone."
+        confirmLabel="Cancel Booking"
+        onConfirm={() => handleCancel(confirmCancelId)}
+        onCancel={() => setConfirmCancelId(null)}
+      />
+
       <div className="flex items-center justify-between">
         <h1 className="text-2xl font-bold text-[var(--text-primary)]">Bookings</h1>
         {!showWalkInForm && (
@@ -321,7 +332,7 @@ export default function AdminBookingsPage() {
                     {b.status !== "cancelled" && (
                       <button
                         type="button"
-                        onClick={() => handleCancel(b.id)}
+                        onClick={() => setConfirmCancelId(b.id)}
                         disabled={cancellingId === b.id}
                         className="rounded-full border border-[var(--border-color)] px-3 py-1 text-xs font-medium text-[var(--text-secondary)] hover:border-red-400 hover:text-red-400 disabled:opacity-50"
                       >
