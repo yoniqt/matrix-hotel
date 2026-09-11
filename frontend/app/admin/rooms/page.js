@@ -34,7 +34,7 @@ function RoomForm({ initial, onSubmit, onCancel, submitLabel }) {
   }
 
   return (
-    <form onSubmit={handleSubmit} className="flex flex-wrap items-end gap-3">
+    <form onSubmit={handleSubmit} className="flex flex-col gap-3">
       <label className="text-sm text-[var(--text-secondary)]">
         Room #
         <input
@@ -42,7 +42,7 @@ function RoomForm({ initial, onSubmit, onCancel, submitLabel }) {
           value={form.room_number}
           onChange={(e) => setForm({ ...form, room_number: e.target.value })}
           required
-          className="mt-1 block w-24 rounded-lg border border-[var(--border-color)] bg-[var(--input-bg)] px-2 py-1.5 text-[var(--text-primary)] outline-none focus:border-[var(--accent-color)]"
+          className="mt-1 block w-full rounded-lg border border-[var(--border-color)] bg-[var(--input-bg)] px-2 py-1.5 text-[var(--text-primary)] outline-none focus:border-[var(--accent-color)]"
         />
       </label>
 
@@ -51,7 +51,7 @@ function RoomForm({ initial, onSubmit, onCancel, submitLabel }) {
         <select
           value={form.room_type}
           onChange={(e) => setForm({ ...form, room_type: e.target.value })}
-          className="mt-1 block rounded-lg border border-[var(--border-color)] bg-[var(--input-bg)] px-2 py-1.5 text-[var(--text-primary)] outline-none focus:border-[var(--accent-color)]"
+          className="mt-1 block w-full rounded-lg border border-[var(--border-color)] bg-[var(--input-bg)] px-2 py-1.5 text-[var(--text-primary)] outline-none focus:border-[var(--accent-color)]"
         >
           {ROOM_TYPES.map((t) => (
             <option key={t} value={t}>
@@ -70,7 +70,7 @@ function RoomForm({ initial, onSubmit, onCancel, submitLabel }) {
           value={form.price_per_night}
           onChange={(e) => setForm({ ...form, price_per_night: e.target.value })}
           required
-          className="mt-1 block w-28 rounded-lg border border-[var(--border-color)] bg-[var(--input-bg)] px-2 py-1.5 text-[var(--text-primary)] outline-none focus:border-[var(--accent-color)]"
+          className="mt-1 block w-full rounded-lg border border-[var(--border-color)] bg-[var(--input-bg)] px-2 py-1.5 text-[var(--text-primary)] outline-none focus:border-[var(--accent-color)]"
         />
       </label>
 
@@ -82,27 +82,30 @@ function RoomForm({ initial, onSubmit, onCancel, submitLabel }) {
           value={form.capacity}
           onChange={(e) => setForm({ ...form, capacity: e.target.value })}
           required
-          className="mt-1 block w-20 rounded-lg border border-[var(--border-color)] bg-[var(--input-bg)] px-2 py-1.5 text-[var(--text-primary)] outline-none focus:border-[var(--accent-color)]"
+          className="mt-1 block w-full rounded-lg border border-[var(--border-color)] bg-[var(--input-bg)] px-2 py-1.5 text-[var(--text-primary)] outline-none focus:border-[var(--accent-color)]"
         />
       </label>
 
-      <button
-        type="submit"
-        disabled={saving}
-        className="rounded-full bg-[var(--accent-color)] px-4 py-1.5 text-sm font-semibold text-black hover:opacity-90 disabled:opacity-50"
-      >
-        {saving ? "Saving…" : submitLabel}
-      </button>
-      {onCancel && (
+      {error && <p className="text-sm text-red-400">{error}</p>}
+
+      <div className="mt-2 flex justify-end gap-2">
+        {onCancel && (
+          <button
+            type="button"
+            onClick={onCancel}
+            className="rounded-full border border-[var(--border-color)] px-4 py-1.5 text-sm text-[var(--text-secondary)]"
+          >
+            Cancel
+          </button>
+        )}
         <button
-          type="button"
-          onClick={onCancel}
-          className="rounded-full border border-[var(--border-color)] px-4 py-1.5 text-sm text-[var(--text-secondary)]"
+          type="submit"
+          disabled={saving}
+          className="rounded-full bg-[var(--accent-color)] px-4 py-1.5 text-sm font-semibold text-black hover:opacity-90 disabled:opacity-50"
         >
-          Cancel
+          {saving ? "Saving…" : submitLabel}
         </button>
-      )}
-      {error && <p className="w-full text-sm text-red-400">{error}</p>}
+      </div>
     </form>
   );
 }
@@ -332,14 +335,16 @@ export default function AdminRoomsPage() {
       </div>
 
       {showAddForm && (
-        <div className="mt-6 rounded-xl border border-[var(--border-color)] bg-[var(--bg-secondary)] p-4">
-          <h2 className="mb-3 text-sm font-semibold text-[var(--text-secondary)]">Add a room</h2>
-          <RoomForm
-            initial={EMPTY_FORM}
-            onSubmit={handleCreate}
-            onCancel={() => setShowAddForm(false)}
-            submitLabel="Add Room"
-          />
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 px-4">
+          <div className="w-full max-w-sm rounded-2xl border border-[var(--border-color)] bg-[var(--bg-secondary)] p-6">
+            <h2 className="mb-4 text-lg font-bold text-[var(--text-primary)]">Add a room</h2>
+            <RoomForm
+              initial={EMPTY_FORM}
+              onSubmit={handleCreate}
+              onCancel={() => setShowAddForm(false)}
+              submitLabel="Add Room"
+            />
+          </div>
         </div>
       )}
 
