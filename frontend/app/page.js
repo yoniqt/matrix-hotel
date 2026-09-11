@@ -335,7 +335,7 @@ export default function Home() {
           while isRestoringFromUrl, so reloading a search doesn't flash the
           marketing content before the results the visitor expects appear. */}
       {!isRestoringFromUrl && !(rooms && rooms.length > 0) && (
-        <div className="mx-auto max-w-[1680px] px-10 pt-24 pb-4">
+        <div id="amenities" className="mx-auto max-w-[1680px] px-10 pt-24 pb-4">
           <div className="mx-auto mb-12 max-w-3xl text-center">
             <p className="text-sm text-[var(--text-secondary)]">
               {t("pickDatesHint")}
@@ -574,7 +574,7 @@ export default function Home() {
       <NewsEvents />
 
       {/* Location - dummy address for now, placeholder for the real hotel */}
-      <div className="mx-auto max-w-5xl px-6 pb-16">
+      <div id="location" className="mx-auto max-w-5xl px-6 pb-16">
         <div className="overflow-hidden rounded-2xl border border-[var(--border-color)] bg-[var(--bg-secondary)] shadow-sm">
           <div className="px-6 py-8 text-center sm:px-10">
             <h2 className="text-2xl font-bold tracking-wide text-[var(--text-primary)] uppercase">

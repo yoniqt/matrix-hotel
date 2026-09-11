@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 export default function Footer() {
   return (
     <footer
@@ -5,12 +7,21 @@ export default function Footer() {
       className="bg-[var(--bg-secondary)] px-6 py-12 text-[var(--text-secondary)]"
     >
       <nav className="flex flex-wrap items-center justify-center gap-x-8 gap-y-2 text-sm font-medium tracking-wide text-[var(--text-secondary)] uppercase">
-        <span>About Us</span>
-        <span>Amenities</span>
-        <span>Hotel Policy</span>
-        <span>Security Policy</span>
-        <span>Map & Direction</span>
-        <span>Contact Us</span>
+        <Link href="/about" className="hover:text-[var(--accent-color)]">
+          About Us
+        </Link>
+        <Link href="/#amenities" className="hover:text-[var(--accent-color)]">
+          Amenities
+        </Link>
+        <Link href="/#location" className="hover:text-[var(--accent-color)]">
+          Map &amp; Direction
+        </Link>
+        <a
+          href="mailto:stay@thematrixhotel.com"
+          className="hover:text-[var(--accent-color)]"
+        >
+          Contact Us
+        </a>
       </nav>
 
       <div className="mt-10 text-center">

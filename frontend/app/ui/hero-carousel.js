@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 
 const SLIDES = [
   "/images/hero/exterior.jpg",
-  "/images/hero/room.jpg",
+  "/images/hero/room.avif",
   "/images/hero/lobby.webp",
 ];
 
