@@ -6,6 +6,18 @@ import ConfirmDialog from "../ui/confirm-dialog";
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL;
 
+function todayString() {
+  const now = new Date();
+  return `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, "0")}-${String(now.getDate()).padStart(2, "0")}`;
+}
+
+function addDays(dateStr, days) {
+  const [year, month, day] = dateStr.split("-").map(Number);
+  const date = new Date(year, month - 1, day);
+  date.setDate(date.getDate() + days);
+  return `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, "0")}-${String(date.getDate()).padStart(2, "0")}`;
+}
+
 const STATUS_STYLES = {
   confirmed: "bg-emerald-500/10 text-emerald-400",
   cancelled: "bg-red-500/10 text-red-400",
@@ -125,7 +137,17 @@ function WalkInForm({ rooms, onSubmit, onCancel }) {
           <input
             type="date"
             value={form.check_in_date}
-            onChange={(e) => setForm({ ...form, check_in_date: e.target.value })}
+            min={todayString()}
+            onChange={(e) => {
+              const date = e.target.value;
+              setForm((prev) => ({
+                ...prev,
+                check_in_date: date,
+                // Clear check-out if it's no longer after the new check-in,
+                // rather than silently leaving an invalid date in the field.
+                check_out_date: prev.check_out_date && prev.check_out_date <= date ? "" : prev.check_out_date,
+              }));
+            }}
             required
             className="mt-1 block rounded-lg border border-[var(--border-color)] bg-[var(--input-bg)] px-2 py-1.5 text-[var(--text-primary)] outline-none focus:border-[var(--accent-color)]"
           />
@@ -136,6 +158,7 @@ function WalkInForm({ rooms, onSubmit, onCancel }) {
           <input
             type="date"
             value={form.check_out_date}
+            min={addDays(form.check_in_date || todayString(), 1)}
             onChange={(e) => setForm({ ...form, check_out_date: e.target.value })}
             required
             className="mt-1 block rounded-lg border border-[var(--border-color)] bg-[var(--input-bg)] px-2 py-1.5 text-[var(--text-primary)] outline-none focus:border-[var(--accent-color)]"
