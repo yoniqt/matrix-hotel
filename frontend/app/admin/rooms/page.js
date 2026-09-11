@@ -15,7 +15,7 @@ const STATUS_STYLES = {
 
 const EMPTY_FORM = { room_number: "", room_type: "Standard", price_per_night: "", capacity: "" };
 
-function RoomForm({ initial, onSubmit, onCancel, submitLabel }) {
+function RoomForm({ initial, existingTypes, onSubmit, onCancel, submitLabel }) {
   const [form, setForm] = useState(initial);
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState("");
@@ -48,17 +48,20 @@ function RoomForm({ initial, onSubmit, onCancel, submitLabel }) {
 
       <label className="text-sm text-[var(--text-secondary)]">
         Type
-        <select
+        <input
+          list="room-type-options"
+          type="text"
           value={form.room_type}
           onChange={(e) => setForm({ ...form, room_type: e.target.value })}
+          required
+          placeholder="e.g. Standard, or type a new one"
           className="mt-1 block w-full rounded-lg border border-[var(--border-color)] bg-[var(--input-bg)] px-2 py-1.5 text-[var(--text-primary)] outline-none focus:border-[var(--accent-color)]"
-        >
-          {ROOM_TYPES.map((t) => (
-            <option key={t} value={t}>
-              {t}
-            </option>
+        />
+        <datalist id="room-type-options">
+          {(existingTypes || ROOM_TYPES).map((t) => (
+            <option key={t} value={t} />
           ))}
-        </select>
+        </datalist>
       </label>
 
       <label className="text-sm text-[var(--text-secondary)]">
@@ -113,7 +116,7 @@ function RoomForm({ initial, onSubmit, onCancel, submitLabel }) {
 // Renders as actual <td> cells lined up under the table's own columns,
 // instead of one colSpan cell with a flex-wrap form (which bunched every
 // field against the left edge instead of under its header).
-function EditRoomRow({ room, onSubmit, onCancel }) {
+function EditRoomRow({ room, existingTypes, onSubmit, onCancel }) {
   const [form, setForm] = useState({
     room_number: room.room_number,
     room_type: room.room_type,
@@ -152,18 +155,20 @@ function EditRoomRow({ room, onSubmit, onCancel }) {
           />
         </td>
         <td className="px-4 py-3">
-          <select
+          <input
             form={`edit-room-${room.id}`}
+            list="room-type-options"
+            type="text"
             value={form.room_type}
             onChange={(e) => setForm({ ...form, room_type: e.target.value })}
+            required
             className={inputClass}
-          >
-            {ROOM_TYPES.map((t) => (
-              <option key={t} value={t}>
-                {t}
-              </option>
+          />
+          <datalist id="room-type-options">
+            {(existingTypes || ROOM_TYPES).map((t) => (
+              <option key={t} value={t} />
             ))}
-          </select>
+          </datalist>
         </td>
         <td className="px-4 py-3">
           <input
@@ -235,6 +240,13 @@ export default function AdminRoomsPage() {
   const [confirmDeleteId, setConfirmDeleteId] = useState(null);
   const [statusUpdatingId, setStatusUpdatingId] = useState(null);
   const [showAddForm, setShowAddForm] = useState(false);
+
+  // Union of the 4 defaults and whatever types actually exist in the data,
+  // so the datalist suggests real types while still letting the admin type
+  // a brand new one that isn't in either list yet.
+  const existingTypes = Array.from(
+    new Set([...ROOM_TYPES, ...(rooms || []).map((r) => r.room_type)])
+  );
 
   async function loadRooms() {
     try {
@@ -340,6 +352,7 @@ export default function AdminRoomsPage() {
             <h2 className="mb-4 text-lg font-bold text-[var(--text-primary)]">Add a room</h2>
             <RoomForm
               initial={EMPTY_FORM}
+              existingTypes={existingTypes}
               onSubmit={handleCreate}
               onCancel={() => setShowAddForm(false)}
               submitLabel="Add Room"
@@ -369,6 +382,7 @@ export default function AdminRoomsPage() {
                   <EditRoomRow
                     key={room.id}
                     room={room}
+                    existingTypes={existingTypes}
                     onSubmit={(form) => handleUpdate(room.id, form)}
                     onCancel={() => setEditingId(null)}
                   />

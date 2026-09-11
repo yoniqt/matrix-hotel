@@ -4,8 +4,8 @@ import { useEffect, useState } from "react";
 import { useParams, useSearchParams, useRouter } from "next/navigation";
 import Link from "next/link";
 import {
-  ROOM_TYPE_DESCRIPTIONS,
-  ROOM_TYPE_AMENITIES,
+  getRoomTypeDescription,
+  getRoomTypeAmenities,
   AMENITY_ICONS,
   CHECK_IN_OUT_POLICY,
   groupRoomsByType,
@@ -366,7 +366,7 @@ export default function RoomDetailPage() {
               for your dates
             </p>
             <p className="mt-4 leading-7 text-[var(--text-secondary)]">
-              {ROOM_TYPE_DESCRIPTIONS[roomType]}
+              {getRoomTypeDescription(roomType)}
             </p>
             <p className="mt-2 text-[var(--text-secondary)]">
               Up to {room.capacity} guests {t("perRoom")}
@@ -376,7 +376,7 @@ export default function RoomDetailPage() {
               {t("roomAmenities")}
             </h2>
             <ul className="mt-3 grid grid-cols-2 gap-y-2 text-[var(--text-secondary)]">
-              {ROOM_TYPE_AMENITIES[roomType].map((item) => (
+              {getRoomTypeAmenities(roomType).map((item) => (
                 <li key={item} className="flex items-center gap-2">
                   <span className="text-lg">{AMENITY_ICONS[item] || "•"}</span>
                   {item}

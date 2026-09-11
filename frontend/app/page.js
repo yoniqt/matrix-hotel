@@ -13,7 +13,7 @@ import { useCurrency } from "./currency-provider";
 import { useLanguage } from "./language-provider";
 import { formatPrice } from "../lib/currency";
 import {
-  ROOM_TYPE_DESCRIPTIONS,
+  getRoomTypeDescription,
   groupRoomsByType,
   roomTypeToSlug,
 } from "../lib/room-data";
@@ -499,7 +499,7 @@ export default function Home() {
                       </p>
                     )}
                     <p className="mt-2 text-sm text-[var(--text-secondary)]">
-                      {ROOM_TYPE_DESCRIPTIONS[room.room_type]}
+                      {getRoomTypeDescription(room.room_type)}
                     </p>
                     <p className="mt-2 text-lg font-bold text-[var(--text-primary)]">
                       {formatPrice(room.price_per_night, currency)}{" "}

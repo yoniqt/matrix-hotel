@@ -77,6 +77,7 @@ function RoomTypePhotoCard({ type, photos, onUpload, onDeleteRequest }) {
 
 export default function AdminPhotosPage() {
   const [photosByType, setPhotosByType] = useState(null);
+  const [roomTypes, setRoomTypes] = useState(ROOM_TYPES);
   const [error, setError] = useState("");
   const [confirmDeleteId, setConfirmDeleteId] = useState(null);
 
@@ -90,8 +91,25 @@ export default function AdminPhotosPage() {
     }
   }
 
+  // Room types aren't a fixed list - the admin can create a new one just
+  // by naming it on a room. Pull in whatever types actually exist so a
+  // newly-added type gets a photo-upload card too, not just the 4 defaults.
+  async function loadRoomTypes() {
+    try {
+      const res = await fetch(`${API_URL}/api/rooms`);
+      const data = await res.json();
+      if (data.success) {
+        const types = new Set([...ROOM_TYPES, ...data.data.map((r) => r.room_type)]);
+        setRoomTypes(Array.from(types));
+      }
+    } catch {
+      // Falls back to the 4 defaults already in state.
+    }
+  }
+
   useEffect(() => {
     loadPhotos();
+    loadRoomTypes();
   }, []);
 
   async function handleUpload(type, file) {
@@ -140,7 +158,7 @@ export default function AdminPhotosPage() {
       {error && <p className="mt-4 text-sm text-red-400">{error}</p>}
 
       <div className="mt-6 flex flex-col gap-6">
-        {ROOM_TYPES.map((type) => (
+        {roomTypes.map((type) => (
           <RoomTypePhotoCard
             key={type}
             type={type}

@@ -95,6 +95,29 @@ export const ROOM_TYPE_AMENITIES = {
   ],
 };
 
+// Fallbacks for a room type the admin just added that has no configured
+// description/amenities yet (only the 4 original types have entries above).
+const DEFAULT_ROOM_DESCRIPTION =
+  "A comfortable room equipped with everything you need for a pleasant stay.";
+
+const DEFAULT_ROOM_AMENITIES = [
+  "Free Wi-Fi",
+  "Air conditioning",
+  "Flat-screen TV",
+  "Private bathroom",
+  "Daily housekeeping",
+  "Hair dryer",
+  "Free bath towels",
+];
+
+export function getRoomTypeDescription(type) {
+  return ROOM_TYPE_DESCRIPTIONS[type] || DEFAULT_ROOM_DESCRIPTION;
+}
+
+export function getRoomTypeAmenities(type) {
+  return ROOM_TYPE_AMENITIES[type] || DEFAULT_ROOM_AMENITIES;
+}
+
 // Simple emoji icons per amenity - keeps this reliable (no external icon
 // files that could fail to load) while still being visually distinct from
 // plain bullet dots.
