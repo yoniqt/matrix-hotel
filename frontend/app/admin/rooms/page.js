@@ -14,6 +14,67 @@ const STATUS_STYLES = {
 };
 
 const EMPTY_FORM = { room_number: "", room_type: "Standard", price_per_night: "", capacity: "" };
+const ADD_NEW_TYPE_VALUE = "__add_new__";
+
+// A <select> of existing room types plus a "+ Add new type..." option that
+// swaps in a text input for naming a brand new one. Once that room is
+// saved, the new type shows up as a normal option here next time (the
+// caller recomputes existingTypes from the live room list).
+function RoomTypeField({ value, options, onChange, formId }) {
+  const [addingNew, setAddingNew] = useState(false);
+
+  function handleSelectChange(e) {
+    if (e.target.value === ADD_NEW_TYPE_VALUE) {
+      setAddingNew(true);
+      onChange("");
+    } else {
+      onChange(e.target.value);
+    }
+  }
+
+  if (addingNew) {
+    return (
+      <div className="mt-1 flex gap-2">
+        <input
+          form={formId}
+          type="text"
+          value={value}
+          onChange={(e) => onChange(e.target.value)}
+          required
+          autoFocus
+          placeholder="New room type name"
+          className="w-full rounded-lg border border-[var(--border-color)] bg-[var(--input-bg)] px-2 py-1.5 text-[var(--text-primary)] outline-none focus:border-[var(--accent-color)]"
+        />
+        <button
+          type="button"
+          onClick={() => {
+            setAddingNew(false);
+            onChange(options[0] || "");
+          }}
+          className="shrink-0 rounded-lg border border-[var(--border-color)] px-2 py-1.5 text-xs text-[var(--text-secondary)]"
+        >
+          ← Back
+        </button>
+      </div>
+    );
+  }
+
+  return (
+    <select
+      form={formId}
+      value={value}
+      onChange={handleSelectChange}
+      className="mt-1 block w-full rounded-lg border border-[var(--border-color)] bg-[var(--input-bg)] px-2 py-1.5 text-[var(--text-primary)] outline-none focus:border-[var(--accent-color)]"
+    >
+      {options.map((t) => (
+        <option key={t} value={t}>
+          {t}
+        </option>
+      ))}
+      <option value={ADD_NEW_TYPE_VALUE}>+ Add new type...</option>
+    </select>
+  );
+}
 
 function RoomForm({ initial, existingTypes, onSubmit, onCancel, submitLabel }) {
   const [form, setForm] = useState(initial);
@@ -48,20 +109,11 @@ function RoomForm({ initial, existingTypes, onSubmit, onCancel, submitLabel }) {
 
       <label className="text-sm text-[var(--text-secondary)]">
         Type
-        <input
-          list="room-type-options"
-          type="text"
+        <RoomTypeField
           value={form.room_type}
-          onChange={(e) => setForm({ ...form, room_type: e.target.value })}
-          required
-          placeholder="e.g. Standard, or type a new one"
-          className="mt-1 block w-full rounded-lg border border-[var(--border-color)] bg-[var(--input-bg)] px-2 py-1.5 text-[var(--text-primary)] outline-none focus:border-[var(--accent-color)]"
+          options={existingTypes || ROOM_TYPES}
+          onChange={(room_type) => setForm({ ...form, room_type })}
         />
-        <datalist id="room-type-options">
-          {(existingTypes || ROOM_TYPES).map((t) => (
-            <option key={t} value={t} />
-          ))}
-        </datalist>
       </label>
 
       <label className="text-sm text-[var(--text-secondary)]">
@@ -155,20 +207,12 @@ function EditRoomRow({ room, existingTypes, onSubmit, onCancel }) {
           />
         </td>
         <td className="px-4 py-3">
-          <input
-            form={`edit-room-${room.id}`}
-            list="room-type-options"
-            type="text"
+          <RoomTypeField
+            formId={`edit-room-${room.id}`}
             value={form.room_type}
-            onChange={(e) => setForm({ ...form, room_type: e.target.value })}
-            required
-            className={inputClass}
+            options={existingTypes || ROOM_TYPES}
+            onChange={(room_type) => setForm({ ...form, room_type })}
           />
-          <datalist id="room-type-options">
-            {(existingTypes || ROOM_TYPES).map((t) => (
-              <option key={t} value={t} />
-            ))}
-          </datalist>
         </td>
         <td className="px-4 py-3">
           <input
