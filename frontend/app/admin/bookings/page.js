@@ -314,8 +314,11 @@ function BookingReceiptModal({ booking, onClose }) {
   const total = Number(booking.price_per_night) * nights;
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 px-4 print:static print:bg-white">
-      <div className="w-full max-w-md rounded-2xl border border-[var(--border-color)] bg-[var(--bg-secondary)] p-8 print:border-0">
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 px-4">
+      <div
+        id="print-area"
+        className="w-full max-w-md rounded-2xl border border-[var(--border-color)] bg-[var(--bg-secondary)] p-8 print:border-0"
+      >
         <p className="text-center text-xs font-semibold tracking-widest text-[var(--text-secondary)] uppercase">
           The Matrix Hotel
         </p>

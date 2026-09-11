@@ -101,3 +101,33 @@ body {
   border-radius: 9999px;
   background: #dc2626;
 }
+
+/* Isolates a single element for printing - everything else on the page
+   (nav, tables, the modal backdrop) is hidden instead of printed alongside
+   it. visibility (not display) is used so hiding a parent doesn't also
+   collapse/hide the print target nested inside it. */
+@media print {
+  body * {
+    visibility: hidden;
+  }
+  #print-area,
+  #print-area * {
+    visibility: visible;
+  }
+  #print-area {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    /* The receipt's colors come from these theme variables, which could
+       currently be resolved to dark-mode values (near-white text) - override
+       them here so print always comes out readable on white paper,
+       regardless of which theme was active on screen. */
+    --bg-primary: #ffffff;
+    --bg-secondary: #ffffff;
+    --text-primary: #000000;
+    --text-secondary: #4b5563;
+    --border-color: #d1d5db;
+    --accent-color: #b45309;
+  }
+}
