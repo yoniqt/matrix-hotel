@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { usePathname, useRouter } from "next/navigation";
 import Link from "next/link";
 import { getAdminToken, clearAdminToken } from "../../lib/admin-api";
+import { useTheme } from "../theme-provider";
 
 const NAV_LINKS = [
   { href: "/admin/calendar", label: "Calendar" },
@@ -15,6 +16,7 @@ const NAV_LINKS = [
 export default function AdminLayout({ children }) {
   const pathname = usePathname();
   const router = useRouter();
+  const { theme, toggleTheme } = useTheme();
   const [checked, setChecked] = useState(false);
 
   useEffect(() => {
@@ -59,8 +61,16 @@ export default function AdminLayout({ children }) {
           ))}
           <button
             type="button"
+            onClick={toggleTheme}
+            aria-label="Toggle theme"
+            className="ml-2 rounded-full border border-[var(--border-color)] px-3 py-1 text-[var(--text-secondary)] hover:border-[var(--accent-color)] hover:text-[var(--accent-color)]"
+          >
+            {theme === "dark" ? "☀ Light" : "🌙 Dark"}
+          </button>
+          <button
+            type="button"
             onClick={handleLogout}
-            className="ml-2 rounded-full border border-[var(--border-color)] px-3 py-1 text-[var(--text-secondary)] hover:border-red-400 hover:text-red-400"
+            className="rounded-full border border-[var(--border-color)] px-3 py-1 text-[var(--text-secondary)] hover:border-red-400 hover:text-red-400"
           >
             Log Out
           </button>
