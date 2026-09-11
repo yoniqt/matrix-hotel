@@ -72,7 +72,7 @@ export default function ChatWidget() {
   return (
     <>
       {open && (
-        <div className="fixed bottom-40 right-6 z-40 flex h-[28rem] w-80 flex-col overflow-hidden rounded-2xl border border-[var(--border-color)] bg-[var(--bg-secondary)] shadow-xl sm:w-96">
+        <div className="fixed bottom-6 right-24 z-40 flex h-[28rem] max-h-[70vh] w-80 flex-col overflow-hidden rounded-2xl border border-[var(--border-color)] bg-[var(--bg-secondary)] shadow-xl sm:w-96">
           <div className="flex items-center justify-between border-b border-[var(--border-color)] bg-[var(--bg-tertiary)] px-4 py-3">
             <p className="text-sm font-semibold text-[var(--text-primary)]">
               {t("chatTitle")}
