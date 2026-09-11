@@ -231,6 +231,7 @@ export default function AdminRoomsPage() {
   const [deletingId, setDeletingId] = useState(null);
   const [confirmDeleteId, setConfirmDeleteId] = useState(null);
   const [statusUpdatingId, setStatusUpdatingId] = useState(null);
+  const [showAddForm, setShowAddForm] = useState(false);
 
   async function loadRooms() {
     try {
@@ -253,6 +254,7 @@ export default function AdminRoomsPage() {
     });
     const data = await res.json();
     if (!data.success) throw new Error(data.message);
+    setShowAddForm(false);
     await loadRooms();
   }
 
@@ -316,12 +318,30 @@ export default function AdminRoomsPage() {
         onCancel={() => setConfirmDeleteId(null)}
       />
 
-      <h1 className="text-2xl font-bold text-[var(--text-primary)]">Rooms</h1>
-
-      <div className="mt-6 rounded-xl border border-[var(--border-color)] bg-[var(--bg-secondary)] p-4">
-        <h2 className="mb-3 text-sm font-semibold text-[var(--text-secondary)]">Add a room</h2>
-        <RoomForm initial={EMPTY_FORM} onSubmit={handleCreate} submitLabel="Add Room" />
+      <div className="flex items-center justify-between">
+        <h1 className="text-2xl font-bold text-[var(--text-primary)]">Rooms</h1>
+        {!showAddForm && (
+          <button
+            type="button"
+            onClick={() => setShowAddForm(true)}
+            className="rounded-full bg-[var(--accent-color)] px-4 py-2 text-sm font-semibold text-black hover:opacity-90"
+          >
+            + Add Room
+          </button>
+        )}
       </div>
+
+      {showAddForm && (
+        <div className="mt-6 rounded-xl border border-[var(--border-color)] bg-[var(--bg-secondary)] p-4">
+          <h2 className="mb-3 text-sm font-semibold text-[var(--text-secondary)]">Add a room</h2>
+          <RoomForm
+            initial={EMPTY_FORM}
+            onSubmit={handleCreate}
+            onCancel={() => setShowAddForm(false)}
+            submitLabel="Add Room"
+          />
+        </div>
+      )}
 
       {error && <p className="mt-4 text-sm text-red-400">{error}</p>}
 

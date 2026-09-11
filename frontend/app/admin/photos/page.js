@@ -53,17 +53,18 @@ function RoomTypePhotoCard({ type, photos, onUpload, onDeleteRequest }) {
           No uploaded photos yet - the public site is showing its bundled default gallery for this type.
         </p>
       ) : (
-        <div className="mt-4 grid grid-cols-2 gap-3 sm:grid-cols-4">
+        <div className="mt-4 flex flex-wrap gap-4">
           {photos.map((photo) => (
-            <div key={photo.id} className="group relative aspect-square overflow-hidden rounded-lg border border-[var(--border-color)]">
-              <img src={photo.url} alt={`${type} room`} className="h-full w-full object-cover" />
+            <div key={photo.id} className="w-40">
+              <div className="h-32 w-40 overflow-hidden rounded-lg border border-[var(--border-color)]">
+                <img src={photo.url} alt={`${type} room`} className="h-full w-full object-cover" />
+              </div>
               <button
                 type="button"
                 onClick={() => onDeleteRequest(photo.id)}
-                className="absolute top-1 right-1 flex h-6 w-6 items-center justify-center rounded-full bg-black/70 text-xs text-white opacity-0 transition-opacity group-hover:opacity-100"
-                aria-label="Delete photo"
+                className="mt-2 w-full rounded-full border border-[var(--border-color)] py-1 text-xs font-medium text-red-400 hover:border-red-400 hover:bg-red-500/10"
               >
-                ×
+                Remove
               </button>
             </div>
           ))}
