@@ -58,6 +58,14 @@ export const TRANSLATIONS = {
     escapeHeadline: "Discover Your Ultimate Escape",
     escapeParagraph:
       "Where uncompromised luxury meets seamless relaxation. Our curated spaces are designed to indulge every whim. From state-of-the-art facilities to unforgettable nightlife experiences, explore a new standard of personalized comfort and exceptional service.",
+    chatButtonLabel: "Chat with us",
+    chatTitle: "Ask The Matrix Hotel",
+    chatGreeting:
+      "Hi! Ask me anything about our rooms, pricing, amenities, or how to book.",
+    chatPlaceholder: "Type your message...",
+    chatSend: "Send",
+    chatThinking: "Thinking...",
+    chatError: "Sorry, I'm having trouble responding right now. Please try again in a moment.",
   },
   Filipino: {
     tagline: "Karanasang Maluho at Komportable",
@@ -113,6 +121,14 @@ export const TRANSLATIONS = {
     escapeHeadline: "Tuklasin ang Iyong Ganap na Paglayo",
     escapeParagraph:
       "Kung saan nagtatagpo ang walang-kapantay na luho at ganap na relaxation. Ang aming mga espasyo ay dinisenyo upang masiyahan sa bawat kagustuhan. Mula sa pinakabagong pasilidad hanggang sa hindi malilimutang karanasan sa gabi, tuklasin ang bagong antas ng personalized na ginhawa at natatanging serbisyo.",
+    chatButtonLabel: "Chat sa amin",
+    chatTitle: "Magtanong sa The Matrix Hotel",
+    chatGreeting:
+      "Hi! Magtanong ka lang tungkol sa aming mga kwarto, presyo, amenities, o kung paano mag-book.",
+    chatPlaceholder: "I-type ang iyong mensahe...",
+    chatSend: "Ipadala",
+    chatThinking: "Sandali lang...",
+    chatError: "Pasensya na, may problema sa pagsagot ngayon. Subukan ulit maya-maya.",
   },
   "中文 (Chinese)": {
     tagline: "尽享奢华与舒适",
@@ -165,6 +181,13 @@ export const TRANSLATIONS = {
     escapeHeadline: "探索您的终极逃离",
     escapeParagraph:
       "在这里，极致奢华与无间放松完美相遇。我们精心打造的空间旨在满足您的每一个愿望。从先进的设施到难忘的夜生活体验，尽享个性化舒适与卓越服务的全新标准。",
+    chatButtonLabel: "在线咨询",
+    chatTitle: "咨询矩阵酒店",
+    chatGreeting: "您好！欢迎咨询客房、价格、设施或预订方式等任何问题。",
+    chatPlaceholder: "请输入您的消息...",
+    chatSend: "发送",
+    chatThinking: "正在回复...",
+    chatError: "抱歉，暂时无法回复，请稍后再试。",
   },
   "日本語 (Japanese)": {
     tagline: "ラグジュアリーと快適さを",
@@ -216,6 +239,14 @@ export const TRANSLATIONS = {
     viewDetails: "詳細を見る",
     pickDatesHint:
       "上記でチェックイン・チェックアウト日を選択すると、空室状況が表示されます。",
+    chatButtonLabel: "チャットで質問",
+    chatTitle: "ザ・マトリックス・ホテルに質問",
+    chatGreeting:
+      "こんにちは！お部屋、料金、設備、ご予約方法など、何でもお気軽にお尋ねください。",
+    chatPlaceholder: "メッセージを入力...",
+    chatSend: "送信",
+    chatThinking: "返信中...",
+    chatError: "申し訳ございません、只今応答できません。しばらくしてからもう一度お試しください。",
   },
   "한국어 (Korean)": {
     tagline: "럭셔리와 편안함을 만나보세요",
@@ -267,6 +298,14 @@ export const TRANSLATIONS = {
     viewDetails: "자세히 보기",
     pickDatesHint:
       "위에서 체크인 및 체크아웃 날짜를 선택하면 예약 가능한 객실을 확인할 수 있습니다.",
+    chatButtonLabel: "채팅 문의",
+    chatTitle: "더 매트릭스 호텔에 문의하기",
+    chatGreeting:
+      "안녕하세요! 객실, 요금, 편의시설, 예약 방법 등 무엇이든 물어보세요.",
+    chatPlaceholder: "메시지를 입력하세요...",
+    chatSend: "보내기",
+    chatThinking: "답변 작성 중...",
+    chatError: "죄송합니다. 지금은 응답할 수 없습니다. 잠시 후 다시 시도해 주세요.",
   },
 };
 

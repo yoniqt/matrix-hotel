@@ -4,6 +4,7 @@ import { ThemeProvider } from "./theme-provider";
 import { CurrencyProvider } from "./currency-provider";
 import { LanguageProvider } from "./language-provider";
 import BackToTop from "./ui/back-to-top";
+import ChatWidget from "./ui/chat-widget";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -30,6 +31,7 @@ export default function RootLayout({ children }) {
         <ThemeProvider>
           <LanguageProvider>
             <CurrencyProvider>{children}</CurrencyProvider>
+            <ChatWidget />
           </LanguageProvider>
         </ThemeProvider>
         <BackToTop />
