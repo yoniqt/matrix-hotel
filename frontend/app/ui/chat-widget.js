@@ -143,7 +143,7 @@ export default function ChatWidget() {
         type="button"
         onClick={() => setOpen((v) => !v)}
         aria-label={t("chatButtonLabel")}
-        className="fixed bottom-24 right-6 z-40 flex h-12 w-12 items-center justify-center rounded-full bg-[var(--accent-color)] text-xl text-black shadow-lg transition-opacity hover:opacity-90"
+        className="fixed bottom-6 right-6 z-40 flex h-12 w-12 items-center justify-center rounded-full bg-[var(--accent-color)] text-xl text-black shadow-lg transition-opacity hover:opacity-90"
       >
         {open ? "✕" : "💬"}
       </button>
