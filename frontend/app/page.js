@@ -13,11 +13,11 @@ import { useCurrency } from "./currency-provider";
 import { useLanguage } from "./language-provider";
 import { formatPrice } from "../lib/currency";
 import {
-  roomImage,
   ROOM_TYPE_DESCRIPTIONS,
   groupRoomsByType,
   roomTypeToSlug,
 } from "../lib/room-data";
+import { useRoomTypePhotos } from "../lib/use-room-type-photos";
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL;
 
@@ -132,6 +132,7 @@ export default function Home() {
   const router = useRouter();
   const { currency } = useCurrency();
   const { t } = useLanguage();
+  const { getImage } = useRoomTypePhotos();
   const [checkIn, setCheckIn] = useState("");
   const [checkOut, setCheckOut] = useState("");
   const [openPicker, setOpenPicker] = useState(null); // "checkin" | "checkout" | null
@@ -476,7 +477,7 @@ export default function Home() {
                   }`}
                 >
                   <img
-                    src={roomImage(room)}
+                    src={getImage(room.room_type)}
                     alt={room.room_type}
                     className={`h-44 w-full object-cover ${soldOut ? "grayscale" : ""}`}
                   />

@@ -8,17 +8,18 @@ import { useCurrency } from "../currency-provider";
 import { useLanguage } from "../language-provider";
 import { formatPrice } from "../../lib/currency";
 import {
-  roomImage,
   ROOM_TYPE_DESCRIPTIONS,
   groupRoomsByType,
   roomTypeToSlug,
 } from "../../lib/room-data";
+import { useRoomTypePhotos } from "../../lib/use-room-type-photos";
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL;
 
 export default function RoomsPage() {
   const { currency } = useCurrency();
   const { t } = useLanguage();
+  const { getImage } = useRoomTypePhotos();
   const [rooms, setRooms] = useState(null);
 
   useEffect(() => {
@@ -60,7 +61,7 @@ export default function RoomsPage() {
               className="overflow-hidden rounded-2xl border border-[var(--border-color)] bg-[var(--bg-secondary)] shadow-sm"
             >
               <img
-                src={roomImage(room)}
+                src={getImage(room.room_type)}
                 alt={room.room_type}
                 className="aspect-[3/2] w-full object-cover"
               />

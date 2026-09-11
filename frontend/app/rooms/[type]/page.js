@@ -6,12 +6,12 @@ import Link from "next/link";
 import {
   ROOM_TYPE_DESCRIPTIONS,
   ROOM_TYPE_AMENITIES,
-  ROOM_TYPE_GALLERY,
   AMENITY_ICONS,
   CHECK_IN_OUT_POLICY,
   groupRoomsByType,
   slugToRoomType,
 } from "../../../lib/room-data";
+import { useRoomTypePhotos } from "../../../lib/use-room-type-photos";
 import { useCurrency } from "../../currency-provider";
 import { useLanguage } from "../../language-provider";
 import { formatPrice } from "../../../lib/currency";
@@ -37,6 +37,7 @@ function addDays(dateStr, days) {
 export default function RoomDetailPage() {
   const { currency } = useCurrency();
   const { t } = useLanguage();
+  const { getGallery } = useRoomTypePhotos();
   const params = useParams();
   const router = useRouter();
   const searchParams = useSearchParams();
@@ -64,7 +65,7 @@ export default function RoomDetailPage() {
   const [room, setRoom] = useState(null);
   const [loadStatus, setLoadStatus] = useState("loading");
 
-  const gallery = ROOM_TYPE_GALLERY[roomType] || [];
+  const gallery = getGallery(roomType);
   const [activeImage, setActiveImage] = useState(0);
   useEffect(() => {
     setActiveImage(0);

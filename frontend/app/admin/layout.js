@@ -9,6 +9,7 @@ const NAV_LINKS = [
   { href: "/admin/calendar", label: "Calendar" },
   { href: "/admin/bookings", label: "Bookings" },
   { href: "/admin/rooms", label: "Rooms" },
+  { href: "/admin/photos", label: "Photos" },
 ];
 
 export default function AdminLayout({ children }) {
