@@ -11,6 +11,7 @@ const NAV_LINKS = [
   { href: "/", key: "home" },
   { href: "/about", key: "about" },
   { href: "/rooms", key: "rooms" },
+  { href: "/find-booking", key: "findBooking" },
   { href: "/#site-footer", key: "contact" },
 ];
 
