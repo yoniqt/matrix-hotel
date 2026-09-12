@@ -59,9 +59,9 @@ export const TRANSLATIONS = {
     escapeParagraph:
       "Where uncompromised luxury meets seamless relaxation. Our curated spaces are designed to indulge every whim. From state-of-the-art facilities to unforgettable nightlife experiences, explore a new standard of personalized comfort and exceptional service.",
     chatButtonLabel: "Chat with us",
-    chatTitle: "Ask The Matrix Hotel",
+    chatTitle: "Matrix - AI Assistant",
     chatGreeting:
-      "Hi! Ask me anything about our rooms, pricing, amenities, or how to book.",
+      "Hi! I'm Matrix, your AI assistant here on the site. Ask me anything about our rooms, pricing, amenities, or how to book.",
     chatPlaceholder: "Type your message...",
     chatSend: "Send",
     chatThinking: "Thinking...",
@@ -122,9 +122,9 @@ export const TRANSLATIONS = {
     escapeParagraph:
       "Kung saan nagtatagpo ang walang-kapantay na luho at ganap na relaxation. Ang aming mga espasyo ay dinisenyo upang masiyahan sa bawat kagustuhan. Mula sa pinakabagong pasilidad hanggang sa hindi malilimutang karanasan sa gabi, tuklasin ang bagong antas ng personalized na ginhawa at natatanging serbisyo.",
     chatButtonLabel: "Chat sa amin",
-    chatTitle: "Magtanong sa The Matrix Hotel",
+    chatTitle: "Matrix - AI Assistant",
     chatGreeting:
-      "Hi! Magtanong ka lang tungkol sa aming mga kwarto, presyo, amenities, o kung paano mag-book.",
+      "Hi! Ako si Matrix, ang AI assistant dito sa site. Magtanong ka lang tungkol sa aming mga kwarto, presyo, amenities, o kung paano mag-book.",
     chatPlaceholder: "I-type ang iyong mensahe...",
     chatSend: "Ipadala",
     chatThinking: "Sandali lang...",
@@ -182,8 +182,8 @@ export const TRANSLATIONS = {
     escapeParagraph:
       "在这里，极致奢华与无间放松完美相遇。我们精心打造的空间旨在满足您的每一个愿望。从先进的设施到难忘的夜生活体验，尽享个性化舒适与卓越服务的全新标准。",
     chatButtonLabel: "在线咨询",
-    chatTitle: "咨询矩阵酒店",
-    chatGreeting: "您好！欢迎咨询客房、价格、设施或预订方式等任何问题。",
+    chatTitle: "Matrix - AI 助手",
+    chatGreeting: "您好！我是 Matrix，本网站的 AI 助手。欢迎咨询客房、价格、设施或预订方式等任何问题。",
     chatPlaceholder: "请输入您的消息...",
     chatSend: "发送",
     chatThinking: "正在回复...",
@@ -240,9 +240,9 @@ export const TRANSLATIONS = {
     pickDatesHint:
       "上記でチェックイン・チェックアウト日を選択すると、空室状況が表示されます。",
     chatButtonLabel: "チャットで質問",
-    chatTitle: "ザ・マトリックス・ホテルに質問",
+    chatTitle: "Matrix - AIアシスタント",
     chatGreeting:
-      "こんにちは！お部屋、料金、設備、ご予約方法など、何でもお気軽にお尋ねください。",
+      "こんにちは！このサイトのAIアシスタント、Matrixです。お部屋、料金、設備、ご予約方法など、何でもお気軽にお尋ねください。",
     chatPlaceholder: "メッセージを入力...",
     chatSend: "送信",
     chatThinking: "返信中...",
@@ -299,9 +299,9 @@ export const TRANSLATIONS = {
     pickDatesHint:
       "위에서 체크인 및 체크아웃 날짜를 선택하면 예약 가능한 객실을 확인할 수 있습니다.",
     chatButtonLabel: "채팅 문의",
-    chatTitle: "더 매트릭스 호텔에 문의하기",
+    chatTitle: "Matrix - AI 어시스턴트",
     chatGreeting:
-      "안녕하세요! 객실, 요금, 편의시설, 예약 방법 등 무엇이든 물어보세요.",
+      "안녕하세요! 저는 이 사이트의 AI 어시스턴트 Matrix입니다. 객실, 요금, 편의시설, 예약 방법 등 무엇이든 물어보세요.",
     chatPlaceholder: "메시지를 입력하세요...",
     chatSend: "보내기",
     chatThinking: "답변 작성 중...",
