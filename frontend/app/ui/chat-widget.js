@@ -139,7 +139,12 @@ export default function ChatWidget() {
         </div>
       )}
 
-      <div className="fixed bottom-6 right-6 z-40">
+      <div className="group fixed bottom-6 right-6 z-40">
+        {!open && (
+          <span className="pointer-events-none absolute top-1/2 right-full mr-3 -translate-y-1/2 rounded-lg bg-[var(--bg-secondary)] px-3 py-1.5 text-xs whitespace-nowrap text-[var(--text-primary)] opacity-0 shadow-lg transition-opacity group-hover:opacity-100">
+            {t("chatTooltip")}
+          </span>
+        )}
         <button
           type="button"
           onClick={() => setOpen((v) => !v)}
@@ -166,11 +171,6 @@ export default function ChatWidget() {
             </svg>
           )}
         </button>
-        {!open && (
-          <span className="pointer-events-none absolute -top-1.5 -left-1.5 rounded-full border-2 border-[var(--bg-primary)] bg-white px-1.5 py-0.5 text-[9px] font-extrabold tracking-wide text-black shadow">
-            AI
-          </span>
-        )}
       </div>
     </>
   );
