@@ -29,6 +29,80 @@ const STATUS_COLORS = {
   pending: "bg-amber-500/20 text-amber-300 border-amber-500/40",
 };
 
+function BookingPreviewModal({ booking, onClose }) {
+  return (
+    <div
+      className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 px-4"
+      onClick={onClose}
+    >
+      <div
+        className="w-full max-w-sm rounded-2xl border border-[var(--border-color)] bg-[var(--bg-secondary)] p-6"
+        onClick={(e) => e.stopPropagation()}
+      >
+        <div className="flex items-start justify-between gap-4">
+          <div>
+            <p className="text-xs font-semibold tracking-widest text-[var(--text-secondary)] uppercase">
+              Booking Reference
+            </p>
+            <p className="mt-1 font-mono text-lg font-bold text-[var(--accent-color)]">
+              {booking.booking_reference}
+            </p>
+          </div>
+          <button
+            type="button"
+            onClick={onClose}
+            aria-label="Close"
+            className="text-[var(--text-secondary)] hover:text-[var(--accent-color)]"
+          >
+            ✕
+          </button>
+        </div>
+
+        <div className="mt-5 flex flex-col gap-3 text-sm">
+          <div className="flex justify-between gap-4">
+            <span className="text-[var(--text-secondary)]">Guest</span>
+            <span className="text-right font-medium text-[var(--text-primary)]">
+              {booking.guest_name}
+            </span>
+          </div>
+          <div className="flex justify-between gap-4">
+            <span className="text-[var(--text-secondary)]">Email</span>
+            <span className="text-right text-[var(--text-primary)]">{booking.guest_email}</span>
+          </div>
+          <div className="flex justify-between gap-4">
+            <span className="text-[var(--text-secondary)]">Phone</span>
+            <span className="text-right text-[var(--text-primary)]">{booking.guest_phone}</span>
+          </div>
+          <div className="flex justify-between gap-4">
+            <span className="text-[var(--text-secondary)]">Room</span>
+            <span className="text-right text-[var(--text-primary)]">
+              {booking.room_type} — {booking.room_number}
+            </span>
+          </div>
+          <div className="flex justify-between gap-4">
+            <span className="text-[var(--text-secondary)]">Check-in</span>
+            <span className="text-right text-[var(--text-primary)]">{booking.check_in_date}</span>
+          </div>
+          <div className="flex justify-between gap-4">
+            <span className="text-[var(--text-secondary)]">Check-out</span>
+            <span className="text-right text-[var(--text-primary)]">{booking.check_out_date}</span>
+          </div>
+          <div className="flex justify-between gap-4">
+            <span className="text-[var(--text-secondary)]">Payment</span>
+            <span
+              className={`rounded-full px-2.5 py-0.5 text-xs font-semibold capitalize ${
+                STATUS_COLORS[booking.payment_status] || "border border-zinc-500/40 bg-zinc-500/20 text-zinc-300"
+              }`}
+            >
+              {booking.payment_status}
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 export default function AdminCalendarPage() {
   const [rooms, setRooms] = useState(null);
   const [bookings, setBookings] = useState(null);
@@ -36,6 +110,7 @@ export default function AdminCalendarPage() {
   const [error, setError] = useState("");
   const [startDate, setStartDate] = useState(todayStr());
   const [dayCount, setDayCount] = useState(14);
+  const [selectedBooking, setSelectedBooking] = useState(null);
 
   useEffect(() => {
     async function load() {
@@ -91,6 +166,13 @@ export default function AdminCalendarPage() {
 
   return (
     <div>
+      {selectedBooking && (
+        <BookingPreviewModal
+          booking={selectedBooking}
+          onClose={() => setSelectedBooking(null)}
+        />
+      )}
+
       {stats && (
         <div className="mb-6 grid grid-cols-2 gap-4 sm:grid-cols-3">
           <div className="rounded-xl border border-[var(--border-color)] bg-[var(--bg-secondary)] p-4">
@@ -203,9 +285,10 @@ export default function AdminCalendarPage() {
                             ? `${booking.guest_name} — ${booking.booking_reference} (${booking.payment_status})`
                             : ""
                         }
+                        onClick={() => booking && setSelectedBooking(booking)}
                         className={`border-r border-[var(--border-color)] px-1.5 py-2 text-center ${
                           booking
-                            ? `border-x ${STATUS_COLORS[booking.payment_status] || "bg-zinc-500/20 text-zinc-300"}`
+                            ? `border-x cursor-pointer ${STATUS_COLORS[booking.payment_status] || "bg-zinc-500/20 text-zinc-300"}`
                             : ""
                         }`}
                       >

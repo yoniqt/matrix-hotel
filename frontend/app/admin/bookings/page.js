@@ -410,6 +410,7 @@ export default function AdminBookingsPage() {
   const [rooms, setRooms] = useState([]);
   const [error, setError] = useState("");
   const [cancellingId, setCancellingId] = useState(null);
+  const [confirmingPaymentId, setConfirmingPaymentId] = useState(null);
   const [showWalkInForm, setShowWalkInForm] = useState(false);
   const [confirmCancelId, setConfirmCancelId] = useState(null);
   const [editingBooking, setEditingBooking] = useState(null);
@@ -485,6 +486,25 @@ export default function AdminBookingsPage() {
       }
     } finally {
       setCancellingId(null);
+    }
+  }
+
+  async function handleConfirmPayment(id) {
+    setConfirmingPaymentId(id);
+    try {
+      const res = await adminFetch(`/api/admin/bookings/${id}/confirm-payment`, {
+        method: "PATCH",
+      });
+      const data = await res.json();
+      if (data.success) {
+        setBookings((prev) =>
+          prev.map((b) => (b.id === id ? { ...b, payment_status: "paid" } : b))
+        );
+      } else {
+        alert(data.message || "Failed to confirm payment.");
+      }
+    } finally {
+      setConfirmingPaymentId(null);
     }
   }
 
@@ -621,6 +641,16 @@ export default function AdminBookingsPage() {
                       </button>
                       {b.status !== "cancelled" && (
                         <>
+                          {b.payment_status === "pending" && (
+                            <button
+                              type="button"
+                              onClick={() => handleConfirmPayment(b.id)}
+                              disabled={confirmingPaymentId === b.id}
+                              className="rounded-full border border-emerald-500/40 px-3 py-1 text-xs font-medium text-emerald-400 hover:border-emerald-400 disabled:opacity-50"
+                            >
+                              {confirmingPaymentId === b.id ? "Confirming…" : "Confirm Payment"}
+                            </button>
+                          )}
                           <button
                             type="button"
                             onClick={() => setEditingBooking(b)}
