@@ -36,15 +36,15 @@ function BookingPreviewModal({ booking, onClose }) {
       onClick={onClose}
     >
       <div
-        className="w-full max-w-sm rounded-2xl border border-[var(--border-color)] bg-[var(--bg-secondary)] p-6"
+        className="w-full max-w-lg rounded-2xl border border-[var(--border-color)] bg-[var(--bg-secondary)] p-8"
         onClick={(e) => e.stopPropagation()}
       >
         <div className="flex items-start justify-between gap-4">
           <div>
-            <p className="text-xs font-semibold tracking-widest text-[var(--text-secondary)] uppercase">
+            <p className="text-sm font-semibold tracking-widest text-[var(--text-secondary)] uppercase">
               Booking Reference
             </p>
-            <p className="mt-1 font-mono text-lg font-bold text-[var(--accent-color)]">
+            <p className="mt-1.5 font-mono text-2xl font-bold text-[var(--accent-color)]">
               {booking.booking_reference}
             </p>
           </div>
@@ -52,13 +52,13 @@ function BookingPreviewModal({ booking, onClose }) {
             type="button"
             onClick={onClose}
             aria-label="Close"
-            className="text-[var(--text-secondary)] hover:text-[var(--accent-color)]"
+            className="text-xl text-[var(--text-secondary)] hover:text-[var(--accent-color)]"
           >
             ✕
           </button>
         </div>
 
-        <div className="mt-5 flex flex-col gap-3 text-sm">
+        <div className="mt-6 flex flex-col gap-4 text-base">
           <div className="flex justify-between gap-4">
             <span className="text-[var(--text-secondary)]">Guest</span>
             <span className="text-right font-medium text-[var(--text-primary)]">
@@ -87,10 +87,10 @@ function BookingPreviewModal({ booking, onClose }) {
             <span className="text-[var(--text-secondary)]">Check-out</span>
             <span className="text-right text-[var(--text-primary)]">{booking.check_out_date}</span>
           </div>
-          <div className="flex justify-between gap-4">
+          <div className="flex items-center justify-between gap-4">
             <span className="text-[var(--text-secondary)]">Payment</span>
             <span
-              className={`rounded-full px-2.5 py-0.5 text-xs font-semibold capitalize ${
+              className={`rounded-full px-3 py-1 text-sm font-semibold capitalize ${
                 STATUS_COLORS[booking.payment_status] || "border border-zinc-500/40 bg-zinc-500/20 text-zinc-300"
               }`}
             >

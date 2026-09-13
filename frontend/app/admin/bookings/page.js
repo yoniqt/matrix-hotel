@@ -411,6 +411,7 @@ export default function AdminBookingsPage() {
   const [error, setError] = useState("");
   const [cancellingId, setCancellingId] = useState(null);
   const [confirmingPaymentId, setConfirmingPaymentId] = useState(null);
+  const [archivingId, setArchivingId] = useState(null);
   const [showWalkInForm, setShowWalkInForm] = useState(false);
   const [confirmCancelId, setConfirmCancelId] = useState(null);
   const [editingBooking, setEditingBooking] = useState(null);
@@ -508,9 +509,27 @@ export default function AdminBookingsPage() {
     }
   }
 
+  async function handleArchive(id) {
+    setArchivingId(id);
+    try {
+      const res = await adminFetch(`/api/admin/bookings/${id}/archive`, { method: "PATCH" });
+      const data = await res.json();
+      if (data.success) {
+        setBookings((prev) => prev.filter((b) => b.id !== id));
+      } else {
+        alert(data.message || "Failed to archive booking.");
+      }
+    } finally {
+      setArchivingId(null);
+    }
+  }
+
   const visibleBookings = (bookings || []).filter((b) => {
+    const query = searchQuery.trim().toLowerCase();
     const matchesSearch =
-      !searchQuery || b.guest_name.toLowerCase().includes(searchQuery.toLowerCase());
+      !query ||
+      b.guest_name.toLowerCase().includes(query) ||
+      b.booking_reference.toLowerCase().includes(query);
     const matchesStatus = statusFilter === "all" || b.status === statusFilter;
     return matchesSearch && matchesStatus;
   });
@@ -572,7 +591,7 @@ export default function AdminBookingsPage() {
             type="text"
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            placeholder="Search by guest name..."
+            placeholder="Search by guest name or reference..."
             className="w-56 rounded-lg border border-[var(--border-color)] bg-[var(--input-bg)] px-3 py-1.5 text-sm text-[var(--text-primary)] outline-none focus:border-[var(--accent-color)]"
           />
           <select
@@ -667,6 +686,16 @@ export default function AdminBookingsPage() {
                             {cancellingId === b.id ? "Cancelling…" : "Cancel"}
                           </button>
                         </>
+                      )}
+                      {b.status === "cancelled" && (
+                        <button
+                          type="button"
+                          onClick={() => handleArchive(b.id)}
+                          disabled={archivingId === b.id}
+                          className="rounded-full border border-[var(--border-color)] px-3 py-1 text-xs font-medium text-[var(--text-secondary)] hover:border-[var(--accent-color)] hover:text-[var(--accent-color)] disabled:opacity-50"
+                        >
+                          {archivingId === b.id ? "Archiving…" : "Archive"}
+                        </button>
                       )}
                     </div>
                   </td>
