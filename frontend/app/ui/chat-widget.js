@@ -163,10 +163,34 @@ export default function ChatWidget() {
           ) : (
             <svg viewBox="0 0 24 24" fill="none" className="h-6 w-6">
               <path
-                d="M4 5h16a1 1 0 0 1 1 1v10a1 1 0 0 1-1 1H9l-4.4 3.3A.5.5 0 0 1 3 19.9V6a1 1 0 0 1 1-1Z"
+                d="M12 3v3"
                 stroke="currentColor"
                 strokeWidth="1.8"
-                strokeLinejoin="round"
+                strokeLinecap="round"
+              />
+              <circle cx="12" cy="2" r="1.3" fill="currentColor" />
+              <rect
+                x="4.5"
+                y="6"
+                width="15"
+                height="13"
+                rx="4"
+                stroke="currentColor"
+                strokeWidth="1.8"
+              />
+              <circle cx="9" cy="12.5" r="1.4" fill="currentColor" />
+              <circle cx="15" cy="12.5" r="1.4" fill="currentColor" />
+              <path
+                d="M9 16c.8.7 1.9 1 3 1s2.2-.3 3-1"
+                stroke="currentColor"
+                strokeWidth="1.6"
+                strokeLinecap="round"
+              />
+              <path
+                d="M2 11.5h2.5M19.5 11.5H22"
+                stroke="currentColor"
+                strokeWidth="1.8"
+                strokeLinecap="round"
               />
             </svg>
           )}
