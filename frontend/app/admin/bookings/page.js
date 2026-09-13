@@ -114,9 +114,13 @@ function WalkInForm({ rooms, onSubmit, onCancel }) {
         <label className="text-sm text-[var(--text-secondary)]">
           Phone
           <input
-            type="text"
+            type="tel"
+            inputMode="numeric"
+            pattern="[0-9]*"
             value={form.phone}
-            onChange={(e) => setForm({ ...form, phone: e.target.value })}
+            onChange={(e) =>
+              setForm({ ...form, phone: e.target.value.replace(/\D/g, "") })
+            }
             required
             className="mt-1 block w-36 rounded-lg border border-[var(--border-color)] bg-[var(--input-bg)] px-2 py-1.5 text-[var(--text-primary)] outline-none focus:border-[var(--accent-color)]"
           />
@@ -593,6 +597,7 @@ export default function AdminBookingsPage() {
                   <td className="px-4 py-3">
                     <div>{b.guest_name}</div>
                     <div className="text-xs text-[var(--text-secondary)]">{b.guest_email}</div>
+                    <div className="text-xs text-[var(--text-secondary)]">{b.guest_phone}</div>
                   </td>
                   <td className="px-4 py-3">
                     {b.room_type} — {b.room_number}

@@ -512,9 +512,14 @@ export default function RoomDetailPage() {
               />
               <input
                 required
+                type="tel"
+                inputMode="numeric"
+                pattern="[0-9]*"
                 placeholder={t("phoneNumber")}
                 value={form.phone}
-                onChange={(e) => setForm({ ...form, phone: e.target.value })}
+                onChange={(e) =>
+                  setForm({ ...form, phone: e.target.value.replace(/\D/g, "") })
+                }
                 className="rounded-lg border border-[var(--border-color)] bg-[var(--input-bg)] px-3 py-2 text-sm text-[var(--text-primary)] placeholder:text-[var(--text-secondary)]"
               />
               <textarea
