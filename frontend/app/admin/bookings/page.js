@@ -515,9 +515,28 @@ export default function AdminBookingsPage() {
       const res = await adminFetch(`/api/admin/bookings/${id}/archive`, { method: "PATCH" });
       const data = await res.json();
       if (data.success) {
-        setBookings((prev) => prev.filter((b) => b.id !== id));
+        setBookings((prev) =>
+          prev.map((b) => (b.id === id ? { ...b, archived: true } : b))
+        );
       } else {
         alert(data.message || "Failed to archive booking.");
+      }
+    } finally {
+      setArchivingId(null);
+    }
+  }
+
+  async function handleUnarchive(id) {
+    setArchivingId(id);
+    try {
+      const res = await adminFetch(`/api/admin/bookings/${id}/unarchive`, { method: "PATCH" });
+      const data = await res.json();
+      if (data.success) {
+        setBookings((prev) =>
+          prev.map((b) => (b.id === id ? { ...b, archived: false } : b))
+        );
+      } else {
+        alert(data.message || "Failed to unarchive booking.");
       }
     } finally {
       setArchivingId(null);
@@ -530,7 +549,12 @@ export default function AdminBookingsPage() {
       !query ||
       b.guest_name.toLowerCase().includes(query) ||
       b.booking_reference.toLowerCase().includes(query);
-    const matchesStatus = statusFilter === "all" || b.status === statusFilter;
+    const matchesStatus =
+      statusFilter === "all"
+        ? !b.archived
+        : statusFilter === "archived"
+          ? b.archived
+          : b.status === statusFilter && !b.archived;
     return matchesSearch && matchesStatus;
   });
 
@@ -602,6 +626,7 @@ export default function AdminBookingsPage() {
             <option value="all">All statuses</option>
             <option value="confirmed">Confirmed</option>
             <option value="cancelled">Cancelled</option>
+            <option value="archived">Archived</option>
           </select>
         </div>
       )}
@@ -687,7 +712,7 @@ export default function AdminBookingsPage() {
                           </button>
                         </>
                       )}
-                      {b.status === "cancelled" && (
+                      {b.status === "cancelled" && !b.archived && (
                         <button
                           type="button"
                           onClick={() => handleArchive(b.id)}
@@ -695,6 +720,16 @@ export default function AdminBookingsPage() {
                           className="rounded-full border border-[var(--border-color)] px-3 py-1 text-xs font-medium text-[var(--text-secondary)] hover:border-[var(--accent-color)] hover:text-[var(--accent-color)] disabled:opacity-50"
                         >
                           {archivingId === b.id ? "Archiving…" : "Archive"}
+                        </button>
+                      )}
+                      {b.archived && (
+                        <button
+                          type="button"
+                          onClick={() => handleUnarchive(b.id)}
+                          disabled={archivingId === b.id}
+                          className="rounded-full border border-[var(--border-color)] px-3 py-1 text-xs font-medium text-[var(--text-secondary)] hover:border-[var(--accent-color)] hover:text-[var(--accent-color)] disabled:opacity-50"
+                        >
+                          {archivingId === b.id ? "Restoring…" : "Unarchive"}
                         </button>
                       )}
                     </div>
