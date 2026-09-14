@@ -12,7 +12,10 @@ export default function BookingReceipt({ booking, currency, formatPrice }) {
   }, [booking.booking_reference]);
 
   return (
-    <div className="mx-auto max-w-lg rounded-2xl border border-[var(--border-color)] bg-[var(--bg-secondary)] p-8">
+    <div
+      id="print-area"
+      className="mx-auto max-w-lg rounded-2xl border border-[var(--border-color)] bg-[var(--bg-secondary)] p-8"
+    >
       <div className="text-center print:hidden">
         <span className="inline-flex h-14 w-14 items-center justify-center rounded-full bg-emerald-500/10 text-3xl text-emerald-400">
           ✓
