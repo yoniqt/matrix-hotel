@@ -113,12 +113,12 @@ export default function PaymentModal({
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 px-4">
-      <div className="relative max-h-[90vh] w-full max-w-md overflow-y-auto rounded-2xl border border-[var(--border-color)] bg-[var(--bg-secondary)] p-8 text-center">
+      <div className="relative max-h-[90vh] w-full max-w-lg overflow-y-auto rounded-2xl border border-[var(--border-color)] bg-[var(--bg-secondary)] p-10 text-center">
         <span className="inline-block rounded-full bg-amber-500/10 px-3 py-1 text-xs font-semibold tracking-wide text-[var(--accent-color)] uppercase">
           Demo Mode - No Real Charge
         </span>
 
-        <h2 className="mt-4 text-xl font-bold text-[var(--text-primary)]">
+        <h2 className="mt-4 text-2xl font-bold text-[var(--text-primary)]">
           Scan to Pay
         </h2>
         <p className="mt-1 text-sm text-[var(--text-secondary)]">
@@ -150,10 +150,10 @@ export default function PaymentModal({
             <img
               src={qrDataUrl}
               alt="QR Ph / GCash payment QR code"
-              className="h-56 w-56 rounded-xl border border-[var(--border-color)] bg-white p-2"
+              className="h-64 w-64 rounded-xl border border-[var(--border-color)] bg-white p-2"
             />
           ) : (
-            <div className="flex h-56 w-56 items-center justify-center rounded-xl border border-[var(--border-color)] text-sm text-[var(--text-secondary)]">
+            <div className="flex h-64 w-64 items-center justify-center rounded-xl border border-[var(--border-color)] text-sm text-[var(--text-secondary)]">
               Generating QR...
             </div>
           )}
