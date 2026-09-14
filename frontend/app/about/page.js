@@ -14,14 +14,14 @@ const MILESTONES = [
     year: "2015",
     title: "The Rooftop Era",
     text: "We opened our rooftop bar and infinity pool, transforming the top floor into the city's favorite place to watch the sun set - and turning a stay at The Matrix Hotel into an experience, not just a night's rest.",
-    image: "/images/about/2015-rooftop.jpg",
+    image: "/images/about/2015-rooftop.avif",
     alt: "The rooftop infinity pool overlooking the city",
   },
   {
     year: "2020",
     title: "A Full Renovation",
     text: "Every room was reimagined from the ground up - new furnishings, upgraded bathrooms, and a design language built around calm, modern luxury that still defines the hotel today.",
-    image: "/images/about/2020-renovation.webp",
+    image: "/images/about/2020-renovation.jpg",
     alt: "A newly renovated Deluxe room",
   },
   {
