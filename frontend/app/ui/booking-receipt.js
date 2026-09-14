@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import Link from "next/link";
 import QRCode from "qrcode";
 
 export default function BookingReceipt({ booking, currency, formatPrice }) {
@@ -92,6 +93,13 @@ export default function BookingReceipt({ booking, currency, formatPrice }) {
       >
         Print / Save as PDF
       </button>
+
+      <Link
+        href="/"
+        className="mt-3 block w-full rounded-full border border-[var(--border-color)] px-6 py-3 text-center font-medium text-[var(--text-primary)] transition-colors hover:border-[var(--accent-color)] hover:text-[var(--accent-color)] print:hidden"
+      >
+        Back to Home
+      </Link>
     </div>
   );
 }
