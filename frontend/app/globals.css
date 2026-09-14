@@ -118,6 +118,7 @@ body {
     position: absolute;
     top: 0;
     left: 0;
+    right: 0;
     width: 100%;
     /* The receipt's colors come from these theme variables, which could
        currently be resolved to dark-mode values (near-white text) - override
