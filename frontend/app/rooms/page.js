@@ -32,7 +32,9 @@ export default function RoomsPage() {
       .catch(() => setRooms([]));
   }, []);
 
-  let grouped = rooms ? groupRoomsByType(rooms) : [];
+  let grouped = rooms
+    ? groupRoomsByType(rooms.filter((r) => r.status === "Available"))
+    : [];
 
   if (minPrice) {
     grouped = grouped.filter((r) => Number(r.price_per_night) >= Number(minPrice));
@@ -131,6 +133,10 @@ export default function RoomsPage() {
                 </h2>
                 <p className="mt-1 text-sm text-[var(--text-secondary)]">
                   Up to {room.capacity} guests
+                </p>
+                <p className="mt-1 text-sm font-medium text-emerald-400">
+                  {room.availableCount}{" "}
+                  {room.availableCount === 1 ? "room" : "rooms"} available
                 </p>
                 <p className="mt-3 text-sm text-[var(--text-secondary)]">
                   {getRoomTypeDescription(room.room_type)}
